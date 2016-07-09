@@ -6,6 +6,7 @@
 package com.teamj.arquitectura.hitchus.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,5 +38,88 @@ public class Tipo_Certificado implements Serializable{
     
     @Column(name = "NOMBRE_ENFERMEDAD")
     private String nombre_enfermedad;
+
+    public Tipo_Certificado() {
+    }
+
+    public Tipo_Certificado(Integer id, String nombre_certificado, String descripcion, Integer tiempo_validez, String nombre_enfermedad) {
+        this.id = id;
+        this.nombre_certificado = nombre_certificado;
+        this.descripcion = descripcion;
+        this.tiempo_validez = tiempo_validez;
+        this.nombre_enfermedad = nombre_enfermedad;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre_certificado() {
+        return nombre_certificado;
+    }
+
+    public void setNombre_certificado(String nombre_certificado) {
+        this.nombre_certificado = nombre_certificado;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Integer getTiempo_validez() {
+        return tiempo_validez;
+    }
+
+    public void setTiempo_validez(Integer tiempo_validez) {
+        this.tiempo_validez = tiempo_validez;
+    }
+
+    public String getNombre_enfermedad() {
+        return nombre_enfermedad;
+    }
+
+    public void setNombre_enfermedad(String nombre_enfermedad) {
+        this.nombre_enfermedad = nombre_enfermedad;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Tipo_Certificado other = (Tipo_Certificado) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Tipo_Certificado{" + "id=" + id + ", nombre_certificado=" + nombre_certificado + ", descripcion=" + descripcion + ", tiempo_validez=" + tiempo_validez + ", nombre_enfermedad=" + nombre_enfermedad + '}';
+    }
+    
+    
     
 }

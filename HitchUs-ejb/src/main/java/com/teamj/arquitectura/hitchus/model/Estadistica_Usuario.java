@@ -8,6 +8,7 @@ package com.teamj.arquitectura.hitchus.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,24 +41,154 @@ public class Estadistica_Usuario implements Serializable{
     private BigDecimal general;
     
     @Column(name = "BLOQUEOS")
-    private Integer Bloqueos;
+    private Integer bloqueos;
     
     @Column(name = "PROMEDIO_ACTUAL")
-    private BigDecimal promedio_actual;
+    private BigDecimal promedioActual;
     
     @Column(name = "SOLICITUDES_ENVIADAS")
-    private Integer solicitudes_enviadas;
+    private Integer solicitudesEnviadas;
     
     @Column(name = "SOLICITUDES_RECIBIDAS")
-    private Integer solicitudes_recibidas;
+    private Integer solicitudesRecibidas;
     
     @Column(name = "MENSAJES_ENVIADOS")
-    private Integer mensajes_enviados;
+    private Integer mensajesEnviados;
     
     @Column(name = "MENSAJES_RECIBIDOS")
-    private Integer mensajes_recibidos;
+    private Integer mensajesRecibidos;
     
     @Column(name = "ULTIMA_ACTUALIZACION")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date ultima_actualizacion;
+    private Date ultimaActualizacion;
+
+    public Estadistica_Usuario() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public BigDecimal getHigiene() {
+        return higiene;
+    }
+
+    public void setHigiene(BigDecimal higiene) {
+        this.higiene = higiene;
+    }
+
+    public BigDecimal getComportamiento() {
+        return comportamiento;
+    }
+
+    public void setComportamiento(BigDecimal comportamiento) {
+        this.comportamiento = comportamiento;
+    }
+
+    public BigDecimal getAmabilidad() {
+        return amabilidad;
+    }
+
+    public void setAmabilidad(BigDecimal amabilidad) {
+        this.amabilidad = amabilidad;
+    }
+
+    public BigDecimal getGeneral() {
+        return general;
+    }
+
+    public void setGeneral(BigDecimal general) {
+        this.general = general;
+    }
+
+    public Integer getBloqueos() {
+        return bloqueos;
+    }
+
+    public void setBloqueos(Integer bloqueos) {
+        this.bloqueos = bloqueos;
+    }
+
+    public BigDecimal getPromedioActual() {
+        return promedioActual;
+    }
+
+    public void setPromedioActual(BigDecimal promedioActual) {
+        this.promedioActual = promedioActual;
+    }
+
+    public Integer getSolicitudesEnviadas() {
+        return solicitudesEnviadas;
+    }
+
+    public void setSolicitudesEnviadas(Integer solicitudesEnviadas) {
+        this.solicitudesEnviadas = solicitudesEnviadas;
+    }
+
+    public Integer getSolicitudesRecibidas() {
+        return solicitudesRecibidas;
+    }
+
+    public void setSolicitudesRecibidas(Integer solicitudesRecibidas) {
+        this.solicitudesRecibidas = solicitudesRecibidas;
+    }
+
+    public Integer getMensajesEnviados() {
+        return mensajesEnviados;
+    }
+
+    public void setMensajesEnviados(Integer mensajesEnviados) {
+        this.mensajesEnviados = mensajesEnviados;
+    }
+
+    public Integer getMensajesRecibidos() {
+        return mensajesRecibidos;
+    }
+
+    public void setMensajesRecibidos(Integer mensajesRecibidos) {
+        this.mensajesRecibidos = mensajesRecibidos;
+    }
+
+    public Date getUltimaActualizacion() {
+        return ultimaActualizacion;
+    }
+
+    public void setUltimaActualizacion(Date ultimaActualizacion) {
+        this.ultimaActualizacion = ultimaActualizacion;
+    }
+
+    @Override
+    public String toString() {
+        return "Estadistica_Usuario{" + "id=" + id + ", higiene=" + higiene + ", comportamiento=" + comportamiento + ", amabilidad=" + amabilidad + ", general=" + general + ", bloqueos=" + bloqueos + ", promedioActual=" + promedioActual + ", solicitudesEnviadas=" + solicitudesEnviadas + ", solicitudesRecibidas=" + solicitudesRecibidas + ", mensajesEnviados=" + mensajesEnviados + ", mensajesRecibidos=" + mensajesRecibidos + ", ultimaActualizacion=" + ultimaActualizacion + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Estadistica_Usuario other = (Estadistica_Usuario) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
 }
