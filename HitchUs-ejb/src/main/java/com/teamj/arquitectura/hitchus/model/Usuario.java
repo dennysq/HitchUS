@@ -29,80 +29,132 @@ import javax.persistence.Temporal;
 public class Usuario implements Serializable {
 
     @Id
-    @Column(name = "USUARIO_ID")
+    @Column(name = "ID_USUARIO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "NOMBRE")
-    private String nombre;
+    
+    @Column(name = "NICKNAME")
+    private String nickname;
+    
+    @Column(name = "PASSWORD")
+    private String password;
+    
+    @Column(name = "EMAIL")
+    private String email;
+    
+    @Column(name = "ANIO_NACIMIENTO")
+    private Integer anio_nacimiento;
+    
+    @Column(name = "MES_NACIMIENTO")
+    private Integer mes_nacimiento;
 
-    @Column(name = "FECHA_NAC")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date fechaNacimiento;
     @Column(name = "ESTATURA")
     private BigDecimal estatura;
-    @OneToMany(mappedBy = "usuario", targetEntity = Encuentro.class,
-            fetch = FetchType.LAZY)
-    List<Encuentro> encuentros;
-    public Integer getId() {
-        return id;
-    }
+    
+    @Column(name = "TRABAJO")
+    private String trabajo;
+    
+    @Column(name = "PREMIUM")
+    private String premium;
+    
+    @Column(name = "NUMERO_TELEFONICO")
+    private String numero_telefonico;
+    
+    @Column(name = "ESTADO")
+    private String estado;
+    
+    @Column(name = "CALIFICACION")
+    private BigDecimal calificacion;
+    
+    @Column(name = "GENERO")
+    private String genero;
+    
+    @Column(name = "INTERESES")
+    private String intereses;
+    
+    @Column(name = "CONTEXTURA")
+    private String contextura;
+    
+    @Column(name = "NIVEL_EDUCACION")
+    private String nivel_educacion;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Column(name = "IDIOMAS")
+    private String idiomas;
+    
+    @Column(name = "PESO")
+    private BigDecimal peso;
+       
+    @Column(name = "CREADO")
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date creado;
+    
+    @Column(name = "ENFERMEDADES_PUBLICA")
+    private String enfermedades_publica;
+    
+//    @OneToMany(mappedBy = "usuario", targetEntity = Encuentro.class,
+//            fetch = FetchType.LAZY)
+//    List<Encuentro> encuentros;
+//    
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public BigDecimal getEstatura() {
-        return estatura;
-    }
-
-    public void setEstatura(BigDecimal estatura) {
-        this.estatura = estatura;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.id);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Usuario other = (Usuario) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", estatura=" + estatura + '}';
-    }
+//    public String getNombre() {
+//        return nombre;
+//    }
+//
+//    public void setNombre(String nombre) {
+//        this.nombre = nombre;
+//    }
+//
+//    public Date getFechaNacimiento() {
+//        return fechaNacimiento;
+//    }
+//
+//    public void setFechaNacimiento(Date fechaNacimiento) {
+//        this.fechaNacimiento = fechaNacimiento;
+//    }
+//
+//    public BigDecimal getEstatura() {
+//        return estatura;
+//    }
+//
+//    public void setEstatura(BigDecimal estatura) {
+//        this.estatura = estatura;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 17 * hash + Objects.hashCode(this.id);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Usuario other = (Usuario) obj;
+//        if (!Objects.equals(this.id, other.id)) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", estatura=" + estatura + '}';
+//    }
 
 }
