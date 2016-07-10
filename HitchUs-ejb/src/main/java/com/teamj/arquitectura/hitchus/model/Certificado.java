@@ -37,8 +37,8 @@ public class Certificado implements Serializable{
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_CERTIFICADO", nullable = false,insertable = false,updatable = false)
     private  TipoCertificado tipoCertificado;
-    
-    @Column(name = "ID_ENTIDAD_CERTIFICADORA")
+    @ManyToOne
+    @JoinColumn(name = "ID_ENTIDAD_CERTIFICADORA")
     private EntidadCertificadora entidadCertificadora;
     
     @Column(name = "PATH")
