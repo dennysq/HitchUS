@@ -5,7 +5,7 @@
  */
 package com.teamj.arquitectura.travelit.web;
 
-import com.teamj.arquitectura.travelit.model.Usuario;
+import com.teamj.arquitectura.hitchus.model.Usuario;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -57,11 +57,11 @@ public class SessionBean implements Serializable {
  * 
  * @return si es el usuario administrador del sistema
  */
-    public boolean isAdmin() {
-        if (user != null) {
-            return user.getNombre().equals("admin");
-        }
-        return false;
-    }
+//    public boolean isAdmin() {
+//        if (user != null) {
+//            return user.getNombre().equals("admin");
+//        }
+//        return false;
+//    }
 
 }
