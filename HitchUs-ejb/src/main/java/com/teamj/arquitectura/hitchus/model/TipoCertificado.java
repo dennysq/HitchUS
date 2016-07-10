@@ -19,39 +19,34 @@ import javax.persistence.Table;
  * @author Klever
  */
 @Entity
-@Table(name = "IMAGEN")
-public class Imagen implements Serializable {
+@Table(name = "TIPO_CERTIFICADO")
+public class TipoCertificado implements Serializable{
     
     @Id
-    @Column(name = "ID_IMAGEN")
+    @Column(name = "ID_TIPO_CERTIFICADO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name = "ID_USUARIO")
-    private String idUsuario;
-     
+    @Column(name = "NOMBRE_CERTIFICADO")
+    private String nombreCertificado;
+    
     @Column(name = "DESCRIPCION")
     private String descripcion;
-      
-    @Column(name = "PUBLICA")
-    private String publica;
     
-    @Column(name = "PERFIL")
-    private String perfil;
+    @Column(name = "TIEMPO_VALIDEZ")
+    private Integer tiempoValidez;
     
-    @Column(name = "URL")
-    private String url;
+    @Column(name = "NOMBRE_ENFERMEDAD")
+    private String nombreEnfermedad;
 
-    public Imagen() {
+    public TipoCertificado() {
     }
 
-    public Imagen(Integer id, String idUsuario, String descripcion, String publica, String perfil, String url) {
-        this.id = id;
-        this.idUsuario = idUsuario;
+    public TipoCertificado(String nombreCertificado, String descripcion, Integer tiempoValidez, String nombreEnfermedad) {
+        this.nombreCertificado = nombreCertificado;
         this.descripcion = descripcion;
-        this.publica = publica;
-        this.perfil = perfil;
-        this.url = url;
+        this.tiempoValidez = tiempoValidez;
+        this.nombreEnfermedad = nombreEnfermedad;
     }
 
     public Integer getId() {
@@ -62,12 +57,12 @@ public class Imagen implements Serializable {
         this.id = id;
     }
 
-    public String getIdUsuario() {
-        return idUsuario;
+    public String getNombreCertificado() {
+        return nombreCertificado;
     }
 
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setNombreCertificado(String nombreCertificado) {
+        this.nombreCertificado = nombreCertificado;
     }
 
     public String getDescripcion() {
@@ -78,34 +73,26 @@ public class Imagen implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getPublica() {
-        return publica;
+    public Integer getTiempoValidez() {
+        return tiempoValidez;
     }
 
-    public void setPublica(String publica) {
-        this.publica = publica;
+    public void setTiempoValidez(Integer tiempoValidez) {
+        this.tiempoValidez = tiempoValidez;
     }
 
-    public String getPerfil() {
-        return perfil;
+    public String getNombreEnfermedad() {
+        return nombreEnfermedad;
     }
 
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setNombreEnfermedad(String nombreEnfermedad) {
+        this.nombreEnfermedad = nombreEnfermedad;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -120,7 +107,7 @@ public class Imagen implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Imagen other = (Imagen) obj;
+        final TipoCertificado other = (TipoCertificado) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -129,9 +116,7 @@ public class Imagen implements Serializable {
 
     @Override
     public String toString() {
-        return "Imagen{" + "id=" + id + ", idUsuario=" + idUsuario + ", descripcion=" + descripcion + ", publica=" + publica + ", perfil=" + perfil + ", url=" + url + '}';
+        return "TipoCertificado{" + "id=" + id + ", nombreCertificado=" + nombreCertificado + ", descripcion=" + descripcion + ", tiempoValidez=" + tiempoValidez + ", nombreEnfermedad=" + nombreEnfermedad + '}';
     }
-    
-    
     
 }

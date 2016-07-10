@@ -43,10 +43,10 @@ public class Usuario implements Serializable {
     private String email;
     
     @Column(name = "ANIO_NACIMIENTO")
-    private Integer anio_nacimiento;
+    private Integer anioNacimiento;
     
     @Column(name = "MES_NACIMIENTO")
-    private Integer mes_nacimiento;
+    private Integer mesNacimiento;
 
     @Column(name = "ESTATURA")
     private BigDecimal estatura;
@@ -58,7 +58,7 @@ public class Usuario implements Serializable {
     private String premium;
     
     @Column(name = "NUMERO_TELEFONICO")
-    private String numero_telefonico;
+    private String numeroTelefonico;
     
     @Column(name = "ESTADO")
     private String estado;
@@ -76,7 +76,7 @@ public class Usuario implements Serializable {
     private String contextura;
     
     @Column(name = "NIVEL_EDUCACION")
-    private String nivel_educacion;
+    private String nivelEducacion;
 
     @Column(name = "IDIOMAS")
     private String idiomas;
@@ -89,72 +89,220 @@ public class Usuario implements Serializable {
     private Date creado;
     
     @Column(name = "ENFERMEDADES_PUBLICA")
-    private String enfermedades_publica;
-    
-//    @OneToMany(mappedBy = "usuario", targetEntity = Encuentro.class,
-//            fetch = FetchType.LAZY)
-//    List<Encuentro> encuentros;
-//    
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
+    private String enfermedadesPublica;
 
-//    public String getNombre() {
-//        return nombre;
-//    }
-//
-//    public void setNombre(String nombre) {
-//        this.nombre = nombre;
-//    }
-//
-//    public Date getFechaNacimiento() {
-//        return fechaNacimiento;
-//    }
-//
-//    public void setFechaNacimiento(Date fechaNacimiento) {
-//        this.fechaNacimiento = fechaNacimiento;
-//    }
-//
-//    public BigDecimal getEstatura() {
-//        return estatura;
-//    }
-//
-//    public void setEstatura(BigDecimal estatura) {
-//        this.estatura = estatura;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 17 * hash + Objects.hashCode(this.id);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final Usuario other = (Usuario) obj;
-//        if (!Objects.equals(this.id, other.id)) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", estatura=" + estatura + '}';
-//    }
+    public Usuario() {
+    }
 
+    public Usuario(String nickname, String password, String email, Integer anioNacimiento, Integer mesNacimiento, BigDecimal estatura, String trabajo, String premium, String numeroTelefonico, String estado, BigDecimal calificacion, String genero, String intereses, String contextura, String nivelEducacion, String idiomas, BigDecimal peso, Date creado, String enfermedadesPublica) {
+        this.nickname = nickname;
+        this.password = password;
+        this.email = email;
+        this.anioNacimiento = anioNacimiento;
+        this.mesNacimiento = mesNacimiento;
+        this.estatura = estatura;
+        this.trabajo = trabajo;
+        this.premium = premium;
+        this.numeroTelefonico = numeroTelefonico;
+        this.estado = estado;
+        this.calificacion = calificacion;
+        this.genero = genero;
+        this.intereses = intereses;
+        this.contextura = contextura;
+        this.nivelEducacion = nivelEducacion;
+        this.idiomas = idiomas;
+        this.peso = peso;
+        this.creado = creado;
+        this.enfermedadesPublica = enfermedadesPublica;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getAnioNacimiento() {
+        return anioNacimiento;
+    }
+
+    public void setAnioNacimiento(Integer anioNacimiento) {
+        this.anioNacimiento = anioNacimiento;
+    }
+
+    public Integer getMesNacimiento() {
+        return mesNacimiento;
+    }
+
+    public void setMesNacimiento(Integer mesNacimiento) {
+        this.mesNacimiento = mesNacimiento;
+    }
+
+    public BigDecimal getEstatura() {
+        return estatura;
+    }
+
+    public void setEstatura(BigDecimal estatura) {
+        this.estatura = estatura;
+    }
+
+    public String getTrabajo() {
+        return trabajo;
+    }
+
+    public void setTrabajo(String trabajo) {
+        this.trabajo = trabajo;
+    }
+
+    public String getPremium() {
+        return premium;
+    }
+
+    public void setPremium(String premium) {
+        this.premium = premium;
+    }
+
+    public String getNumeroTelefonico() {
+        return numeroTelefonico;
+    }
+
+    public void setNumeroTelefonico(String numeroTelefonico) {
+        this.numeroTelefonico = numeroTelefonico;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public BigDecimal getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(BigDecimal calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getIntereses() {
+        return intereses;
+    }
+
+    public void setIntereses(String intereses) {
+        this.intereses = intereses;
+    }
+
+    public String getContextura() {
+        return contextura;
+    }
+
+    public void setContextura(String contextura) {
+        this.contextura = contextura;
+    }
+
+    public String getNivelEducacion() {
+        return nivelEducacion;
+    }
+
+    public void setNivelEducacion(String nivelEducacion) {
+        this.nivelEducacion = nivelEducacion;
+    }
+
+    public String getIdiomas() {
+        return idiomas;
+    }
+
+    public void setIdiomas(String idiomas) {
+        this.idiomas = idiomas;
+    }
+
+    public BigDecimal getPeso() {
+        return peso;
+    }
+
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
+    }
+
+    public Date getCreado() {
+        return creado;
+    }
+
+    public void setCreado(Date creado) {
+        this.creado = creado;
+    }
+
+    public String getEnfermedadesPublica() {
+        return enfermedadesPublica;
+    }
+
+    public void setEnfermedadesPublica(String enfermedadesPublica) {
+        this.enfermedadesPublica = enfermedadesPublica;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nickname=" + nickname + ", password=" + password + ", email=" + email + ", anioNacimiento=" + anioNacimiento + ", mesNacimiento=" + mesNacimiento + ", estatura=" + estatura + ", trabajo=" + trabajo + ", premium=" + premium + ", numeroTelefonico=" + numeroTelefonico + ", estado=" + estado + ", calificacion=" + calificacion + ", genero=" + genero + ", intereses=" + intereses + ", contextura=" + contextura + ", nivelEducacion=" + nivelEducacion + ", idiomas=" + idiomas + ", peso=" + peso + ", creado=" + creado + ", enfermedadesPublica=" + enfermedadesPublica + '}';
+    }    
 }

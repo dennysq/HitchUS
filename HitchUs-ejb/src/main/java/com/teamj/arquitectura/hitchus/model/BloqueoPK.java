@@ -18,8 +18,33 @@ import javax.persistence.EmbeddedId;
 public class BloqueoPK implements Serializable{
 
     @Column(name = "ID_USUARIO1")
-    private Integer id_usuario1;
+    private Integer idUsuario1;
      
     @Column(name = "ID_USUARIO2")
-    private Integer id_usuario2;
+    private Integer idUsuario2;
+
+    public BloqueoPK() {
+    }
+    
+    public BloqueoPK(Integer idUsuario1, Integer idUsuario2) {
+        this.idUsuario1 = idUsuario1;
+        this.idUsuario2 = idUsuario2;
+    }
+
+    public Integer getId_usuario1() {
+        return idUsuario1;
+    }
+
+    public void setId_usuario1(Integer idUsuario1) {
+        this.idUsuario1 = idUsuario1;
+    }
+
+    public Integer getId_usuario2() {
+        return idUsuario2;
+    }
+
+    public void setId_usuario2(Integer idUsuario2) {
+        this.idUsuario2 = idUsuario2;
+    }
+
 }
