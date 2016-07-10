@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -21,12 +22,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ENTIDAD_CERTIFICADORA")
 public class EntidadCertificadora implements Serializable{
-    
+      
     @Id
-    @Column(name = "ID_ENTIDAD_CERTIFICADORA")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "ENTIDAD_CERTIFICADORA_ID", sequenceName = "ENTIDAD_CERTIFICADORA_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "ENTIDAD_CERTIFICADORA_ID")
+    @Column( name = "ID_ENTIDAD_CERTIFICADORA")
     private Integer id;
-    
+
     @Column(name = "NOMBRE")
     private String nombre;
     

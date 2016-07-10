@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -23,8 +24,9 @@ import javax.persistence.Table;
 public class TipoCertificado implements Serializable{
     
     @Id
+    @SequenceGenerator(name = "TIPO_CERTIFICADO_ID", sequenceName = "TIPO_CERTIFICADO_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "TIPO_CERTIFICADO_ID")
     @Column(name = "ID_TIPO_CERTIFICADO")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Column(name = "NOMBRE_CERTIFICADO")
