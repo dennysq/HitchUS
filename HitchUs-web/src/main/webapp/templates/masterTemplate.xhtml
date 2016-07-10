@@ -96,7 +96,7 @@ and open the template in the editor.
             };
         </script>
         <title>
-            <ui:insert name="title">Excursion To Go - Excursiones </ui:insert>
+            <ui:insert name="title">HitchUs </ui:insert>
         </title>        
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link href="#{facesContext.externalContext.requestContextPath}/css/styles.css" rel="stylesheet"/>
@@ -105,10 +105,15 @@ and open the template in the editor.
     <h:body>
         <h:form id="menu_form">
             <p:menubar  styleClass="centeredMenuBar" >
-                <p:menuitem value="Home"  icon="fa fa-home" url="home.xhtml"/>              
-                <p:menuitem value="Hoteles" icon="fa fa-suitcase" url="busqueda_hoteles.xhtml"/>
-                <p:menuitem value="Vuelos" icon="fa fa-plane" url="busqueda_vuelos.xhtml"/>
-                <p:menuitem value="Historial" icon="fa fa-area-chart"  url="historial.xhtml"/>
+                <p:menuitem>
+                    <h:link outcome="home.xhmtl">
+                        <h:graphicImage name="images/user.png" height="100" />
+                    </h:link>
+                </p:menuitem>
+                <p:menuitem value="Perfil"  icon="fa fa-home" url="home.xhtml"/>              
+                <p:menuitem value="Mis Fotografias" icon="fa fa-suitcase"/>
+                <p:menuitem value="Mis Hitches" icon="fa fa-plane"/>
+                <p:menuitem value="Configuracion" icon="fa fa-area-chart"/>
                 <f:facet name="options"> 
                     <p:commandButton value="Logout" action="#{sessionBean.logout()}" icon="fa fa-sign-out" />
                 </f:facet>

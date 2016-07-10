@@ -58,7 +58,7 @@ public class UsuarioServicio {
                 temp.setEstado("ACT");
                 temp.setGenero("MAS");
                 temp.setEstatura(BigDecimal.ZERO);
-                temp.setEnfermedadesPublica("N");
+                temp.setEnfermedadesPublica("N"); 
                 temp.setCreado(new Date());
                 temp.setIntereses(" ");
                 String codecPassword = DigestUtils.md5Hex(u.getPassword());
