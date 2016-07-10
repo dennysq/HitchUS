@@ -39,7 +39,7 @@ public class Certificado implements Serializable{
     private  TipoCertificado tipoCertificado;
     
     @Column(name = "ID_ENTIDAD_CERTIFICADORA")
-    private Integer id;
+    private EntidadCertificadora entidadCertificadora;
     
     @Column(name = "PATH")
     private String path;
@@ -89,12 +89,12 @@ public class Certificado implements Serializable{
         this.tipoCertificado = tipoCertificado;
     }
 
-    public Integer getId() {
-        return id;
+    public EntidadCertificadora getEntidadCertificadora() {
+        return entidadCertificadora;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEntidadCertificadora(EntidadCertificadora entidadCertificadora) {
+        this.entidadCertificadora = entidadCertificadora;
     }
 
     public String getPath() {
@@ -147,8 +147,8 @@ public class Certificado implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.certificadoPK);
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.certificadoPK);
         return hash;
     }
 
@@ -172,6 +172,7 @@ public class Certificado implements Serializable{
 
     @Override
     public String toString() {
-        return "Certificado{" + "certificadoPK=" + certificadoPK + ", usuario=" + usuario + ", tipoCertificado=" + tipoCertificado + ", id=" + id + ", path=" + path + ", fechaRecepcion=" + fechaRecepcion + ", fechaValidacion=" + fechaValidacion + ", fechaCaducidad=" + fechaCaducidad + ", resultado=" + resultado + ", verificado=" + verificado + '}';
-    }    
+        return "Certificado{" + "certificadoPK=" + certificadoPK + ", usuario=" + usuario + ", tipoCertificado=" + tipoCertificado + ", entidadCertificadora=" + entidadCertificadora + ", path=" + path + ", fechaRecepcion=" + fechaRecepcion + ", fechaValidacion=" + fechaValidacion + ", fechaCaducidad=" + fechaCaducidad + ", resultado=" + resultado + ", verificado=" + verificado + '}';
+    }
+
 }

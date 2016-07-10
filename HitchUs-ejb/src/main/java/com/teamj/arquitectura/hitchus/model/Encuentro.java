@@ -33,10 +33,10 @@ public class Encuentro implements Serializable {
     private Integer id;
     
     @Column(name = "ID_USUARIO1")
-    private Integer idUsuario1;
+    private Usuario usuario1;
             
     @Column(name = "ID_USUARIO2")
-    private Integer idUsuario2;
+    private Usuario usuario2;
     
     @Column(name = "FECHA_CREACION")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -70,20 +70,6 @@ public class Encuentro implements Serializable {
     public Encuentro() {
     }
 
-    public Encuentro(Integer idUsuario1, Integer idUsuario2, Date fechaCreacion, Date ultimaFecha, String estado, BigDecimal nivelCompatibilidad1, BigDecimal nivelCompatibilidad2, BigDecimal calificacionPromedio1, BigDecimal calificacionPromedio2, String aceptaMatch1, String aceptaMatch2) {
-        this.idUsuario1 = idUsuario1;
-        this.idUsuario2 = idUsuario2;
-        this.fechaCreacion = fechaCreacion;
-        this.ultimaFecha = ultimaFecha;
-        this.estado = estado;
-        this.nivelCompatibilidad1 = nivelCompatibilidad1;
-        this.nivelCompatibilidad2 = nivelCompatibilidad2;
-        this.calificacionPromedio1 = calificacionPromedio1;
-        this.calificacionPromedio2 = calificacionPromedio2;
-        this.aceptaMatch1 = aceptaMatch1;
-        this.aceptaMatch2 = aceptaMatch2;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -92,20 +78,20 @@ public class Encuentro implements Serializable {
         this.id = id;
     }
 
-    public Integer getIdUsuario1() {
-        return idUsuario1;
+    public Usuario getUsuario1() {
+        return usuario1;
     }
 
-    public void setIdUsuario1(Integer idUsuario1) {
-        this.idUsuario1 = idUsuario1;
+    public void setUsuario1(Usuario usuario1) {
+        this.usuario1 = usuario1;
     }
 
-    public Integer getIdUsuario2() {
-        return idUsuario2;
+    public Usuario getUsuario2() {
+        return usuario2;
     }
 
-    public void setIdUsuario2(Integer idUsuario2) {
-        this.idUsuario2 = idUsuario2;
+    public void setUsuario2(Usuario usuario2) {
+        this.usuario2 = usuario2;
     }
 
     public Date getFechaCreacion() {
@@ -182,8 +168,8 @@ public class Encuentro implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -207,7 +193,9 @@ public class Encuentro implements Serializable {
 
     @Override
     public String toString() {
-        return "Encuentro{" + "id=" + id + ", idUsuario1=" + idUsuario1 + ", idUsuario2=" + idUsuario2 + ", fechaCreacion=" + fechaCreacion + ", ultimaFecha=" + ultimaFecha + ", estado=" + estado + ", nivelCompatibilidad1=" + nivelCompatibilidad1 + ", nivelCompatibilidad2=" + nivelCompatibilidad2 + ", calificacionPromedio1=" + calificacionPromedio1 + ", calificacionPromedio2=" + calificacionPromedio2 + ", aceptaMatch1=" + aceptaMatch1 + ", aceptaMatch2=" + aceptaMatch2 + '}';
+        return "Encuentro{" + "id=" + id + ", usuario1=" + usuario1 + ", usuario2=" + usuario2 + ", fechaCreacion=" + fechaCreacion + ", ultimaFecha=" + ultimaFecha + ", estado=" + estado + ", nivelCompatibilidad1=" + nivelCompatibilidad1 + ", nivelCompatibilidad2=" + nivelCompatibilidad2 + ", calificacionPromedio1=" + calificacionPromedio1 + ", calificacionPromedio2=" + calificacionPromedio2 + ", aceptaMatch1=" + aceptaMatch1 + ", aceptaMatch2=" + aceptaMatch2 + '}';
     }
+
+
 
 }
