@@ -69,38 +69,14 @@ public class UsuarioServicio {
         }
         return flag;
     }
-    
-    
+
     public boolean editarPerfil(Usuario u) throws ValidationException {
         boolean flag = false;
-        Usuario tempUsuario = new Usuario();
-
-//        tempUsuario.setEmail(u.getEmail());
-
-        List<Usuario> tempList = this.usuarioDAO.find(tempUsuario);
-        if (tempList == null || tempList.isEmpty()) {//el email de usuario no existe
-            try {
-
-                tempUsuario.setNickname(u.getNickname());
-                tempUsuario.setMes_nacimiento(u.getMes_nacimiento());
-                tempUsuario.setAnio_nacimiento(u.getAnio_nacimiento());
-                tempUsuario.setNumero_telefonico(u.getNumero_telefonico());
-
-                tempUsuario.setEstatura(u.getEstatura());
-                tempUsuario.setTrabajo(u.getTrabajo());
-                tempUsuario.setPremium(u.getPremium());
-                tempUsuario.setGenero(u.getGenero());
-                tempUsuario.setIntereses(u.getIntereses());
-                tempUsuario.setCreado(u.getCreado());
-
-                String codecPassword = DigestUtils.md5Hex(u.getPassword());
-                tempUsuario.setPassword(codecPassword);
-
-                this.usuarioDAO.update(tempUsuario);
-                flag = true;
-            } catch (Exception e) {
-                throw new ValidationException("Error al crear el nuevo usuario", e);
-            }
+        try {
+            this.usuarioDAO.update(u);
+            flag = true;
+        } catch (Exception e) {
+            throw new ValidationException("Error al editar el nuevo usuario", e);
         }
         return flag;
     }
@@ -141,6 +117,13 @@ public class UsuarioServicio {
         }
     }
 
+    public List<Imagen> obtenerImagenesUsuario(Usuario u){
+        Imagen temp = new Imagen();
+        temp.setUsuario(u);
+        return this.imagenDAO.find(temp);
+    }
+    
+    
     public void eliminar(Integer id) {
         Usuario temp = this.usuarioDAO.findById(id, false);
         if (temp != null) {
