@@ -9,7 +9,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
 
                 >
-    <ui:define name="title">Excursion</ui:define>
+    <ui:define name="title">Perfil de Usuario</ui:define>
     <f:metadata>
         <f:viewAction action="#{usuarioBean.init()}" />
 
@@ -22,7 +22,7 @@
                 </div>
                 <p:spacer/>
                 <p:panelGrid columns="2" styleClass="center_block panel-grid-no-border" >
-                    <p:outputLabel for="nombre" value="Nombre de Usuario:"/>
+                    <p:outputLabel for="genero" value="Género:"/>
                     <p:inputText id="nombre" title="Solo caracteres alfanuméricos" 
                                  maxlength="32"   
                                  required="true"

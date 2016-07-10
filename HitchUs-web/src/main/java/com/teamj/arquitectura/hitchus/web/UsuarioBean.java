@@ -92,26 +92,26 @@ public class UsuarioBean extends CrudBean implements Serializable {
         this.beginModify();
     }
 
-    public void becomeAProvider() {
-        this.beginModify();
-        this.usuario = new Usuario();
-        try {
-            BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
-            this.usuario.setActivo("P");
-            usuarioServicio.actualizar(this.usuario);
-            sessionBean.getUser().setActivo("P");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo Proveedor", " Debes cerrar sesión para que los cambios tengan efecto "));
-        } catch (IllegalAccessException | InvocationTargetException | ValidationException e) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
-        }
-    }
+//    public void becomeAProvider() {
+//        this.beginModify();
+//        this.usuario = new Usuario();
+//        try {
+//            BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
+//            this.usuario.setActivo("P");
+//            usuarioServicio.actualizar(this.usuario);
+//            sessionBean.getUser().setActivo("P");
+//            FacesContext context = FacesContext.getCurrentInstance();
+//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo Proveedor", " Debes cerrar sesión para que los cambios tengan efecto "));
+//        } catch (IllegalAccessException | InvocationTargetException | ValidationException e) {
+//            FacesContext context = FacesContext.getCurrentInstance();
+//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
+//        }
+//    }
 
     public void update() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            usuarioServicio.actualizar(this.usuario);
+            usuarioServicio.editarPerfil(this.usuario);
             BeanUtils.copyProperties(sessionBean.getUser(), this.usuario);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "La información del usuario se ha actualizado correctamente"));
 
@@ -121,7 +121,6 @@ public class UsuarioBean extends CrudBean implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('agregar_dialog_var').hide()");
         this.reset();
         // this.usuarioSelected=null;
-
     }
 
     public void cancel() {

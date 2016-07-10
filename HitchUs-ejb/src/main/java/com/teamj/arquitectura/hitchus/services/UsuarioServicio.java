@@ -53,12 +53,12 @@ public class UsuarioServicio {
                 temp.setNumeroTelefonico(u.getNumeroTelefonico());
 
                 temp.setTrabajo("N");
-                
+
                 temp.setPremium("N");
                 temp.setEstado("ACT");
                 temp.setGenero("MAS");
                 temp.setEstatura(BigDecimal.ZERO);
-                temp.setEnfermedadesPublica("N"); 
+                temp.setEnfermedadesPublica("N");
                 temp.setCreado(new Date());
                 temp.setIntereses(" ");
                 String codecPassword = DigestUtils.md5Hex(u.getPassword());
@@ -166,4 +166,17 @@ public class UsuarioServicio {
 //        }
 //        return flag;
 //    }
+    public boolean cambiarContraseña(Usuario user, String oldPassword, String newPassword, String reNewPassword) throws ValidationException {
+        boolean flag = false;
+        try {
+            if (DigestUtils.md5Hex(oldPassword).equals(user.getPassword()) && newPassword.equals(reNewPassword)) {
+                user.setPassword(DigestUtils.md5Hex(newPassword));
+                this.usuarioDAO.update(user);
+                flag = true;
+            }
+        } catch (Exception e) {
+            throw new ValidationException( "Error  al actualizar el usuario",e);
+        }
+        return flag;
+    }
 }
