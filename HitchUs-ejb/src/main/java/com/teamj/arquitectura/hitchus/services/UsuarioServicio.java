@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -51,13 +52,15 @@ public class UsuarioServicio {
                 temp.setAnioNacimiento(u.getAnioNacimiento());
                 temp.setNumeroTelefonico(u.getNumeroTelefonico());
 
-                temp.setEstatura(u.getEstatura());
-                temp.setTrabajo(u.getTrabajo());
-                temp.setPremium(u.getPremium());
-                temp.setGenero("");
-                temp.setIntereses(u.getIntereses());
-                temp.setCreado(u.getCreado());
-
+                temp.setTrabajo("N");
+                
+                temp.setPremium("N");
+                temp.setEstado("ACT");
+                temp.setGenero("MAS");
+                temp.setEstatura(BigDecimal.ZERO);
+                temp.setEnfermedadesPublica("N");
+                temp.setCreado(new Date());
+                temp.setIntereses(" ");
                 String codecPassword = DigestUtils.md5Hex(u.getPassword());
                 temp.setPassword(codecPassword);
 
@@ -117,13 +120,12 @@ public class UsuarioServicio {
         }
     }
 
-    public List<Imagen> obtenerImagenesUsuario(Usuario u){
+    public List<Imagen> obtenerImagenesUsuario(Usuario u) {
         Imagen temp = new Imagen();
         temp.setUsuario(u);
         return this.imagenDAO.find(temp);
     }
-    
-    
+
     public void eliminar(Integer id) {
         Usuario temp = this.usuarioDAO.findById(id, false);
         if (temp != null) {
@@ -164,5 +166,4 @@ public class UsuarioServicio {
 //        }
 //        return flag;
 //    }
-
 }

@@ -59,7 +59,7 @@ public class Usuario implements Serializable {
     @Column(name = "PREMIUM")
     private String premium;
     
-    @Column(name = "NUMERO_TELEFONICO")
+    @Column(name = "NUMERO_TELEFONO")
     private String numeroTelefonico;
     
     @Column(name = "ESTADO")
