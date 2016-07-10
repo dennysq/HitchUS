@@ -5,9 +5,11 @@
  */
 package com.teamj.arquitectura.hitchus.services;
 
+import com.teamj.arquitectura.hitchus.dao.EncuentroDAO;
 import com.teamj.arquitectura.hitchus.dao.ImagenDAO;
 import com.teamj.arquitectura.hitchus.dao.PaisOrigenDAO;
 import com.teamj.arquitectura.hitchus.dao.UsuarioDAO;
+import com.teamj.arquitectura.hitchus.model.Encuentro;
 import com.teamj.arquitectura.hitchus.model.Imagen;
 import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import com.teamj.arquitectura.hitchus.model.Usuario;
@@ -15,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -35,7 +36,8 @@ public class UsuarioServicio {
 
     @EJB
     private UsuarioDAO usuarioDAO;
-
+    @EJB
+    private EncuentroDAO encuentroDAO;
     @EJB
     private ImagenDAO imagenDAO;
     @EJB
@@ -129,7 +131,7 @@ public class UsuarioServicio {
         temp.setUsuario(u);
         return this.imagenDAO.find(temp);
     }
-    
+
     public List<PaisOrigen> obtenerPaises() {
         return this.paisDAO.findAll();
     }
@@ -183,8 +185,14 @@ public class UsuarioServicio {
                 flag = true;
             }
         } catch (Exception e) {
-            throw new ValidationException( "Error  al actualizar el usuario",e);
+            throw new ValidationException("Error  al actualizar el usuario", e);
         }
         return flag;
+    }
+
+    public List<Encuentro> obtenerEncuentrosPorUsuario(Usuario u) {
+        Encuentro temp = new Encuentro();
+        temp.setUsuario1(u);
+        return this.encuentroDAO.find(temp);
     }
 }

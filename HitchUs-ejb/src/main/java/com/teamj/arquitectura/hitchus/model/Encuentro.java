@@ -33,6 +33,7 @@ public class Encuentro implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "ENCUENTRO_ID")
     @Column(name = "ID_ENCUENTRO")
     private Integer id;
+    
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO1")
     private Usuario usuario1;
