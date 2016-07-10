@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.teamj.arquitectura.travelit.web;
+package com.teamj.arquitectura.hitchus.web;
 
 import com.teamj.arquitectura.hitchus.exception.ValidationException;
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -24,65 +26,26 @@ import org.primefaces.context.RequestContext;
 public class LoginBean implements Serializable {
 
     private String correoUsuario;
-    private String nombreCompletoUsuario;
-
-    private String nombreUsuarioL;
-    private String nombreUsuario;
-    private String claveUsuarioL;
     private String claveUsuario;
-    private String identificacionUsuario;
+
+    private String correoUsuarioL;
+    private String claveUsuarioL;
+    private String nicknameUsuario;
+    private String telefonoUsuario;
+    private Date fechaNacimiento;
+
     @EJB
     private UsuarioServicio usuarioServicio;
 
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    public void setIdentificacionUsuario(String identificacionUsuario) {
-        this.identificacionUsuario = identificacionUsuario;
-    }
-
-    public String getIdentificacionUsuario() {
-        return identificacionUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
     public String getCorreoUsuario() {
         return correoUsuario;
     }
 
-    public String getNombreCompletoUsuario() {
-        return nombreCompletoUsuario;
-    }
-
     public void setCorreoUsuario(String correoUsuario) {
         this.correoUsuario = correoUsuario;
-    }
-
-    public void setNombreCompletoUsuario(String nombreCompletoUsuario) {
-        this.nombreCompletoUsuario = nombreCompletoUsuario;
-    }
-
-    public void setNombreUsuarioL(String nombreUsuarioL) {
-        this.nombreUsuarioL = nombreUsuarioL;
-    }
-
-    public void setClaveUsuarioL(String claveUsuarioL) {
-        this.claveUsuarioL = claveUsuarioL;
-    }
-
-    public String getClaveUsuarioL() {
-        return claveUsuarioL;
-    }
-
-    public String getNombreUsuarioL() {
-        return nombreUsuarioL;
     }
 
     public String getClaveUsuario() {
@@ -91,6 +54,46 @@ public class LoginBean implements Serializable {
 
     public void setClaveUsuario(String claveUsuario) {
         this.claveUsuario = claveUsuario;
+    }
+
+    public String getCorreoUsuarioL() {
+        return correoUsuarioL;
+    }
+
+    public void setCorreoUsuarioL(String correoUsuarioL) {
+        this.correoUsuarioL = correoUsuarioL;
+    }
+
+    public String getClaveUsuarioL() {
+        return claveUsuarioL;
+    }
+
+    public void setClaveUsuarioL(String claveUsuarioL) {
+        this.claveUsuarioL = claveUsuarioL;
+    }
+
+    public String getNicknameUsuario() {
+        return nicknameUsuario;
+    }
+
+    public void setNicknameUsuario(String nicknameUsuario) {
+        this.nicknameUsuario = nicknameUsuario;
+    }
+
+    public String getTelefonoUsuario() {
+        return telefonoUsuario;
+    }
+
+    public void setTelefonoUsuario(String telefonoUsuario) {
+        this.telefonoUsuario = telefonoUsuario;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public void setSessionBean(SessionBean sessionBean) {
@@ -109,17 +112,16 @@ public class LoginBean implements Serializable {
     public String login() {
 
         FacesMessage msg = null;
-        if (nombreUsuario != null && !nombreUsuario.isEmpty() && claveUsuario != null && !claveUsuario.isEmpty()) {
+        if (correoUsuario != null && !correoUsuario.isEmpty() && claveUsuario != null && !claveUsuario.isEmpty()) {
 
-            Usuario u = new Usuario();
-            u.setNombre(nombreUsuario);
-
-            Usuario loggedUser = usuarioServicio.login(u, claveUsuario);
+//            Usuario u = new Usuario();
+//            u.setEmail(correoUsuario);
+            Usuario loggedUser = usuarioServicio.ingresar(correoUsuario, claveUsuario);
             try {
                 if (loggedUser != null) {
 
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", loggedUser);
-                    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", nombreUsuario);
+                    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return this.sessionBean.login(loggedUser);
 
@@ -148,10 +150,13 @@ public class LoginBean implements Serializable {
 
     public void beginSignUp() {
 
-        nombreCompletoUsuario = "";
+        nicknameUsuario = "";
         claveUsuarioL = "";
+        correoUsuarioL = "";
+        claveUsuario = "";
         correoUsuario = "";
-        nombreUsuarioL = "";
+        telefonoUsuario = "";
+        fechaNacimiento = null;
     }
 
     public void signUp() {
@@ -159,20 +164,27 @@ public class LoginBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             if (claveUsuarioL != null && !claveUsuarioL.isEmpty()
-                    && correoUsuario != null && !correoUsuario.isEmpty()
-                    && nombreUsuarioL != null && !nombreUsuarioL.isEmpty()
-                    && identificacionUsuario != null && !identificacionUsuario.isEmpty()) {
+                    && correoUsuarioL != null && !correoUsuarioL.isEmpty()
+                    && telefonoUsuario != null && !telefonoUsuario.isEmpty()
+                    && fechaNacimiento != null
+                    && nicknameUsuario != null && !nicknameUsuario.isEmpty()) {
+
                 Usuario u = new Usuario();
-                u.setEmail(correoUsuario);
-                u.setNombre(nombreUsuarioL);
-                u.setClave(claveUsuarioL);
-                u.setIdentificacion(identificacionUsuario);
 
-                if (usuarioServicio.insertar(u)) {
-
+                u.setEmail(correoUsuarioL);
+                u.setPassword(claveUsuarioL);
+                u.setNickname(nicknameUsuario);
+                u.setNumeroTelefonico(telefonoUsuario);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(fechaNacimiento);
+                int mes = calendar.get(Calendar.MONTH);
+                int anio = calendar.get(Calendar.YEAR);
+                u.setMesNacimiento(mes);
+                u.setAnioNacimiento(anio);
+                if (usuarioServicio.registrar(u)) {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro", "El registro se completó correctamente"));
                 } else {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro", "El nombre de usuario ya existe"));
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro", "El correo de usuario ya existe"));
                 }
             } else {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro", "Complete todos los campos para continuar"));
@@ -180,7 +192,7 @@ public class LoginBean implements Serializable {
         } catch (ValidationException e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
         }
-        this.nombreUsuario = this.nombreUsuarioL;
+        this.correoUsuario = this.correoUsuarioL;
         RequestContext.getCurrentInstance().execute("PF('signup_dialog_var').hide()");
 
     }

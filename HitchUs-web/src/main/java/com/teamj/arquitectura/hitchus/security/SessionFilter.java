@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.teamj.arquitectura.travelit.security;
+package com.teamj.arquitectura.hitchus.security;
 
-import com.teamj.arquitectura.travelit.web.SessionBean;
+import com.teamj.arquitectura.hitchus.web.SessionBean;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;

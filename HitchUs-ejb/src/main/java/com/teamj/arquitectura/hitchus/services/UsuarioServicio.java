@@ -47,14 +47,14 @@ public class UsuarioServicio {
             try {
 
                 temp.setNickname(u.getNickname());
-                temp.setMes_nacimiento(u.getMes_nacimiento());
-                temp.setAnio_nacimiento(u.getAnio_nacimiento());
-                temp.setNumero_telefonico(u.getNumero_telefonico());
+                temp.setMesNacimiento(u.getMesNacimiento());
+                temp.setAnioNacimiento(u.getAnioNacimiento());
+                temp.setNumeroTelefonico(u.getNumeroTelefonico());
 
                 temp.setEstatura(u.getEstatura());
                 temp.setTrabajo(u.getTrabajo());
                 temp.setPremium(u.getPremium());
-                temp.setGenero(u.getGenero());
+                temp.setGenero("");
                 temp.setIntereses(u.getIntereses());
                 temp.setCreado(u.getCreado());
 
@@ -131,38 +131,38 @@ public class UsuarioServicio {
         }
     }
 
-    public boolean actualizar(Usuario u) throws ValidationException {
-        boolean flag = false;
-        try {
-            Usuario userToUpdate = this.usuarioDAO.findById(u.getId(), false);
-            if (userToUpdate != null) {
-                userToUpdate.setActivo(u.getActivo());
-                userToUpdate.setNombre(u.getNombre());
-                //el passoword no voy a tomar en cuenta
-                userToUpdate.setEmail(u.getEmail());
-                this.usuarioDAO.update(userToUpdate);
-            }
-            flag = true;
-
-        } catch (Exception e) {
-            throw new ValidationException(e, "Error  al actualizar el usuario");
-        }
-
-        return flag;
-    }
-
-    public boolean cambiarContraseña(Usuario u, String oldP, String newP, String reNewP) throws ValidationException {
-        boolean flag = false;
-        try {
-            if (DigestUtils.md5Hex(oldP).equals(u.getClave()) && newP.equals(reNewP)) {
-                u.setClave(DigestUtils.md5Hex(newP));
-                this.usuarioDAO.update(u);
-                flag = true;
-            }
-        } catch (Exception e) {
-            throw new ValidationException(e, "Error  al actualizar el usuario");
-        }
-        return flag;
-    }
+//    public boolean actualizar(Usuario u) throws ValidationException {
+//        boolean flag = false;
+//        try {
+//            Usuario userToUpdate = this.usuarioDAO.findById(u.getId(), false);
+//            if (userToUpdate != null) {
+//                userToUpdate.setActivo(u.getActivo());
+//                userToUpdate.setNombre(u.getNombre());
+//                //el passoword no voy a tomar en cuenta
+//                userToUpdate.setEmail(u.getEmail());
+//                this.usuarioDAO.update(userToUpdate);
+//            }
+//            flag = true;
+//
+//        } catch (Exception e) {
+//            throw new ValidationException(e, "Error  al actualizar el usuario");
+//        }
+//
+//        return flag;
+//    }
+//
+//    public boolean cambiarContraseña(Usuario u, String oldP, String newP, String reNewP) throws ValidationException {
+//        boolean flag = false;
+//        try {
+//            if (DigestUtils.md5Hex(oldP).equals(u.getClave()) && newP.equals(reNewP)) {
+//                u.setClave(DigestUtils.md5Hex(newP));
+//                this.usuarioDAO.update(u);
+//                flag = true;
+//            }
+//        } catch (Exception e) {
+//            throw new ValidationException(e, "Error  al actualizar el usuario");
+//        }
+//        return flag;
+//    }
 
 }

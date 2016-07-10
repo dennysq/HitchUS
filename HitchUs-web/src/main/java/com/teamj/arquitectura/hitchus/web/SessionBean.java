@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.teamj.arquitectura.travelit.web;
+package com.teamj.arquitectura.hitchus.web;
 
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import java.io.Serializable;
