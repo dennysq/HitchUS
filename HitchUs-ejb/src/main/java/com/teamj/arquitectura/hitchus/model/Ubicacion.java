@@ -28,14 +28,13 @@ public class Ubicacion implements Serializable{
     
     @EmbeddedId
     UbicacionPK ubicacionPK;
-      
+    
+    @Column(name = "FECHA")
+    private Integer fecha;
+    
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", nullable = false,insertable = false,updatable = false)
     private Usuario usuario;
-    
-    @Id
-    @Column(name = "FECHA")
-    private Integer fecha;
     
     @Column(name = "LATITUD")
     private BigDecimal latitud;

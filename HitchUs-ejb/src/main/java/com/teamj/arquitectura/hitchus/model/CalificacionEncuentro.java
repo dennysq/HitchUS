@@ -23,11 +23,11 @@ import javax.persistence.Table;
  * @author Klever
  */
 @Entity
-@Table(name = "CALIFICACION_USUARIO")
-public class Calificacion_Encuentro implements Serializable{
+@Table(name = "CALIFICACION_ENCUENTRO")
+public class CalificacionEncuentro implements Serializable{
 
     @EmbeddedId
-    Calificacion_EncuentroPK calificacion_EncuentroPK;
+    CalificacionEncuentroPK calificacionEncuentroPK;
     
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", nullable = false,insertable = false,updatable = false)
@@ -49,15 +49,15 @@ public class Calificacion_Encuentro implements Serializable{
     @Column(name = "GENERAL")
     private BigDecimal general;
 
-    public Calificacion_Encuentro() {
+    public CalificacionEncuentro() {
     }
 
-    public Calificacion_EncuentroPK getCalificacion_EncuentroPK() {
-        return calificacion_EncuentroPK;
+    public CalificacionEncuentroPK getCalificacionEncuentroPK() {
+        return calificacionEncuentroPK;
     }
 
-    public void setCalificacion_EncuentroPK(Calificacion_EncuentroPK calificacion_EncuentroPK) {
-        this.calificacion_EncuentroPK = calificacion_EncuentroPK;
+    public void setCalificacionEncuentroPK(CalificacionEncuentroPK calificacionEncuentroPK) {
+        this.calificacionEncuentroPK = calificacionEncuentroPK;
     }
 
     public Usuario getUsuario() {
@@ -111,7 +111,7 @@ public class Calificacion_Encuentro implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.calificacion_EncuentroPK);
+        hash = 97 * hash + Objects.hashCode(this.calificacionEncuentroPK);
         return hash;
     }
 
@@ -126,8 +126,8 @@ public class Calificacion_Encuentro implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Calificacion_Encuentro other = (Calificacion_Encuentro) obj;
-        if (!Objects.equals(this.calificacion_EncuentroPK, other.calificacion_EncuentroPK)) {
+        final CalificacionEncuentro other = (CalificacionEncuentro) obj;
+        if (!Objects.equals(this.calificacionEncuentroPK, other.calificacionEncuentroPK)) {
             return false;
         }
         return true;
@@ -135,7 +135,7 @@ public class Calificacion_Encuentro implements Serializable{
 
     @Override
     public String toString() {
-        return "Calificacion_Encuentro{" + "calificacion_EncuentroPK=" + calificacion_EncuentroPK + ", usuario=" + usuario + ", encuentro=" + encuentro + ", higiene=" + higiene + ", comportamiento=" + comportamiento + ", amabilidad=" + amabilidad + ", general=" + general + '}';
+        return "Calificacion_Encuentro{" + "calificacionEncuentroPK=" + calificacionEncuentroPK + ", usuario=" + usuario + ", encuentro=" + encuentro + ", higiene=" + higiene + ", comportamiento=" + comportamiento + ", amabilidad=" + amabilidad + ", general=" + general + '}';
     }
     
        

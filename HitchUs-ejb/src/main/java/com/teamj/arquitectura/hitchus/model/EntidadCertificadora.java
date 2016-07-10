@@ -19,22 +19,31 @@ import javax.persistence.Table;
  * @author Klever
  */
 @Entity
-@Table(name = "CIUDAD_RESIDENCIA")
-public class Ciudad_Residencia implements Serializable{
+@Table(name = "ENTIDAD_CERTIFICADORA")
+public class EntidadCertificadora implements Serializable{
+    
     @Id
-    @Column(name = "ID_CIUDAD_RESIDENCIA")
+    @Column(name = "ID_ENTIDAD_CERTIFICADORA")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name = "Ciudad")
-    private String pais;
+    @Column(name = "NOMBRE")
+    private String nombre;
+    
+    @Column(name = "DIRECCION")
+    private String direccion;
+      
+    @Column(name = "TELEFONO")
+    private String telefono;
 
-    public Ciudad_Residencia() {
+    public EntidadCertificadora() {
     }
 
-    public Ciudad_Residencia(Integer id, String pais) {
+    public EntidadCertificadora(Integer id, String nombre, String direccion, String telefono) {
         this.id = id;
-        this.pais = pais;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
     }
 
     public Integer getId() {
@@ -45,18 +54,34 @@ public class Ciudad_Residencia implements Serializable{
         this.id = id;
     }
 
-    public String getPais() {
-        return pais;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -71,7 +96,7 @@ public class Ciudad_Residencia implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Ciudad_Residencia other = (Ciudad_Residencia) obj;
+        final EntidadCertificadora other = (EntidadCertificadora) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -80,9 +105,8 @@ public class Ciudad_Residencia implements Serializable{
 
     @Override
     public String toString() {
-        return "Ciudad_Residencia{" + "id=" + id + ", pais=" + pais + '}';
+        return "Entidad_Certificadora{" + "id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + '}';
     }
-    
     
     
 }

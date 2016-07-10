@@ -32,7 +32,7 @@ public class Mensaje implements Serializable{
     private Encuentro encuentro;
     
     @Column(name = "SEC_MENSAJE")
-    private Integer sec_mensaje;
+    private Integer secMensaje;
     
     @Column(name = "RECEPTOR")
     private Integer receptor;
@@ -42,7 +42,7 @@ public class Mensaje implements Serializable{
     
     @Column(name = "FECHA_ENVIO")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date fecha_envio;
+    private Date fechaEnvio;
 
     public Mensaje() {
     }
@@ -63,12 +63,12 @@ public class Mensaje implements Serializable{
         this.encuentro = encuentro;
     }
 
-    public Integer getSec_mensaje() {
-        return sec_mensaje;
+    public Integer getSecMensaje() {
+        return secMensaje;
     }
 
-    public void setSec_mensaje(Integer sec_mensaje) {
-        this.sec_mensaje = sec_mensaje;
+    public void setSecMensaje(Integer secMensaje) {
+        this.secMensaje = secMensaje;
     }
 
     public Integer getReceptor() {
@@ -87,18 +87,18 @@ public class Mensaje implements Serializable{
         this.emisor = emisor;
     }
 
-    public Date getFecha_envio() {
-        return fecha_envio;
+    public Date getFechaEnvio() {
+        return fechaEnvio;
     }
 
-    public void setFecha_envio(Date fecha_envio) {
-        this.fecha_envio = fecha_envio;
+    public void setFechaEnvio(Date fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.mensajePK);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.mensajePK);
         return hash;
     }
 
@@ -122,8 +122,7 @@ public class Mensaje implements Serializable{
 
     @Override
     public String toString() {
-        return "Mensaje{" + "mensajePK=" + mensajePK + ", encuentro=" + encuentro + ", sec_mensaje=" + sec_mensaje + ", receptor=" + receptor + ", emisor=" + emisor + ", fecha_envio=" + fecha_envio + '}';
+        return "Mensaje{" + "mensajePK=" + mensajePK + ", encuentro=" + encuentro + ", secMensaje=" + secMensaje + ", receptor=" + receptor + ", emisor=" + emisor + ", fechaEnvio=" + fechaEnvio + '}';
     }
 
-    
 }

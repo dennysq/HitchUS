@@ -16,34 +16,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class MensajePK implements Serializable{
     @Column(name = "ID_ENC")
-    private Integer id_enc;
+    private Integer idEncuentro;
      
     @Column(name = "SEC_MENSAJE")
-    private Integer sec_mensaje;
+    private Integer secMensaje;
 
     public MensajePK() {
     }
 
-    public MensajePK(Integer id_enc, Integer sec_mensaje) {
-        this.id_enc = id_enc;
-        this.sec_mensaje = sec_mensaje;
-    }
-
-    public Integer getId_enc() {
-        return id_enc;
-    }
-
-    public void setId_enc(Integer id_enc) {
-        this.id_enc = id_enc;
-    }
-
-    public Integer getSec_mensaje() {
-        return sec_mensaje;
-    }
-
-    public void setSec_mensaje(Integer sec_mensaje) {
-        this.sec_mensaje = sec_mensaje;
+    public MensajePK(Integer idEncuentro, Integer secMensaje) {
+        this.idEncuentro = idEncuentro;
+        this.secMensaje = secMensaje;
     }
     
-    
+    public Integer getIdEncuentro() {
+        return idEncuentro;
+    }
+
+    public void setIdEncuentro(Integer idEncuentro) {
+        this.idEncuentro = idEncuentro;
+    }
+
+    public Integer getSecMensaje() {
+        return secMensaje;
+    }
+
+    public void setSecMensaje(Integer secMensaje) {
+        this.secMensaje = secMensaje;
+    }
 }

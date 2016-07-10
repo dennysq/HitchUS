@@ -33,55 +33,55 @@ public class Encuentro implements Serializable {
     private Integer id;
     
     @Column(name = "ID_USUARIO1")
-    private Integer id_usuario1;
+    private Integer idUsuario1;
             
     @Column(name = "ID_USUARIO2")
-    private Integer id_usuario2;
+    private Integer idUsuario2;
     
     @Column(name = "FECHA_CREACION")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date fecha_creacion;
+    private Date fechaCreacion;
     
     @Column(name = "ULTIMA_FECHA")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date ultima_fecha;
+    private Date ultimaFecha;
     
     @Column(name = "ESTADO")
     private String estado;
     
     @Column(name = "NIVEL_COMPATIBILIDAD1")
-    private BigDecimal nivel_compatibilidad1;
+    private BigDecimal nivelCompatibilidad1;
     
     @Column(name = "NIVEL_COMPATIBILIDAD2")
-    private BigDecimal nivel_compatibilidad2;
+    private BigDecimal nivelCompatibilidad2;
     
     @Column(name = "CALIFICACION_PROMEDIO1")
-    private BigDecimal calificacion_promedio1;
+    private BigDecimal calificacionPromedio1;
 
     @Column(name = "CALIFICACION_PROMEDIO2")
-    private BigDecimal calificacion_promedio2;
+    private BigDecimal calificacionPromedio2;
     
     @Column(name = "ACEPTA_MATCH1")
-    private String acepta_match1;
+    private String aceptaMatch1;
     
     @Column(name = "ACEPTA_MATCH2")
-    private String acepta_match2;
+    private String aceptaMatch2;
 
     public Encuentro() {
     }
 
-    public Encuentro(Integer id_usuario1, Integer id_usuario2, Date fecha_creacion, Date ultima_fecha, String estado, BigDecimal nivel_compatibilidad1, BigDecimal nivel_compatibilidad2, BigDecimal calificacion_promedio1, BigDecimal calificacion_promedio2, String acepta_match1, String acepta_match2) {
-        this.id_usuario1 = id_usuario1;
-        this.id_usuario2 = id_usuario2;
-        this.fecha_creacion = fecha_creacion;
-        this.ultima_fecha = ultima_fecha;
+    public Encuentro(Integer idUsuario1, Integer idUsuario2, Date fechaCreacion, Date ultimaFecha, String estado, BigDecimal nivelCompatibilidad1, BigDecimal nivelCompatibilidad2, BigDecimal calificacionPromedio1, BigDecimal calificacionPromedio2, String aceptaMatch1, String aceptaMatch2) {
+        this.idUsuario1 = idUsuario1;
+        this.idUsuario2 = idUsuario2;
+        this.fechaCreacion = fechaCreacion;
+        this.ultimaFecha = ultimaFecha;
         this.estado = estado;
-        this.nivel_compatibilidad1 = nivel_compatibilidad1;
-        this.nivel_compatibilidad2 = nivel_compatibilidad2;
-        this.calificacion_promedio1 = calificacion_promedio1;
-        this.calificacion_promedio2 = calificacion_promedio2;
-        this.acepta_match1 = acepta_match1;
-        this.acepta_match2 = acepta_match2;
+        this.nivelCompatibilidad1 = nivelCompatibilidad1;
+        this.nivelCompatibilidad2 = nivelCompatibilidad2;
+        this.calificacionPromedio1 = calificacionPromedio1;
+        this.calificacionPromedio2 = calificacionPromedio2;
+        this.aceptaMatch1 = aceptaMatch1;
+        this.aceptaMatch2 = aceptaMatch2;
     }
 
     public Integer getId() {
@@ -92,36 +92,36 @@ public class Encuentro implements Serializable {
         this.id = id;
     }
 
-    public Integer getId_usuario1() {
-        return id_usuario1;
+    public Integer getIdUsuario1() {
+        return idUsuario1;
     }
 
-    public void setId_usuario1(Integer id_usuario1) {
-        this.id_usuario1 = id_usuario1;
+    public void setIdUsuario1(Integer idUsuario1) {
+        this.idUsuario1 = idUsuario1;
     }
 
-    public Integer getId_usuario2() {
-        return id_usuario2;
+    public Integer getIdUsuario2() {
+        return idUsuario2;
     }
 
-    public void setId_usuario2(Integer id_usuario2) {
-        this.id_usuario2 = id_usuario2;
+    public void setIdUsuario2(Integer idUsuario2) {
+        this.idUsuario2 = idUsuario2;
     }
 
-    public Date getFecha_creacion() {
-        return fecha_creacion;
+    public Date getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setFecha_creacion(Date fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
-    public Date getUltima_fecha() {
-        return ultima_fecha;
+    public Date getUltimaFecha() {
+        return ultimaFecha;
     }
 
-    public void setUltima_fecha(Date ultima_fecha) {
-        this.ultima_fecha = ultima_fecha;
+    public void setUltimaFecha(Date ultimaFecha) {
+        this.ultimaFecha = ultimaFecha;
     }
 
     public String getEstado() {
@@ -132,58 +132,58 @@ public class Encuentro implements Serializable {
         this.estado = estado;
     }
 
-    public BigDecimal getNivel_compatibilidad1() {
-        return nivel_compatibilidad1;
+    public BigDecimal getNivelCompatibilidad1() {
+        return nivelCompatibilidad1;
     }
 
-    public void setNivel_compatibilidad1(BigDecimal nivel_compatibilidad1) {
-        this.nivel_compatibilidad1 = nivel_compatibilidad1;
+    public void setNivelCompatibilidad1(BigDecimal nivelCompatibilidad1) {
+        this.nivelCompatibilidad1 = nivelCompatibilidad1;
     }
 
-    public BigDecimal getNivel_compatibilidad2() {
-        return nivel_compatibilidad2;
+    public BigDecimal getNivelCompatibilidad2() {
+        return nivelCompatibilidad2;
     }
 
-    public void setNivel_compatibilidad2(BigDecimal nivel_compatibilidad2) {
-        this.nivel_compatibilidad2 = nivel_compatibilidad2;
+    public void setNivelCompatibilidad2(BigDecimal nivelCompatibilidad2) {
+        this.nivelCompatibilidad2 = nivelCompatibilidad2;
     }
 
-    public BigDecimal getCalificacion_promedio1() {
-        return calificacion_promedio1;
+    public BigDecimal getCalificacionPromedio1() {
+        return calificacionPromedio1;
     }
 
-    public void setCalificacion_promedio1(BigDecimal calificacion_promedio1) {
-        this.calificacion_promedio1 = calificacion_promedio1;
+    public void setCalificacionPromedio1(BigDecimal calificacionPromedio1) {
+        this.calificacionPromedio1 = calificacionPromedio1;
     }
 
-    public BigDecimal getCalificacion_promedio2() {
-        return calificacion_promedio2;
+    public BigDecimal getCalificacionPromedio2() {
+        return calificacionPromedio2;
     }
 
-    public void setCalificacion_promedio2(BigDecimal calificacion_promedio2) {
-        this.calificacion_promedio2 = calificacion_promedio2;
+    public void setCalificacionPromedio2(BigDecimal calificacionPromedio2) {
+        this.calificacionPromedio2 = calificacionPromedio2;
     }
 
-    public String getAcepta_match1() {
-        return acepta_match1;
+    public String getAceptaMatch1() {
+        return aceptaMatch1;
     }
 
-    public void setAcepta_match1(String acepta_match1) {
-        this.acepta_match1 = acepta_match1;
+    public void setAceptaMatch1(String aceptaMatch1) {
+        this.aceptaMatch1 = aceptaMatch1;
     }
 
-    public String getAcepta_match2() {
-        return acepta_match2;
+    public String getAceptaMatch2() {
+        return aceptaMatch2;
     }
 
-    public void setAcepta_match2(String acepta_match2) {
-        this.acepta_match2 = acepta_match2;
+    public void setAceptaMatch2(String aceptaMatch2) {
+        this.aceptaMatch2 = aceptaMatch2;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -207,7 +207,7 @@ public class Encuentro implements Serializable {
 
     @Override
     public String toString() {
-        return "Encuentro{" + "id=" + id + ", id_usuario1=" + id_usuario1 + ", id_usuario2=" + id_usuario2 + ", fecha_creacion=" + fecha_creacion + ", ultima_fecha=" + ultima_fecha + ", estado=" + estado + ", nivel_compatibilidad1=" + nivel_compatibilidad1 + ", nivel_compatibilidad2=" + nivel_compatibilidad2 + ", calificacion_promedio1=" + calificacion_promedio1 + ", calificacion_promedio2=" + calificacion_promedio2 + ", acepta_match1=" + acepta_match1 + ", acepta_match2=" + acepta_match2 + '}';
+        return "Encuentro{" + "id=" + id + ", idUsuario1=" + idUsuario1 + ", idUsuario2=" + idUsuario2 + ", fechaCreacion=" + fechaCreacion + ", ultimaFecha=" + ultimaFecha + ", estado=" + estado + ", nivelCompatibilidad1=" + nivelCompatibilidad1 + ", nivelCompatibilidad2=" + nivelCompatibilidad2 + ", calificacionPromedio1=" + calificacionPromedio1 + ", calificacionPromedio2=" + calificacionPromedio2 + ", aceptaMatch1=" + aceptaMatch1 + ", aceptaMatch2=" + aceptaMatch2 + '}';
     }
 
 }

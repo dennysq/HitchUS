@@ -6,7 +6,7 @@
 package com.teamj.arquitectura.hitchus.dao;
 
 import com.persist.common.dao.DefaultGenericDAOImple;
-import com.teamj.arquitectura.hitchus.model.Tipo_Certificado;
+import com.teamj.arquitectura.hitchus.model.EstadisticaUsuario;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -16,8 +16,8 @@ import javax.ejb.Stateless;
  */
 @LocalBean
 @Stateless
-public class Tipo_CertificadoDAO extends DefaultGenericDAOImple<Tipo_Certificado, Integer>{
-    public Tipo_CertificadoDAO() {
-        super(Tipo_Certificado.class);
+public class EstadisticaUsuarioDAO extends DefaultGenericDAOImple<EstadisticaUsuario, Integer>{
+    public EstadisticaUsuarioDAO() {
+        super(EstadisticaUsuario.class);
     }
 }

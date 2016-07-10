@@ -6,7 +6,7 @@
 package com.teamj.arquitectura.hitchus.dao;
 
 import com.persist.common.dao.DefaultGenericDAOImple;
-import com.teamj.arquitectura.hitchus.model.Entidad_Certificadora;
+import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -16,8 +16,8 @@ import javax.ejb.Stateless;
  */
 @LocalBean
 @Stateless
-public class Entidad_CertificadoraDAO extends DefaultGenericDAOImple<Entidad_Certificadora, Integer>{
-    public Entidad_CertificadoraDAO() {
-        super(Entidad_Certificadora.class);
+public class PaisOrigenDAO extends DefaultGenericDAOImple<PaisOrigen, Integer>{
+    public PaisOrigenDAO() {
+        super(PaisOrigen.class);
     }
 }

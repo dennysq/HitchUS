@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TIPO_CERTIFICADO")
-public class Tipo_Certificado implements Serializable{
+public class TipoCertificado implements Serializable{
     
     @Id
     @Column(name = "ID_TIPO_CERTIFICADO")
@@ -28,26 +28,25 @@ public class Tipo_Certificado implements Serializable{
     private Integer id;
     
     @Column(name = "NOMBRE_CERTIFICADO")
-    private String nombre_certificado;
+    private String nombreCertificado;
     
     @Column(name = "DESCRIPCION")
     private String descripcion;
     
     @Column(name = "TIEMPO_VALIDEZ")
-    private Integer tiempo_validez;
+    private Integer tiempoValidez;
     
     @Column(name = "NOMBRE_ENFERMEDAD")
-    private String nombre_enfermedad;
+    private String nombreEnfermedad;
 
-    public Tipo_Certificado() {
+    public TipoCertificado() {
     }
 
-    public Tipo_Certificado(Integer id, String nombre_certificado, String descripcion, Integer tiempo_validez, String nombre_enfermedad) {
-        this.id = id;
-        this.nombre_certificado = nombre_certificado;
+    public TipoCertificado(String nombreCertificado, String descripcion, Integer tiempoValidez, String nombreEnfermedad) {
+        this.nombreCertificado = nombreCertificado;
         this.descripcion = descripcion;
-        this.tiempo_validez = tiempo_validez;
-        this.nombre_enfermedad = nombre_enfermedad;
+        this.tiempoValidez = tiempoValidez;
+        this.nombreEnfermedad = nombreEnfermedad;
     }
 
     public Integer getId() {
@@ -58,12 +57,12 @@ public class Tipo_Certificado implements Serializable{
         this.id = id;
     }
 
-    public String getNombre_certificado() {
-        return nombre_certificado;
+    public String getNombreCertificado() {
+        return nombreCertificado;
     }
 
-    public void setNombre_certificado(String nombre_certificado) {
-        this.nombre_certificado = nombre_certificado;
+    public void setNombreCertificado(String nombreCertificado) {
+        this.nombreCertificado = nombreCertificado;
     }
 
     public String getDescripcion() {
@@ -74,26 +73,26 @@ public class Tipo_Certificado implements Serializable{
         this.descripcion = descripcion;
     }
 
-    public Integer getTiempo_validez() {
-        return tiempo_validez;
+    public Integer getTiempoValidez() {
+        return tiempoValidez;
     }
 
-    public void setTiempo_validez(Integer tiempo_validez) {
-        this.tiempo_validez = tiempo_validez;
+    public void setTiempoValidez(Integer tiempoValidez) {
+        this.tiempoValidez = tiempoValidez;
     }
 
-    public String getNombre_enfermedad() {
-        return nombre_enfermedad;
+    public String getNombreEnfermedad() {
+        return nombreEnfermedad;
     }
 
-    public void setNombre_enfermedad(String nombre_enfermedad) {
-        this.nombre_enfermedad = nombre_enfermedad;
+    public void setNombreEnfermedad(String nombreEnfermedad) {
+        this.nombreEnfermedad = nombreEnfermedad;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -108,7 +107,7 @@ public class Tipo_Certificado implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Tipo_Certificado other = (Tipo_Certificado) obj;
+        final TipoCertificado other = (TipoCertificado) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -117,9 +116,7 @@ public class Tipo_Certificado implements Serializable{
 
     @Override
     public String toString() {
-        return "Tipo_Certificado{" + "id=" + id + ", nombre_certificado=" + nombre_certificado + ", descripcion=" + descripcion + ", tiempo_validez=" + tiempo_validez + ", nombre_enfermedad=" + nombre_enfermedad + '}';
+        return "TipoCertificado{" + "id=" + id + ", nombreCertificado=" + nombreCertificado + ", descripcion=" + descripcion + ", tiempoValidez=" + tiempoValidez + ", nombreEnfermedad=" + nombreEnfermedad + '}';
     }
-    
-    
     
 }

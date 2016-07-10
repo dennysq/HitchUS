@@ -6,7 +6,7 @@
 package com.teamj.arquitectura.hitchus.dao;
 
 import com.persist.common.dao.DefaultGenericDAOImple;
-import com.teamj.arquitectura.hitchus.model.Pais_Origen;
+import com.teamj.arquitectura.hitchus.model.CiudadResidencia;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -16,8 +16,8 @@ import javax.ejb.Stateless;
  */
 @LocalBean
 @Stateless
-public class Pais_OrigenDAO extends DefaultGenericDAOImple<Pais_Origen, Integer>{
-    public Pais_OrigenDAO() {
-        super(Pais_Origen.class);
+public class CiudadResidenciaDAO extends DefaultGenericDAOImple<CiudadResidencia, Integer>{
+    public CiudadResidenciaDAO() {
+        super(CiudadResidencia.class);
     }
 }

@@ -6,7 +6,8 @@
 package com.teamj.arquitectura.hitchus.dao;
 
 import com.persist.common.dao.DefaultGenericDAOImple;
-import com.teamj.arquitectura.hitchus.model.Estadistica_Usuario;
+import com.teamj.arquitectura.hitchus.model.CalificacionEncuentro;
+import com.teamj.arquitectura.hitchus.model.CalificacionEncuentroPK;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -16,8 +17,8 @@ import javax.ejb.Stateless;
  */
 @LocalBean
 @Stateless
-public class Estadistica_UsuarioDAO extends DefaultGenericDAOImple<Estadistica_Usuario, Integer>{
-    public Estadistica_UsuarioDAO() {
-        super(Estadistica_Usuario.class);
-    }
+public class CalificacionEncuentroDAO extends DefaultGenericDAOImple<CalificacionEncuentro, CalificacionEncuentroPK> {
+    public CalificacionEncuentroDAO() {
+            super(CalificacionEncuentro.class);
+        }
 }

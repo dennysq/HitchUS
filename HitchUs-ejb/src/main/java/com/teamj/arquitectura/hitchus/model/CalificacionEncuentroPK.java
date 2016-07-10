@@ -14,20 +14,28 @@ import javax.persistence.Embeddable;
  * @author Klever
  */
 @Embeddable
-public class CertificadoPK implements Serializable{
+public class CalificacionEncuentroPK implements Serializable{
     
+    @Column(name = "ID_ENCUENTRO")
+    private Integer idEncuentro;
+     
     @Column(name = "ID_USUARIO")
     private Integer idUsuario;
-     
-    @Column(name = "ID_TIPO_CERTIFICADO")
-    private Integer idTipoCertificado;
 
-    public CertificadoPK() {
+    public CalificacionEncuentroPK() {
     }
 
-    public CertificadoPK(Integer idUsuario, Integer idTipoCertificado) {
+    public CalificacionEncuentroPK(Integer idEncuentro, Integer idUsuario) {
+        this.idEncuentro = idEncuentro;
         this.idUsuario = idUsuario;
-        this.idTipoCertificado = idTipoCertificado;
+    }
+
+    public Integer getIdEncuentro() {
+        return idEncuentro;
+    }
+
+    public void setIdEncuentro(Integer idEncuentro) {
+        this.idEncuentro = idEncuentro;
     }
 
     public Integer getIdUsuario() {
@@ -38,15 +46,4 @@ public class CertificadoPK implements Serializable{
         this.idUsuario = idUsuario;
     }
 
-    public Integer getIdTipoCertificado() {
-        return idTipoCertificado;
-    }
-
-    public void setIdTipoCertificado(Integer idTipoCertificado) {
-        this.idTipoCertificado = idTipoCertificado;
-    }
-    
-    
-    
-    
 }

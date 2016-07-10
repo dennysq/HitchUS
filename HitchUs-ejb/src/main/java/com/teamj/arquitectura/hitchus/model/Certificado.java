@@ -36,7 +36,7 @@ public class Certificado implements Serializable{
     
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_CERTIFICADO", nullable = false,insertable = false,updatable = false)
-    private  Tipo_Certificado tipoCertificado;
+    private  TipoCertificado tipoCertificado;
     
     @Column(name = "ID_ENTIDAD_CERTIFICADORA")
     private Integer id;
@@ -46,15 +46,15 @@ public class Certificado implements Serializable{
     
     @Column(name = "FECHA_RECEPCION")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date fecha_recepcion;
+    private Date fechaRecepcion;
     
     @Column(name = "FECHA_VALIDACION")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date fecha_validacion;
+    private Date fechaValidacion;
     
     @Column(name = "FECHA_CADUCIDAD")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date fecha_caducidad;
+    private Date fechaCaducidad;
     
     @Column(name = "RESULTADO")
     private String resultado;
@@ -81,11 +81,11 @@ public class Certificado implements Serializable{
         this.usuario = usuario;
     }
 
-    public Tipo_Certificado getTipoCertificado() {
+    public TipoCertificado getTipoCertificado() {
         return tipoCertificado;
     }
 
-    public void setTipoCertificado(Tipo_Certificado tipoCertificado) {
+    public void setTipoCertificado(TipoCertificado tipoCertificado) {
         this.tipoCertificado = tipoCertificado;
     }
 
@@ -105,28 +105,28 @@ public class Certificado implements Serializable{
         this.path = path;
     }
 
-    public Date getFecha_recepcion() {
-        return fecha_recepcion;
+    public Date getFechaRecepcion() {
+        return fechaRecepcion;
     }
 
-    public void setFecha_recepcion(Date fecha_recepcion) {
-        this.fecha_recepcion = fecha_recepcion;
+    public void setFechaRecepcion(Date fechaRecepcion) {
+        this.fechaRecepcion = fechaRecepcion;
     }
 
-    public Date getFecha_validacion() {
-        return fecha_validacion;
+    public Date getFechaValidacion() {
+        return fechaValidacion;
     }
 
-    public void setFecha_validacion(Date fecha_validacion) {
-        this.fecha_validacion = fecha_validacion;
+    public void setFechaValidacion(Date fechaValidacion) {
+        this.fechaValidacion = fechaValidacion;
     }
 
-    public Date getFecha_caducidad() {
-        return fecha_caducidad;
+    public Date getFechaCaducidad() {
+        return fechaCaducidad;
     }
 
-    public void setFecha_caducidad(Date fecha_caducidad) {
-        this.fecha_caducidad = fecha_caducidad;
+    public void setFechaCaducidad(Date fechaCaducidad) {
+        this.fechaCaducidad = fechaCaducidad;
     }
 
     public String getResultado() {
@@ -147,8 +147,8 @@ public class Certificado implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.certificadoPK);
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.certificadoPK);
         return hash;
     }
 
@@ -169,11 +169,9 @@ public class Certificado implements Serializable{
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
-        return "Certificado{" + "certificadoPK=" + certificadoPK + ", usuario=" + usuario + ", tipoCertificado=" + tipoCertificado + ", id=" + id + ", path=" + path + ", fecha_recepcion=" + fecha_recepcion + ", fecha_validacion=" + fecha_validacion + ", fecha_caducidad=" + fecha_caducidad + ", resultado=" + resultado + ", verificado=" + verificado + '}';
-    }
-    
-    
+        return "Certificado{" + "certificadoPK=" + certificadoPK + ", usuario=" + usuario + ", tipoCertificado=" + tipoCertificado + ", id=" + id + ", path=" + path + ", fechaRecepcion=" + fechaRecepcion + ", fechaValidacion=" + fechaValidacion + ", fechaCaducidad=" + fechaCaducidad + ", resultado=" + resultado + ", verificado=" + verificado + '}';
+    }    
 }

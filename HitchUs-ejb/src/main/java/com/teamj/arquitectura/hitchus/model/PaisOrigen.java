@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PAIS_ORIGEN")
-public class Pais_Origen implements Serializable{
+public class PaisOrigen implements Serializable{
     @Id
     @Column(name = "ID_PAIS_ORIGEN")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,10 @@ public class Pais_Origen implements Serializable{
     @Column(name = "ENCUENTROS")
     private Integer encuentros;
 
-    public Pais_Origen() {
+    public PaisOrigen() {
     }
 
-    public Pais_Origen(Integer id, Integer encuentros) {
+    public PaisOrigen(Integer id, Integer encuentros) {
         this.id = id;
         this.encuentros = encuentros;
     }
@@ -71,7 +71,7 @@ public class Pais_Origen implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Pais_Origen other = (Pais_Origen) obj;
+        final PaisOrigen other = (PaisOrigen) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

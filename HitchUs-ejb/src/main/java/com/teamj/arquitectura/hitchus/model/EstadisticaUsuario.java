@@ -23,7 +23,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "ESTADISTICA_USUARIO")
-public class Estadistica_Usuario implements Serializable{
+public class EstadisticaUsuario implements Serializable{
     @Id
     @Column(name = "ID_USUARIO")
     private Integer id;
@@ -62,7 +62,7 @@ public class Estadistica_Usuario implements Serializable{
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date ultimaActualizacion;
 
-    public Estadistica_Usuario() {
+    public EstadisticaUsuario() {
     }
 
     public Integer getId() {
@@ -184,7 +184,7 @@ public class Estadistica_Usuario implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Estadistica_Usuario other = (Estadistica_Usuario) obj;
+        final EstadisticaUsuario other = (EstadisticaUsuario) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

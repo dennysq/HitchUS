@@ -6,8 +6,7 @@
 package com.teamj.arquitectura.hitchus.dao;
 
 import com.persist.common.dao.DefaultGenericDAOImple;
-import com.teamj.arquitectura.hitchus.model.Calificacion_Encuentro;
-import com.teamj.arquitectura.hitchus.model.Calificacion_EncuentroPK;
+import com.teamj.arquitectura.hitchus.model.TipoCertificado;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -17,8 +16,8 @@ import javax.ejb.Stateless;
  */
 @LocalBean
 @Stateless
-public class Calificacion_EncuentroDAO extends DefaultGenericDAOImple<Calificacion_Encuentro, Calificacion_EncuentroPK> {
-    public Calificacion_EncuentroDAO() {
-            super(Calificacion_Encuentro.class);
-        }
+public class TipoCertificadoDAO extends DefaultGenericDAOImple<TipoCertificado, Integer>{
+    public TipoCertificadoDAO() {
+        super(TipoCertificado.class);
+    }
 }
