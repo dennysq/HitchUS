@@ -6,8 +6,10 @@
 package com.teamj.arquitectura.hitchus.services;
 
 import com.teamj.arquitectura.hitchus.dao.ImagenDAO;
+import com.teamj.arquitectura.hitchus.dao.PaisOrigenDAO;
 import com.teamj.arquitectura.hitchus.dao.UsuarioDAO;
 import com.teamj.arquitectura.hitchus.model.Imagen;
+import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +38,8 @@ public class UsuarioServicio {
 
     @EJB
     private ImagenDAO imagenDAO;
+    @EJB
+    private PaisOrigenDAO paisDAO;
 
     public boolean registrar(Usuario u) throws ValidationException {
         boolean flag = false;
@@ -124,6 +128,10 @@ public class UsuarioServicio {
         Imagen temp = new Imagen();
         temp.setUsuario(u);
         return this.imagenDAO.find(temp);
+    }
+    
+    public List<PaisOrigen> obtenerPaises() {
+        return this.paisDAO.findAll();
     }
 
     public void eliminar(Integer id) {

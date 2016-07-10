@@ -21,22 +21,23 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PAIS_ORIGEN")
-public class PaisOrigen implements Serializable{
+public class PaisOrigen implements Serializable {
+
     @Id
     @SequenceGenerator(name = "PAIS_ORIGEN_ID", sequenceName = "PAIS_ORIGEN_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "PAIS_ORIGEN_ID")
     @Column(name = "ID_PAIS_ORIGEN")
     private Integer id;
-    
-    @Column(name = "ENCUENTROS")
-    private Integer encuentros;
+
+    @Column(name = "PAIS")
+    private String nombre;
 
     public PaisOrigen() {
     }
 
-    public PaisOrigen(Integer id, Integer encuentros) {
+    public PaisOrigen(Integer id, String nombre) {
         this.id = id;
-        this.encuentros = encuentros;
+        this.nombre = nombre;
     }
 
     public Integer getId() {
@@ -47,12 +48,12 @@ public class PaisOrigen implements Serializable{
         this.id = id;
     }
 
-    public Integer getEncuentros() {
-        return encuentros;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setEncuentros(Integer encuentros) {
-        this.encuentros = encuentros;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
@@ -82,8 +83,7 @@ public class PaisOrigen implements Serializable{
 
     @Override
     public String toString() {
-        return "Pais_Origen{" + "id=" + id + ", encuentros=" + encuentros + '}';
+        return "PaisOrigen{" + "id=" + id + ", nombre=" + nombre + '}';
     }
-    
-    
+
 }

@@ -22,24 +22,86 @@
                 </div>
                 <p:spacer/>
                 <p:panelGrid columns="2" styleClass="center_block panel-grid-no-border" >
-                    <p:outputLabel for="genero" value="Género:"/>
-                    <p:inputText id="nombre" title="Solo caracteres alfanuméricos" 
-                                 maxlength="32"   
-                                 required="true"
-                                 readonly="#{!usuarioBean.modifying}"
-                                 requiredMessage="Ingrese un nombre de usuario"
-                                 placeholder="Nombre de Usuario" 
-                                 value="#{usuarioBean.usuario.nombre}" >
+                    <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:"/>
+                    <p:calendar id="fecha" value="#{loginBean.fechaNacimiento}" placeholder="Fecha de Nacimiento"    />
+                    <p:inputText id="telefono_signup" title="Solo caracteres numéricos" maxlength="32" styleClass="login-form-input"  placeholder="Teléfono" value="#{loginBean.telefonoUsuario}" >
                         <pe:keyFilter regEx="/[a-z0-9_]/i"/> 
                     </p:inputText>     
-                    <p:outputLabel for="nombre_completo" value="Nombre Completo:"/>
-                    <p:inputText id="nombre_completo" 
+                    
+                    <p:outputLabel value="País de Origen:" class="negrita" for="pais"/>
+                    <h:selectOneMenu value="#{usuarioBean.idPaisOrigenSeleccionado}"
+                                     id="pais"
+                                     style="width: 200px;"
+                                     hideNoSelectionOption="true"
+                                     >
+                        <f:selectItem itemValue="#{null}" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                        <f:selectItems value="#{usuarioBean.paisOrigenLista}" 
+                                       var="paises" 
+                                       itemLabel="#{paises.nombre}"
+                                       itemValue="#{paises.id}"/>
+                        <p:ajax event="change"  update="@form"/>
+                    </h:selectOneMenu>
+                    
+                    <p:outputLabel value="Cuenta de Débito:" class="negrita" for="cuentadebito"/>
+                    <h:selectOneMenu value="#{transferenciaBean.idCuentaSeleccionada}"
+                                     id="cuentadebito"
+                                     style="width: 200px;"
+                                     hideNoSelectionOption="true"
+                                     valueChangeListener="#{transferenciaBean.cargarCuentaDebito}"
+                                     >
+                        <f:selectItem itemValue="#{null}" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                        <f:selectItems value="#{transferenciaBean.cuentasDebito}" 
+                                       var="cuenta" 
+                                       itemLabel="#{cuenta.tipo} - #{cuenta.numero}"
+                                       itemValue="#{cuenta.id}"/>
+                        <p:ajax event="change"  update="@form"/>
+                    </h:selectOneMenu>
+                    
+                    
+                    <p:outputLabel for="idiomas" value="Idiomas:"/>
+                    <p:inputText id="idiomas" 
                                  maxlength="200"  autocomplete="true" 
                                  readonly="#{!usuarioBean.modifying}"
-                                 placeholder="Nombres Completos" 
-                                 value="#{usuarioBean.usuario.nombreCompleto}" >
+                                 placeholder="Idiomas" 
+                                 value="#{usuarioBean.usuario.idiomas}" >
                         <pe:keyFilter regEx="/[a-z_\s]/i"/> 
                     </p:inputText>     
+                    <p:outputLabel for="numeroTelefonico" value="Número Telefónico:"/>
+                    <p:inputText id="numeroTelefonico" 
+                                 maxlength="200"  autocomplete="true" 
+                                 readonly="#{!usuarioBean.modifying}"
+                                 placeholder="Número Telefónico" 
+                                 value="#{usuarioBean.usuario.numeroTelefonico}" >
+                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                    </p:inputText>     
+                    <p:outputLabel for="estatura" value="Estatura:"/>
+                    <p:inputText id="estatura" 
+                                 maxlength="200"  autocomplete="true" 
+                                 readonly="#{!usuarioBean.modifying}"
+                                 placeholder="Estatura" 
+                                 value="#{usuarioBean.usuario.estatura}" >
+                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                    </p:inputText>     
+                    <p:outputLabel for="contextura" value="Contextura:"/>
+                    <p:inputText id="contextura" 
+                                 maxlength="200"  autocomplete="true" 
+                                 readonly="#{!usuarioBean.modifying}"
+                                 placeholder="Contextura" 
+                                 value="#{usuarioBean.usuario.contextura}" >
+                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                    </p:inputText>     
+                    <p:outputLabel for="intereses" value="Intereses:"/>
+                    <p:inputTextarea id="intereses" 
+                                 maxlength="200" 
+                                 readonly="#{!usuarioBean.modifying}"
+                                 placeholder="Intereses" 
+                                 value="#{usuarioBean.usuario.intereses}" >
+                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                    </p:inputTextarea>     
+
+
+
+
                     <p:outputLabel for="correo" value="Correo Electrónico:"/>
                     <p:inputText id="correo" 
                                  maxlength="32"   

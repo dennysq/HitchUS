@@ -6,10 +6,13 @@
 package com.teamj.arquitectura.hitchus.web;
 
 import com.teamj.arquitectura.hitchus.exception.ValidationException;
+import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -37,6 +40,9 @@ public class UsuarioBean extends CrudBean implements Serializable {
     private String oldPassword;
     private String newPassword;
     private String reNewPassword;
+    private List<PaisOrigen> paisOrigenLista;
+    private Integer idPaisOrigenSeleccionado;
+    private PaisOrigen pais;
 
     public SessionBean getSessionBean() {
         return sessionBean;
@@ -52,6 +58,14 @@ public class UsuarioBean extends CrudBean implements Serializable {
 
     public String getNewPassword() {
         return newPassword;
+    }
+
+    public Integer getIdPaisOrigenSeleccionado() {
+        return idPaisOrigenSeleccionado;
+    }
+
+    public void setIdPaisOrigenSeleccionado(Integer idPaisOrigenSeleccionado) {
+        this.idPaisOrigenSeleccionado = idPaisOrigenSeleccionado;
     }
 
     public String getOldPassword() {
@@ -78,10 +92,21 @@ public class UsuarioBean extends CrudBean implements Serializable {
         this.usuario = usuario;
     }
 
+    public List<PaisOrigen> getPaisOrigenLista() {
+        return paisOrigenLista;
+    }
+
+    public void setPaisOrigenLista(List<PaisOrigen> paisOrigenLista) {
+        this.paisOrigenLista = paisOrigenLista;
+    }
+
+    @PostConstruct
     public void init() {
         this.usuario = new Usuario();
+        this.paisOrigenLista= this.usuarioServicio.obtenerPaises();
         try {
             BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
+            
         } catch (Exception e) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
@@ -107,7 +132,6 @@ public class UsuarioBean extends CrudBean implements Serializable {
 //            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
 //        }
 //    }
-
     public void update() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
