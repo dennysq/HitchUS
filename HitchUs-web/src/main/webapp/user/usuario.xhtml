@@ -23,11 +23,21 @@
                 <p:spacer/>
                 <p:panelGrid columns="2" styleClass="center_block panel-grid-no-border" >
                     <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:"/>
-                    <p:calendar id="fecha" value="#{loginBean.fechaNacimiento}" placeholder="Fecha de Nacimiento"    />
+                    <p:calendar id="fecha" value="#{usuarioBean.fechaNacimiento}" placeholder="Fecha de Nacimiento"    />
                     <p:inputText id="telefono_signup" title="Solo caracteres numéricos" maxlength="32" styleClass="login-form-input"  placeholder="Teléfono" value="#{loginBean.telefonoUsuario}" >
                         <pe:keyFilter regEx="/[a-z0-9_]/i"/> 
                     </p:inputText>     
                     
+                    <p:outputLabel value="Género:" class="negrita" for="genero"/>
+                    <h:selectOneMenu value="#{usuarioBean.usuario.genero}"
+                                     id="genero"
+                                     style="width: 200px;"
+                                     hideNoSelectionOption="true"
+                                     >
+                        <f:selectItems value="#{usuarioBean.genero}" 
+                        <p:ajax event="change"  update="@form"/>
+                    </h:selectOneMenu>
+
                     <p:outputLabel value="País de Origen:" class="negrita" for="pais"/>
                     <h:selectOneMenu value="#{usuarioBean.idPaisOrigenSeleccionado}"
                                      id="pais"
@@ -41,6 +51,29 @@
                                        itemValue="#{paises.id}"/>
                         <p:ajax event="change"  update="@form"/>
                     </h:selectOneMenu>
+
+
+                    <p:outputLabel for="ciudad" value="Ciudad de Residencia:"/>
+                    <p:inputText id="ciudad" 
+                                 maxlength="200"  autocomplete="true" 
+                                 readonly="#{!usuarioBean.modifying}"
+                                 placeholder="Ciudad de Residencia" 
+                                 value="#{usuarioBean.usuario.}" >
+                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                    </p:inputText>     
+                    
+
+                    <p:outputLabel value="Nivel de Eduación:" class="negrita" for="nivelEducacion"/>
+                    <h:selectOneMenu value="#{usuarioBean.usuario.nivelEducacion}"
+                                     id="nivelEducacion"
+                                     style="width: 200px;"
+                                     hideNoSelectionOption="true"
+                                     >
+                        <f:selectItems value="#{usuarioBean.nivelDeEducacion}" 
+                        <p:ajax event="change"  update="@form"/>
+                    </h:selectOneMenu>
+                    
+
                     
                     <p:outputLabel value="Cuenta de Débito:" class="negrita" for="cuentadebito"/>
                     <h:selectOneMenu value="#{transferenciaBean.idCuentaSeleccionada}"

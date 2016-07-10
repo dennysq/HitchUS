@@ -5,13 +5,16 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
+import com.teamj.arquitectura.ApplicationContext;
 import com.teamj.arquitectura.hitchus.exception.ValidationException;
 import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -33,6 +36,9 @@ public class UsuarioBean extends CrudBean implements Serializable {
     @EJB
     private UsuarioServicio usuarioServicio;
 
+    @EJB
+    private ApplicationContext applicationContext;
+
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
 
@@ -40,9 +46,13 @@ public class UsuarioBean extends CrudBean implements Serializable {
     private String oldPassword;
     private String newPassword;
     private String reNewPassword;
+    private Date fechaNacimiento;
     private List<PaisOrigen> paisOrigenLista;
+    private Map<String, String> genero;
+    private Map<String, String> nivelDeEducacion;
+    private Map<String, String> siNo;
+
     private Integer idPaisOrigenSeleccionado;
-    private PaisOrigen pais;
 
     public SessionBean getSessionBean() {
         return sessionBean;
@@ -100,13 +110,51 @@ public class UsuarioBean extends CrudBean implements Serializable {
         this.paisOrigenLista = paisOrigenLista;
     }
 
+    public Map<String, String> getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Map<String, String> genero) {
+        this.genero = genero;
+    }
+
+    public Map<String, String> getNivelDeEducacion() {
+        return nivelDeEducacion;
+    }
+
+    public void setNivelDeEducacion(Map<String, String> nivelDeEducacion) {
+        this.nivelDeEducacion = nivelDeEducacion;
+    }
+
+    public Map<String, String> getSiNo() {
+        return siNo;
+    }
+
+    public void setSiNo(Map<String, String> siNo) {
+        this.siNo = siNo;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+    
+    
+    
+
     @PostConstruct
     public void init() {
         this.usuario = new Usuario();
-        this.paisOrigenLista= this.usuarioServicio.obtenerPaises();
+        this.paisOrigenLista = this.usuarioServicio.obtenerPaises();
+        this.genero=applicationContext.getGenero();
+        this.nivelDeEducacion=applicationContext.getNivelDeEducacion();
+        this.siNo=applicationContext.getSiNo();
         try {
             BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
-            
+
         } catch (Exception e) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
