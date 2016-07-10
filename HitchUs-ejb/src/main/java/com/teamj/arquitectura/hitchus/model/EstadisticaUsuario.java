@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -26,6 +27,7 @@ import javax.persistence.Temporal;
 @Table(name = "ESTADISTICA_USUARIO")
 public class EstadisticaUsuario implements Serializable{
     @Id
+    @ManyToOne
     @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
     
