@@ -22,9 +22,9 @@
                 <p:spacer height="30px;"/>
                 <p:panel id="login_panel" header="Log in" style="width: 300px;" styleClass="center_inline center_block no_border" >
                     <h:panelGrid columns="2"  cellpadding="5">
-                        <p:outputLabel for="username" value="Usuario:" />
-                        <p:inputText value="#{loginBean.correoUsuario}" id="username"
-                                     required="true" label="username" requiredMessage="Introduzca el nombre de usuario">
+                        <p:outputLabel for="correo" value="Email:" />
+                        <p:inputText value="#{loginBean.correoUsuario}" id="correo"
+                                     required="true" label="correo" requiredMessage="Introduzca el correo de usuario">
                             <f:validateLength minimum="3" />
                         </p:inputText>
                         <p:outputLabel for="password" value="Password:" />
@@ -55,7 +55,8 @@
                       header="Nuevo Usuario" >
                 <h:form id="register_form">
                     <p:panelGrid columns="1"  styleClass="center_block login-form-container panel-grid-no-border">
-                        <p:inputText id="correo" maxlength="32" styleClass="login-form-input"  autocomplete="true" placeholder="Correo" value="#{loginBean.correoUsuarioL}" >
+                        <p:inputText type="email" required="true" id="email" maxlength="32" styleClass="login-form-input"  autocomplete="true" placeholder="Correo electrónico" 
+                                     value="#{loginBean.correoUsuarioL}">
                             <pe:keyFilter regEx="/[a-z0-9_\.\-@]/i"/> 
                         </p:inputText>     
                         <p:inputText id="nick_signup" title="Solo caracteres alfanuméricos" maxlength="32" styleClass="login-form-input"  placeholder="NickName" value="#{loginBean.nicknameUsuario}" >
