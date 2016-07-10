@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/templates/masterTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                >
+    <ui:define name="title">Hitches</ui:define>
+    <ui:define name="content">
+        <h:form id="main_form" >   
+            <p:panel class="center_inline no_border" >
+                <h1>Mis Hitches</h1>
+                <p:dataTable id="tabla_articulo" class="center_block"
+                             var="encuentro" 
+                             value="#{encuentrosBean.encuentros}"
+                             rows="12"
+                             paginator="true"
+                             paginatorPosition="bottom"
+                             emptyMessage="No hay encuentros"
+                             rowKey="#{encuentro.id}" 
+                             style="width: 800px;">
+
+                    <p:column headerText="Hitch">
+                        <h:outputText value="#{encuentro.usuario2.nickname}" />
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <h:outputText value="#{encuentro.estado}" />
+                    </p:column>
+                    <p:column headerText="Nivel de compatibilidad ">
+                        <h:outputText value="#{encuentro.nivelCompatibilidad2}" />
+                    </p:column>
+                    <p:column headerText="Calificación">
+                        <h:outputText value="#{encuentro.calificacionPromedio2}" >
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Aceptación">
+                        <h:outputText value="#{encuentro.aceptaMatch2}" />
+                    </p:column>
+                </p:dataTable>
+                <p:spacer/>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+

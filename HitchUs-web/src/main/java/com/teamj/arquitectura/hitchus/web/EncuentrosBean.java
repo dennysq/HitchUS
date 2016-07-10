@@ -5,10 +5,8 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
-import com.teamj.arquitectura.integracionhotel.ws.Consultahotelesresponse2;
-import com.teamj.arquitectura.travelit.model.HistoricoReserva;
-import com.teamj.arquitectura.travelit.services.HistorialServicio;
-import com.teamj.arquitectura.travelit.services.HotelesServicio;
+import com.teamj.arquitectura.hitchus.model.Encuentro;
+import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,11 +15,9 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -29,11 +25,10 @@ import javax.faces.context.FacesContext;
  */
 @ViewScoped
 @ManagedBean
-public class ReporteBean implements Serializable {
+public class EncuentrosBean implements Serializable {
 
     @EJB
-    HistorialServicio historialServicio;
-
+    UsuarioServicio usuarioServicio;
 
     private Integer numeroPersonas;
     private Integer numeroHabitaciones;
@@ -42,8 +37,9 @@ public class ReporteBean implements Serializable {
     private String ciudad;
     private Boolean conDesayuno;
     private List<String> ciudades;
-    java.util.List<com.teamj.arquitectura.integracionhotel.ws.Consultahotelesresponse2> result;
-    private List<HistoricoReserva> historial;
+    private List<Encuentro> encuentros;
+    @ManagedProperty(value = "#{sessionBean}")
+    private SessionBean sessionBean;
 
     @PostConstruct
     public void init() {
@@ -53,18 +49,28 @@ public class ReporteBean implements Serializable {
         numeroHabitaciones = 1;
         numeroPersonas = 1;
         fechaEntrada = new Date();
-        conDesayuno = false;
-        historial = historialServicio.obtenerTodas();
+
+        encuentros = usuarioServicio.obtenerEncuentrosPorUsuario(sessionBean.getUser());
+        
     }
 
-    public void setHistorial(List<HistoricoReserva> historial) {
-        this.historial = historial;
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
     }
 
-    public List<HistoricoReserva> getHistorial() {
-        return historial;
+    public SessionBean getSessionBean() {
+        return sessionBean;
     }
 
+    public List<Encuentro> getEncuentros() {
+        return encuentros;
+    }
+
+    public void setEncuentros(List<Encuentro> encuentros) {
+        this.encuentros = encuentros;
+    }
+
+    
     public String todayDate() {
         return new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
     }
@@ -123,14 +129,6 @@ public class ReporteBean implements Serializable {
 
     public void setConDesayuno(Boolean conDesayuno) {
         this.conDesayuno = conDesayuno;
-    }
-
-    public List<Consultahotelesresponse2> getResult() {
-        return result;
-    }
-
-    public void setResult(List<Consultahotelesresponse2> result) {
-        this.result = result;
     }
 
 }

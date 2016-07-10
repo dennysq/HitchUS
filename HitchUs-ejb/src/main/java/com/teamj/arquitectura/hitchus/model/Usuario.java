@@ -16,6 +16,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -34,64 +36,77 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "USUARIO_ID")
     @Column(name = "ID_USUARIO")
     private Integer id;
-    
+
     @Column(name = "NICKNAME")
     private String nickname;
-    
+
     @Column(name = "PASSWORD")
     private String password;
-    
+
     @Column(name = "EMAIL")
     private String email;
-    
+
     @Column(name = "ANIO_NACIMIENTO")
     private Integer anioNacimiento;
-    
+
     @Column(name = "MES_NACIMIENTO")
     private Integer mesNacimiento;
 
     @Column(name = "ESTATURA")
     private BigDecimal estatura;
-    
+
     @Column(name = "TRABAJO")
     private String trabajo;
-    
+
     @Column(name = "PREMIUM")
     private String premium;
-    
+
     @Column(name = "NUMERO_TELEFONO")
     private String numeroTelefonico;
-    
+
     @Column(name = "ESTADO")
     private String estado;
-    
+
     @Column(name = "CALIFICACION")
     private BigDecimal calificacion;
-    
+
     @Column(name = "GENERO")
     private String genero;
-    
+
     @Column(name = "INTERESES")
     private String intereses;
-    
+
     @Column(name = "CONTEXTURA")
     private String contextura;
-    
+
     @Column(name = "NIVEL_EDUCACION")
     private String nivelEducacion;
 
     @Column(name = "IDIOMAS")
     private String idiomas;
-    
+
     @Column(name = "PESO")
     private BigDecimal peso;
-       
+
     @Column(name = "CREADO")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date creado;
-    
+
     @Column(name = "ENFERMEDADES_PUBLICA")
     private String enfermedadesPublica;
+    
+    @ManyToOne
+    @JoinColumn(name = "ID_PAIS_ORIGEN")
+    private PaisOrigen paisOrigen;
+    
+    @ManyToOne
+    @JoinColumn(name = "ID_CIUDAD_RESIDENCIA")
+    private CiudadResidencia ciudadResidencia;
+    
+    @OneToMany(mappedBy = "usuario1", targetEntity = Encuentro.class,
+            fetch = FetchType.LAZY)
+    List<Encuentro> encuentros;
+    
 
     public Usuario() {
     }
@@ -306,5 +321,5 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Usuario{" + "id=" + id + ", nickname=" + nickname + ", password=" + password + ", email=" + email + ", anioNacimiento=" + anioNacimiento + ", mesNacimiento=" + mesNacimiento + ", estatura=" + estatura + ", trabajo=" + trabajo + ", premium=" + premium + ", numeroTelefonico=" + numeroTelefonico + ", estado=" + estado + ", calificacion=" + calificacion + ", genero=" + genero + ", intereses=" + intereses + ", contextura=" + contextura + ", nivelEducacion=" + nivelEducacion + ", idiomas=" + idiomas + ", peso=" + peso + ", creado=" + creado + ", enfermedadesPublica=" + enfermedadesPublica + '}';
-    }    
+    }
 }
