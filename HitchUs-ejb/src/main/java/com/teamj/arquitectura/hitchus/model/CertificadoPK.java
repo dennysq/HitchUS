@@ -6,6 +6,7 @@
 package com.teamj.arquitectura.hitchus.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -46,5 +47,34 @@ public class CertificadoPK implements Serializable{
         this.tipoCertificado = tipoCertificado;
     }
 
-        
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.usuario);
+        hash = 83 * hash + Objects.hashCode(this.tipoCertificado);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CertificadoPK other = (CertificadoPK) obj;
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipoCertificado, other.tipoCertificado)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }

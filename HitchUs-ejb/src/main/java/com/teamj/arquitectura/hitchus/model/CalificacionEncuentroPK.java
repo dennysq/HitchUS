@@ -6,6 +6,7 @@
 package com.teamj.arquitectura.hitchus.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -44,6 +45,35 @@ public class CalificacionEncuentroPK implements Serializable{
 
     public void setUsuario(Integer usuario) {
         this.usuario = usuario;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.encuentro);
+        hash = 89 * hash + Objects.hashCode(this.usuario);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CalificacionEncuentroPK other = (CalificacionEncuentroPK) obj;
+        if (!Objects.equals(this.encuentro, other.encuentro)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        return true;
     }
 
     
