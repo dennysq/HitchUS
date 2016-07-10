@@ -20,14 +20,14 @@ public class UbicacionPK implements Serializable{
     private Integer fecha;
      
     @Column(name = "ID_USUARIO")
-    private Integer idUsuario;
+    private Usuario usuario;
 
     public UbicacionPK() {
     }
 
-    public UbicacionPK(Integer fecha, Integer idUsuario) {
+    public UbicacionPK(Integer fecha, Usuario usuario) {
         this.fecha = fecha;
-        this.idUsuario = idUsuario;
+        this.usuario = usuario;
     }
 
     public Integer getFecha() {
@@ -38,14 +38,12 @@ public class UbicacionPK implements Serializable{
         this.fecha = fecha;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
-    
-    
-    
+   
 }

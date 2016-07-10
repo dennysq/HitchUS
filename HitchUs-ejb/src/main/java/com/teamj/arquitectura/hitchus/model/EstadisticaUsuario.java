@@ -26,7 +26,7 @@ import javax.persistence.Temporal;
 public class EstadisticaUsuario implements Serializable{
     @Id
     @Column(name = "ID_USUARIO")
-    private Integer id;
+    private Usuario usuario;
     
     @Column(name = "HIGIENE")
     private BigDecimal higiene;
@@ -65,14 +65,15 @@ public class EstadisticaUsuario implements Serializable{
     public EstadisticaUsuario() {
     }
 
-    public Integer getId() {
-        return id;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
+    
     public BigDecimal getHigiene() {
         return higiene;
     }
@@ -162,14 +163,9 @@ public class EstadisticaUsuario implements Serializable{
     }
 
     @Override
-    public String toString() {
-        return "Estadistica_Usuario{" + "id=" + id + ", higiene=" + higiene + ", comportamiento=" + comportamiento + ", amabilidad=" + amabilidad + ", general=" + general + ", bloqueos=" + bloqueos + ", promedioActual=" + promedioActual + ", solicitudesEnviadas=" + solicitudesEnviadas + ", solicitudesRecibidas=" + solicitudesRecibidas + ", mensajesEnviados=" + mensajesEnviados + ", mensajesRecibidos=" + mensajesRecibidos + ", ultimaActualizacion=" + ultimaActualizacion + '}';
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.usuario);
         return hash;
     }
 
@@ -185,10 +181,15 @@ public class EstadisticaUsuario implements Serializable{
             return false;
         }
         final EstadisticaUsuario other = (EstadisticaUsuario) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.usuario, other.usuario)) {
             return false;
         }
         return true;
     }
-    
+
+    @Override
+    public String toString() {
+        return "EstadisticaUsuario{" + "usuario=" + usuario + ", higiene=" + higiene + ", comportamiento=" + comportamiento + ", amabilidad=" + amabilidad + ", general=" + general + ", bloqueos=" + bloqueos + ", promedioActual=" + promedioActual + ", solicitudesEnviadas=" + solicitudesEnviadas + ", solicitudesRecibidas=" + solicitudesRecibidas + ", mensajesEnviados=" + mensajesEnviados + ", mensajesRecibidos=" + mensajesRecibidos + ", ultimaActualizacion=" + ultimaActualizacion + '}';
+    }
+
 }

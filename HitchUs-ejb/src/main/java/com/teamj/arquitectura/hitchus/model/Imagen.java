@@ -28,7 +28,7 @@ public class Imagen implements Serializable {
     private Integer id;
     
     @Column(name = "ID_USUARIO")
-    private String idUsuario;
+    private Usuario usuario;
      
     @Column(name = "DESCRIPCION")
     private String descripcion;
@@ -45,15 +45,6 @@ public class Imagen implements Serializable {
     public Imagen() {
     }
 
-    public Imagen(Integer id, String idUsuario, String descripcion, String publica, String perfil, String url) {
-        this.id = id;
-        this.idUsuario = idUsuario;
-        this.descripcion = descripcion;
-        this.publica = publica;
-        this.perfil = perfil;
-        this.url = url;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -62,12 +53,12 @@ public class Imagen implements Serializable {
         this.id = id;
     }
 
-    public String getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getDescripcion() {
@@ -129,9 +120,7 @@ public class Imagen implements Serializable {
 
     @Override
     public String toString() {
-        return "Imagen{" + "id=" + id + ", idUsuario=" + idUsuario + ", descripcion=" + descripcion + ", publica=" + publica + ", perfil=" + perfil + ", url=" + url + '}';
+        return "Imagen{" + "id=" + id + ", usuario=" + usuario + ", descripcion=" + descripcion + ", publica=" + publica + ", perfil=" + perfil + ", url=" + url + '}';
     }
-    
-    
-    
+   
 }

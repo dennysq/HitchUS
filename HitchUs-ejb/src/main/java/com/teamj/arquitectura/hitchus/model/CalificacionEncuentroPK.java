@@ -17,33 +17,35 @@ import javax.persistence.Embeddable;
 public class CalificacionEncuentroPK implements Serializable{
     
     @Column(name = "ID_ENCUENTRO")
-    private Integer idEncuentro;
+    private Integer encuentro;
      
     @Column(name = "ID_USUARIO")
-    private Integer idUsuario;
+    private Integer usuario;
 
     public CalificacionEncuentroPK() {
     }
 
-    public CalificacionEncuentroPK(Integer idEncuentro, Integer idUsuario) {
-        this.idEncuentro = idEncuentro;
-        this.idUsuario = idUsuario;
+    public CalificacionEncuentroPK(Integer encuentro, Integer usuario) {
+        this.encuentro = encuentro;
+        this.usuario = usuario;
     }
 
-    public Integer getIdEncuentro() {
-        return idEncuentro;
+    public Integer getEncuentro() {
+        return encuentro;
     }
 
-    public void setIdEncuentro(Integer idEncuentro) {
-        this.idEncuentro = idEncuentro;
+    public void setEncuentro(Integer encuentro) {
+        this.encuentro = encuentro;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public Integer getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Integer usuario) {
+        this.usuario = usuario;
     }
+
+    
 
 }

@@ -16,7 +16,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class MensajePK implements Serializable{
     @Column(name = "ID_ENC")
-    private Integer idEncuentro;
+    private Encuentro encuentro;
      
     @Column(name = "SEC_MENSAJE")
     private Integer secMensaje;
@@ -24,17 +24,17 @@ public class MensajePK implements Serializable{
     public MensajePK() {
     }
 
-    public MensajePK(Integer idEncuentro, Integer secMensaje) {
-        this.idEncuentro = idEncuentro;
+    public MensajePK(Encuentro encuentro, Integer secMensaje) {
+        this.encuentro = encuentro;
         this.secMensaje = secMensaje;
     }
-    
-    public Integer getIdEncuentro() {
-        return idEncuentro;
+
+    public Encuentro getEncuentro() {
+        return encuentro;
     }
 
-    public void setIdEncuentro(Integer idEncuentro) {
-        this.idEncuentro = idEncuentro;
+    public void setEncuentro(Encuentro encuentro) {
+        this.encuentro = encuentro;
     }
 
     public Integer getSecMensaje() {
@@ -44,4 +44,5 @@ public class MensajePK implements Serializable{
     public void setSecMensaje(Integer secMensaje) {
         this.secMensaje = secMensaje;
     }
+
 }

@@ -17,36 +17,34 @@ import javax.persistence.Embeddable;
 public class CertificadoPK implements Serializable{
     
     @Column(name = "ID_USUARIO")
-    private Integer idUsuario;
+    private Integer usuario;
      
     @Column(name = "ID_TIPO_CERTIFICADO")
-    private Integer idTipoCertificado;
+    private Integer tipoCertificado;
 
     public CertificadoPK() {
     }
 
-    public CertificadoPK(Integer idUsuario, Integer idTipoCertificado) {
-        this.idUsuario = idUsuario;
-        this.idTipoCertificado = idTipoCertificado;
+    public CertificadoPK(Integer usuario, Integer tipoCertificado) {
+        this.usuario = usuario;
+        this.tipoCertificado = tipoCertificado;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public Integer getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Integer usuario) {
+        this.usuario = usuario;
     }
 
-    public Integer getIdTipoCertificado() {
-        return idTipoCertificado;
+    public Integer getTipoCertificado() {
+        return tipoCertificado;
     }
 
-    public void setIdTipoCertificado(Integer idTipoCertificado) {
-        this.idTipoCertificado = idTipoCertificado;
+    public void setTipoCertificado(Integer tipoCertificado) {
+        this.tipoCertificado = tipoCertificado;
     }
-    
-    
-    
-    
+
+        
 }
