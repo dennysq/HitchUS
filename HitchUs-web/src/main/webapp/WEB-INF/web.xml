@@ -32,7 +32,7 @@
     <!-- login filter -->
     <filter>
         <filter-name>login</filter-name>
-        <filter-class>com.teamj.arquitectura.travelit.security.SessionFilter</filter-class>
+        <filter-class>com.teamj.arquitectura.hitchus.security.SessionFilter</filter-class>
     </filter>
     <!-- set the login filter to secure all the pages in the /secured/* path 
     of the application -->
