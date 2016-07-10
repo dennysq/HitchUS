@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/templates/masterTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                >
+    <ui:define name="title">Historial</ui:define>
+    <ui:define name="content">
+        <h:form id="main_form" >   
+            <p:panel class="center_inline no_border" >
+                <h1>Historial de Reservas</h1>
+                <p:dataTable id="tabla_articulo" class="center_block"
+                             var="reserva" 
+                             value="#{reporteBean.historial}"
+                             rows="12"
+                             paginator="true"
+                             paginatorPosition="bottom"
+                             emptyMessage="No hay reservas"
+                             rowKey="#{reserva.id}" 
+                             style="width: 800px;">
+
+                    <p:column headerText="Tipo">
+                              <h:outputText value="#{reserva.tipoReserva}" />
+                    </p:column>
+                    <p:column headerText="Nombre Empresa">
+                        <h:outputText value="#{reserva.nombreEmpresa}" />
+                    </p:column>
+                    <p:column headerText="Número de Reserva">
+                              <h:outputText value="#{reserva.numeroReserva}" />
+                    </p:column>
+                    <p:column headerText="Fecha Salida">
+                        <h:outputText value="#{reserva.fechaInicio}" >
+                            <f:convertDateTime locale="es" pattern="dd/MMM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Fecha Retorno/Llegada">
+                        <h:outputText value="#{reserva.fechaFin}" >
+                            <f:convertDateTime locale="es" pattern="dd/MMM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Precio">
+                        <h:outputText value="#{reserva.costoTotal}" >
+                            <f:convertNumber currencySymbol="$" type="currency" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Cantidad">
+                        <h:outputText value="#{reserva.cantidadItems}" />
+                    </p:column>
+                </p:dataTable>
+                <p:spacer/>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+
