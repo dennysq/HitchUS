@@ -51,17 +51,23 @@
                                        itemValue="#{paises.id}"/>
                         <p:ajax event="change"  update="@form"/>
                     </h:selectOneMenu>
-
-
-                    <p:outputLabel for="ciudad" value="Ciudad de Residencia:"/>
-                    <p:inputText id="ciudad" 
-                                 maxlength="200"  autocomplete="true" 
-                                 readonly="#{!usuarioBean.modifying}"
-                                 placeholder="Ciudad de Residencia" 
-                                 value="#{usuarioBean.usuario.}" >
-                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
-                    </p:inputText>     
                     
+                    <p:outputLabel value="Ciudad de Residencia:" class="negrita" for="ciudad"/>
+                    <h:selectOneMenu value="#{usuarioBean.idCiudadResidenciaSeleccionada}"
+                                     id="ciudad"
+                                     style="width: 200px;"
+                                     hideNoSelectionOption="true"
+                                     >
+                        <f:selectItem itemValue="#{null}" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                        <f:selectItems value="#{usuarioBean.ciudadResidenciaLista}" 
+                                       var="ciudades" 
+                                       itemLabel="#{ciudades.nombre}"
+                                       itemValue="#{ciudades.id}"/>
+                        <p:ajax event="change"  update="@form"/>
+                    </h:selectOneMenu>
+
+
+                  
 
                     <p:outputLabel value="Nivel de Eduación:" class="negrita" for="nivelEducacion"/>
                     <h:selectOneMenu value="#{usuarioBean.usuario.nivelEducacion}"
@@ -75,20 +81,6 @@
                     
 
                     
-                    <p:outputLabel value="Cuenta de Débito:" class="negrita" for="cuentadebito"/>
-                    <h:selectOneMenu value="#{transferenciaBean.idCuentaSeleccionada}"
-                                     id="cuentadebito"
-                                     style="width: 200px;"
-                                     hideNoSelectionOption="true"
-                                     valueChangeListener="#{transferenciaBean.cargarCuentaDebito}"
-                                     >
-                        <f:selectItem itemValue="#{null}" itemLabel="--Seleccione--" noSelectionOption="true"/>
-                        <f:selectItems value="#{transferenciaBean.cuentasDebito}" 
-                                       var="cuenta" 
-                                       itemLabel="#{cuenta.tipo} - #{cuenta.numero}"
-                                       itemValue="#{cuenta.id}"/>
-                        <p:ajax event="change"  update="@form"/>
-                    </h:selectOneMenu>
                     
                     
                     <p:outputLabel for="idiomas" value="Idiomas:"/>

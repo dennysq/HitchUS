@@ -7,6 +7,7 @@ package com.teamj.arquitectura.hitchus.web;
 
 import com.teamj.arquitectura.ApplicationContext;
 import com.teamj.arquitectura.hitchus.exception.ValidationException;
+import com.teamj.arquitectura.hitchus.model.CiudadResidencia;
 import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
@@ -48,11 +49,13 @@ public class UsuarioBean extends CrudBean implements Serializable {
     private String reNewPassword;
     private Date fechaNacimiento;
     private List<PaisOrigen> paisOrigenLista;
+    private List<CiudadResidencia> ciudadResidenciaLista;
     private Map<String, String> genero;
     private Map<String, String> nivelDeEducacion;
     private Map<String, String> siNo;
 
     private Integer idPaisOrigenSeleccionado;
+    private Integer idCiudadResidenciaSeleccionada;
 
     public SessionBean getSessionBean() {
         return sessionBean;
@@ -140,6 +143,22 @@ public class UsuarioBean extends CrudBean implements Serializable {
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public List<CiudadResidencia> getCiudadResidenciaLista() {
+        return ciudadResidenciaLista;
+    }
+
+    public void setCiudadResidenciaLista(List<CiudadResidencia> ciudadResidenciaLista) {
+        this.ciudadResidenciaLista = ciudadResidenciaLista;
+    }
+
+    public Integer getIdCiudadResidenciaSeleccionada() {
+        return idCiudadResidenciaSeleccionada;
+    }
+
+    public void setIdCiudadResidenciaSeleccionada(Integer idCiudadResidenciaSeleccionada) {
+        this.idCiudadResidenciaSeleccionada = idCiudadResidenciaSeleccionada;
     }
     
     

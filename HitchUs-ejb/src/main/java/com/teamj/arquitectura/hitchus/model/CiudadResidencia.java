@@ -28,16 +28,18 @@ public class CiudadResidencia implements Serializable{
     @Column(name = "ID_CIUDAD_RESIDENCIA")
     private Integer id;
     
-    @Column(name = "Ciudad")
-    private String pais;
+    @Column(name = "CIUDAD")
+    private String nombre;
 
     public CiudadResidencia() {
     }
 
-    public CiudadResidencia(Integer id, String pais) {
+    public CiudadResidencia(Integer id, String nombre) {
         this.id = id;
-        this.pais = pais;
+        this.nombre = nombre;
     }
+
+    
 
     public Integer getId() {
         return id;
@@ -47,14 +49,15 @@ public class CiudadResidencia implements Serializable{
         this.id = id;
     }
 
-    public String getPais() {
-        return pais;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -82,6 +85,8 @@ public class CiudadResidencia implements Serializable{
 
     @Override
     public String toString() {
-        return "Ciudad_Residencia{" + "id=" + id + ", pais=" + pais + '}';
+        return "CiudadResidencia{" + "id=" + id + ", nombre=" + nombre + '}';
     }
+
+    
 }
