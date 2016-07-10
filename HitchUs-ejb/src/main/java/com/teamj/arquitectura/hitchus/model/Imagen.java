@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -23,8 +24,9 @@ import javax.persistence.Table;
 public class Imagen implements Serializable {
     
     @Id
+    @SequenceGenerator(name = "IMAGEN_ID", sequenceName = "IMAGEN_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "IMAGEN_ID")
     @Column(name = "ID_IMAGEN")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Column(name = "ID_USUARIO")

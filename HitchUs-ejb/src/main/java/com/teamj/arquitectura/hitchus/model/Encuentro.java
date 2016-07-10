@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -28,8 +29,9 @@ import javax.persistence.Temporal;
 public class Encuentro implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "ENCUENTRO_ID", sequenceName = "ENCUENTRO_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "ENCUENTRO_ID")
     @Column(name = "ID_ENCUENTRO")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Column(name = "ID_USUARIO1")

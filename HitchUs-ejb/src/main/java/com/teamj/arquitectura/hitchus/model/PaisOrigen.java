@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,8 +23,9 @@ import javax.persistence.Table;
 @Table(name = "PAIS_ORIGEN")
 public class PaisOrigen implements Serializable{
     @Id
+    @SequenceGenerator(name = "PAIS_ORIGEN_ID", sequenceName = "PAIS_ORIGEN_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "PAIS_ORIGEN_ID")
     @Column(name = "ID_PAIS_ORIGEN")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Column(name = "ENCUENTROS")

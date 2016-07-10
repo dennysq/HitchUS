@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,8 +23,9 @@ import javax.persistence.Table;
 @Table(name = "CIUDAD_RESIDENCIA")
 public class CiudadResidencia implements Serializable{
     @Id
+    @SequenceGenerator(name = "CIUDAD_RESIDENCIA_ID", sequenceName = "CIUDAD_RESIDENCIA_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "CIUDAD_RESIDENCIA_ID")
     @Column(name = "ID_CIUDAD_RESIDENCIA")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Column(name = "Ciudad")
