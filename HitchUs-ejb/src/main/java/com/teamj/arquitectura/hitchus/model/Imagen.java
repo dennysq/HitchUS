@@ -5,9 +5,11 @@
  */
 package com.teamj.arquitectura.hitchus.model;
 
+import com.teamj.arquitectura.hitchus.converter.BooleanToStringConverter;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +41,8 @@ public class Imagen implements Serializable {
     private String descripcion;
 
     @Column(name = "PUBLICA")
-    private String publica;
+    @Convert(converter = BooleanToStringConverter.class)
+    private Boolean publica;
 
     @Column(name = "PERFIL")
     private String perfil;
@@ -47,8 +50,8 @@ public class Imagen implements Serializable {
     @Column(name = "URL")
     private String url;
 
-    public Imagen() {
-    }
+    @Column(name = "NOMBRE")
+    private String nombre;
 
     public Integer getId() {
         return id;
@@ -56,6 +59,14 @@ public class Imagen implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public Usuario getUsuario() {
@@ -74,13 +85,14 @@ public class Imagen implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getPublica() {
+    public Boolean getPublica() {
         return publica;
     }
 
-    public void setPublica(String publica) {
+    public void setPublica(Boolean publica) {
         this.publica = publica;
     }
+
 
     public String getPerfil() {
         return perfil;

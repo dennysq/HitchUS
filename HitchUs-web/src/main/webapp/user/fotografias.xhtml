@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/templates/masterTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                >
+    <ui:define name="title">Fotografías</ui:define>
+    <ui:define name="content">
+        <h:form id="main_form" >   
+            <p:panel class="center_inline no_border" >
+                <h1>Fotografías</h1>
+                <p:dataGrid var="imagen" value="#{galeriaBean.imagenes}" columns="3" layout="grid"
+                            rows="3" paginator="true" id="imagenes"
+                            styleClass="custom_grid_3"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="6,12,16">
+                    <f:facet name="header">
+                        Galería
+                    </f:facet>
+
+                    <p:panel header="#{imagen.nombre}" style="text-align:center">
+                        <h:panelGrid columns="1" style="width:100%;">
+                        <p:graphicImage value="../imageshitchus/#{imagen.id}.jpg" style="max-height: 100px;max-width: 100px;" /> 
+
+                        <p:commandLink update=":main_form:carDetail" oncomplete="PF('carDialog').show()" title="Ver">
+                            <h:outputText styleClass="fa fa-search-plus" style="margin:0 auto;" />
+                            <f:setPropertyActionListener value="#{imagen}" target="#{galeriaBean.imagenSeleccionada}" />
+                        </p:commandLink>
+                        <h:panelGrid columns="2" style="width:100%">
+                            <p:outputLabel value="Pública:" class="negrita"/>
+                            <p:selectBooleanCheckbox value="#{imagen.publica}" >
+                                <p:ajax update="@form"  />
+                            </p:selectBooleanCheckbox>
+                        </h:panelGrid>
+                        </h:panelGrid>
+                    </p:panel>
+
+                </p:dataGrid>
+                <p:dialog header="Imagen" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="carDetail" style="text-align:center;">
+                        <p:panelGrid  columns="1" rendered="#{not empty galeriaBean.imagenSeleccionada}" >
+                            <f:facet name="header">
+                                <h:graphicImage value="../imageshitchus/#{galeriaBean.imagenSeleccionada.id}.jpg" width="300"/> 
+                            </f:facet>
+                            <h:outputText value="#{galeriaBean.imagenSeleccionada.descripcion}" />                                
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+

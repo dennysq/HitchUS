@@ -104,14 +104,15 @@ and open the template in the editor.
     <!--ui:include src="header.xhtml"/-->
     <h:body>
         <h:form id="menu_form">
+            
             <p:menubar  styleClass="centeredMenuBar" >
                 <p:menuitem>
-                    <h:link outcome="home.xhmtl">
-                        <h:graphicImage name="images/user.png" height="50" />
+                    <h:link style="margin-left:  10px;margin-right: 10px;" outcome="home.xhtml">
+                        <h:graphicImage value="../images/user3.png" height="15"   />
                     </h:link>
                 </p:menuitem>
                 <p:menuitem value="Perfil"  icon="fa fa-home" url="home.xhtml"/>              
-                <p:menuitem value="Mis Fotografias" icon="fa fa-plane"/>
+                <p:menuitem value="Mis Fotografias" icon="fa fa-plane" url="fotografias.xhtml"/>
                 <p:menuitem value="Mis Hitches" icon="fa fa-plane"/>
                 <p:menuitem value="Configuracion" icon="fa fa-area-chart"/>
                 <f:facet name="options"> 
@@ -129,6 +130,7 @@ and open the template in the editor.
                 Default Content By DQ
             </ui:insert>
         </div>
+        
     </h:body>
 
     <ui:include src="footer.xhtml"/>

@@ -36,6 +36,7 @@ public class UsuarioServicio {
 
     @EJB
     private UsuarioDAO usuarioDAO;
+    
     @EJB
     private EncuentroDAO encuentroDAO;
     @EJB
@@ -107,7 +108,7 @@ public class UsuarioServicio {
 
         Imagen tempImg = new Imagen();
         tempImg.setPerfil(perfil ? "S" : "N");
-        tempImg.setPublica(publica ? "S" : "N");
+        tempImg.setPublica(publica );
         tempImg.setDescripcion(descripcion);
         //     tempImg.setUsuario(usuario);
         tempImg.setUrl(path);
@@ -126,12 +127,7 @@ public class UsuarioServicio {
         }
     }
 
-    public List<Imagen> obtenerImagenesUsuario(Usuario u) {
-        Imagen temp = new Imagen();
-        temp.setUsuario(u);
-        return this.imagenDAO.find(temp);
-    }
-
+    
     public List<PaisOrigen> obtenerPaises() {
         return this.paisDAO.findAll();
     }
@@ -194,5 +190,10 @@ public class UsuarioServicio {
         Encuentro temp = new Encuentro();
         temp.setUsuario1(u);
         return this.encuentroDAO.find(temp);
+    }
+    public List<Imagen> obtenerImagenesPorUsuario(Usuario u) {
+        Imagen temp = new Imagen();
+        temp.setUsuario(u);
+        return this.imagenDAO.find(temp);
     }
 }

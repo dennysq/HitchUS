@@ -175,6 +175,7 @@ body {
     color: #ff9900;
     
 }
+.custom_grid_3 .ui-datagrid-column {width: 33.33%;}
 /*div {
     -webkit-animation: mymove 5s 1;  Chrome, Safari, Opera 
     animation: mymove 5s 1;
