@@ -5,6 +5,7 @@
  */
 package com.teamj.arquitectura.hitchus.services;
 
+import com.teamj.arquitectura.ApplicationContext;
 import com.teamj.arquitectura.hitchus.dao.CertificadoDAO;
 import com.teamj.arquitectura.hitchus.dao.EncuentroDAO;
 import com.teamj.arquitectura.hitchus.dao.EntidadCertificadoraDAO;
@@ -43,7 +44,8 @@ public class UsuarioServicio {
 
     @EJB
     private CertificadoDAO certificadoDAO;
-
+    @EJB
+    ApplicationContext applicationContext;
     @EJB
     private TipoCertificadoDAO tipoCertificadoDAO;
     @EJB
@@ -144,28 +146,26 @@ public class UsuarioServicio {
         return null;
     }
 
-    public void guardarImagen(InputStream input, String path, String name, Usuario usuario, String descripcion, boolean publica, boolean perfil) {
+    public void guardarImagen(InputStream input, String name, Usuario usuario, String descripcion, boolean publica, boolean perfil) {
 
         Imagen tempImg = new Imagen();
         tempImg.setPerfil(perfil);
         tempImg.setPublica(publica);
         tempImg.setDescripcion(descripcion);
         tempImg.setUsuario(usuario);
-        tempImg.setUrl(path);
+        tempImg.setUrl(applicationContext.getImagesPath());
         tempImg.setNombre(name);
         //create destination File
-        
-        
 
         //use org.apache.commons.io.FileUtils to copy the File
         try {
             this.imagenDAO.insert(tempImg);
-            File destFile = new File(path,tempImg.getId()+".jpg");
+            File destFile = new File(tempImg.getUrl(), tempImg.getId() + ".jpg");
             FileUtils.copyInputStreamToFile(input, destFile);
 
         } catch (IOException e) {
             //log error
-            System.out.println(""+e);
+            System.out.println("" + e);
         }
     }
 

@@ -10,9 +10,10 @@
                 >
     <ui:define name="title">Fotografías</ui:define>
     <ui:define name="content">
-        <h:form id="main_form" >   
+        <h:form id="main_form" enctype="multipart/form-data" >   
             <p:panel class="center_inline no_border" >
                 <h1>Fotografías</h1>
+
                 <p:panelGrid columns="2" styleClass="no_border center_block panel-grid-no-border">
                     <p:commandButton value="Nueva Fotografía!"
                                      actionListener="#{galeriaBean.showFileUploadDialog()}"
@@ -20,27 +21,59 @@
                                      rendered="#{!galeriaBean.cargarNuevaImagen}"
                                      />
 
+
+                </p:panelGrid>
+                <p:panelGrid columns="2" styleClass="no_border center_block panel-grid-no-border" rendered="#{galeriaBean.cargarNuevaImagen}">
+                    <p:outputLabel for="nombre" value="Nombre:"/>
+                    <p:inputText id="nombre" 
+                                 maxlength="64"  
+                                 autocomplete="false" 
+                                 placeholder="Nombre de la fotografía" 
+                                 required="true"
+                                 style="width: 100%;"
+                                 value="#{galeriaBean.nombre}" >
+                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                    </p:inputText>     
+                    <p:outputLabel for="descripcion" value="Descripción:"/>
+                    <p:inputTextarea id="descripcion" 
+                                     rows="5" cols="52"
+                                     placeholder="Ingresa una descripción de la fotografía" 
+                                     required="false"
+                                     counter="display" maxlength="250" counterTemplate="{0} caracteres faltantes." autoResize="false"
+                                     value="#{galeriaBean.descripcion}" >
+                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+
+                    </p:inputTextarea>     
+                    <p:spacer/>
+                    <h:outputText id="display" />
+                </p:panelGrid>
+                <p:panelGrid columns="3" styleClass="no_border center_block panel-grid-no-border" rendered="#{galeriaBean.cargarNuevaImagen}">
+                    <p:outputLabel for="file" value="Archivo:"/>
+                    <p:fileUpload mode="advanced"
+                                  update="nombrearchivo" sizeLimit="1000000" fileLimit="1" cancelLabel="Cancelar"
+                                  fileUploadListener="#{galeriaBean.handleFileUpload}"
+                                  uploadLabel="Cargar"
+                                  id="file"
+                                  required="true"
+                                  auto="true"
+                                  style="width: 100%;"
+                                  skinSimple="true"
+                                  value="#{galeriaBean.file}"
+                                  fileLimitMessage="Solo puede elegir un archivo a la vez"
+                                  invalidSizeMessage="El tamaño del archivo no puede sobrepasar 1 MB"
+                                  invalidFileMessage="Debe elegir una imagen jpg"
+                                  label="Elegir"
+                                  widgetVar="fileUploadVar"
+                                  allowTypes="/(\.|\/)(jpe?g)$/" />
+                    <p:outputLabel  id="nombrearchivo" value="#{galeriaBean.fileName}"/>
+                    <p:commandButton value="Cargar"  actionListener="#{galeriaBean.upload}" update="@form"/>
                     <p:commandButton value="Cancelar"
+                                     immediate="true"
                                      actionListener="#{galeriaBean.hideFileUploadDialog()}"
                                      update="@form"
-                                     rendered="#{galeriaBean.cargarNuevaImagen}"
                                      />
                 </p:panelGrid>
                 <p:spacer/>
-                <p:fileUpload fileUploadListener="#{galeriaBean.handleFileUpload}" mode="advanced" dragDropSupport="true"
-                              update="@form" sizeLimit="1000000" fileLimit="1" cancelLabel="Cancelar"
-                              rendered="#{galeriaBean.cargarNuevaImagen}"
-                              uploadLabel="Cargar"
-
-                              fileLimitMessage="Solo puede elegir un archivo a la vez"
-                              invalidSizeMessage="El tamaño del archivo no puede sobrepasar 1 MB"
-                              required="true"
-                              invalidFileMessage="Debe elegir una imagen jpg"
-                              label="Elegir"
-                              widgetVar="fileUploadVar"
-                              allowTypes="/(\.|\/)(jpe?g)$/" />
-                <p:spacer/>
-
                 <p:dataGrid var="imagen" value="#{galeriaBean.imagenes}" columns="3" layout="grid"
                             rows="3" paginator="true" id="imagenes"
                             styleClass="custom_grid_3"
@@ -50,9 +83,14 @@
                         <h:panelGrid columns="1" style="width:100%;">
                             <p:graphicImage value="../imageshitchus/#{imagen.id}.jpg" style="max-height: 100px;max-width: 100px;" /> 
                             <h:panelGrid columns="2" style="width:100%">
-                                <p:commandLink update=":main_form:carDetail" oncomplete="PF('carDialog').show()" title="Ver">
+                                <p:commandLink update=":main_form:carDetail" oncomplete="PF('carDialog').show()" title="Ver" immediate="true">
                                     <h:outputText styleClass="fa fa-search-plus" style="margin:0 auto;" />
                                     <f:setPropertyActionListener value="#{imagen}" target="#{galeriaBean.imagenSeleccionada}" />
+                                </p:commandLink>
+                                <p:commandLink update="@form" 
+                                               title="Eliminar" actionListener="#{galeriaBean.eliminarFotografia(imagen)}" immediate="true">
+                                    <h:outputText styleClass="fa fa-trash" style="margin:0 auto;" />
+                                    <p:confirm header="Confirmación" message="¿Está seguro de eliminar la imagen?" icon="ui-icon-alert" />
                                 </p:commandLink>
                             </h:panelGrid>
                             <h:panelGrid columns="4" style="width:100%">
@@ -79,6 +117,7 @@
                     </p:outputPanel>
                 </p:dialog>
             </p:panel>
+
         </h:form>
     </ui:define>
 </ui:composition>

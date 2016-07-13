@@ -36,6 +36,7 @@ import javax.ejb.Startup;
 @Singleton
 public class ApplicationContext {
 
+    private final String imagesPath = "C:\\hitchus";
     private List<Pais> paises;
     private Map<String, String> genero;
     private Map<String, String> nivelDeEducacion;
@@ -172,6 +173,12 @@ public class ApplicationContext {
 // "Insert Code > Add Business Method")
     public List<Pais> getPaises() {
         return paises;
+    }
+
+     
+
+    public String getImagesPath() {
+        return imagesPath;
     }
 
     public void setPaises(List<Pais> paises) {
