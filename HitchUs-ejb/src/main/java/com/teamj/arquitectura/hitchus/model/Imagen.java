@@ -45,7 +45,8 @@ public class Imagen implements Serializable {
     private Boolean publica;
 
     @Column(name = "PERFIL")
-    private String perfil;
+    @Convert(converter = BooleanToStringConverter.class)
+    private Boolean perfil;
 
     @Column(name = "URL")
     private String url;
@@ -93,12 +94,11 @@ public class Imagen implements Serializable {
         this.publica = publica;
     }
 
-
-    public String getPerfil() {
+    public Boolean getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(String perfil) {
+    public void setPerfil(Boolean perfil) {
         this.perfil = perfil;
     }
 

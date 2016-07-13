@@ -23,7 +23,7 @@
                 <p:panel id="login_panel" header="Log in" style="width: 300px;" styleClass="center_inline center_block no_border" >
                     <h:panelGrid columns="2"  cellpadding="5">
                         <p:outputLabel for="correo" value="Email:" />
-                        <p:inputText value="#{loginBean.correoUsuario}" id="correo"
+                        <p:inputText value="#{loginBean.correoUsuario}" id="correo" autocomplete="true"
                                      required="true" label="correo" requiredMessage="Introduzca el correo de usuario">
                             <f:validateLength minimum="3" />
                         </p:inputText>
@@ -36,8 +36,6 @@
                             <p:commandButton value="Registrarse" id="signup_button" icon="fa fa-angellist" style="margin: 5px;color: white; background: #0071BB; " actionListener="#{loginBean.beginSignUp()}" immediate="true" update="signup_dialog" oncomplete="PF('signup_dialog_var').show();" />
                         </f:facet>
                     </h:panelGrid>
-
-
                     <div  style="background-color: #455A64;border-radius: 5px; padding: 4px;">
                         <p:panelGrid  >
                             <p:graphicImage style="padding: 3px;" value="images/facebook.png"/>
@@ -62,11 +60,12 @@
                         <p:inputText id="nick_signup" title="Solo caracteres alfanuméricos" maxlength="32" styleClass="login-form-input"  placeholder="NickName" value="#{loginBean.nicknameUsuario}" >
                             <pe:keyFilter regEx="/[a-z0-9_]/i"/> 
                         </p:inputText>     
-                        <p:calendar id="fecha" value="#{loginBean.fechaNacimiento}" placeholder="Fecha de Nacimiento"    />
-                        <p:inputText id="telefono_signup" title="Solo caracteres numéricos" maxlength="32" styleClass="login-form-input"  placeholder="Teléfono" value="#{loginBean.telefonoUsuario}" >
-                            <pe:keyFilter regEx="/[a-z0-9_]/i"/> 
+                        <p:calendar id="fecha" maxdate="#{loginBean.maxDate()}"
+                                    value="#{loginBean.fechaNacimiento}"
+                                    placeholder="Fecha de Nacimiento" pattern="dd-MM-yyyy" locale="es"/>
+                        <p:inputText id="telefono_signup" title="Solo caracteres numéricos" maxlength="32" styleClass="login-form-input"  placeholder="Teléfono Ej. +593983015478" value="#{loginBean.telefonoUsuario}" >
+                            <pe:keyFilter regEx="\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$"/> 
                         </p:inputText>     
-
                         <p:password id="password_signup" maxlength="32" styleClass="login-form-input" placeholder="Contraseña" value="#{loginBean.claveUsuarioL}"  lang="es" feedback="true"/>     
                         <p:spacer/>
                         <p:commandButton value="Registrarme" icon="fa fa-check" process="@form"  styleClass="login-form-input" actionListener="#{loginBean.signUp()}" update=":main_form"/>

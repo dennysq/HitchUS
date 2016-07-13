@@ -9,6 +9,7 @@ import com.teamj.arquitectura.hitchus.exception.ValidationException;
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.annotation.PostConstruct;
@@ -107,6 +108,13 @@ public class LoginBean implements Serializable {
     @PostConstruct
     public void init() {
         // this.usuario = new Usuario();
+    }
+
+    public String maxDate() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.YEAR, -18);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(c.getTime());
     }
 
     public String login() {

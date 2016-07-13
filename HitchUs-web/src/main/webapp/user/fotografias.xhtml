@@ -13,32 +13,60 @@
         <h:form id="main_form" >   
             <p:panel class="center_inline no_border" >
                 <h1>Fotografías</h1>
+                <p:panelGrid columns="2" styleClass="no_border center_block panel-grid-no-border">
+                    <p:commandButton value="Nueva Fotografía!"
+                                     actionListener="#{galeriaBean.showFileUploadDialog()}"
+                                     update="@form"
+                                     rendered="#{!galeriaBean.cargarNuevaImagen}"
+                                     />
+
+                    <p:commandButton value="Cancelar"
+                                     actionListener="#{galeriaBean.hideFileUploadDialog()}"
+                                     update="@form"
+                                     rendered="#{galeriaBean.cargarNuevaImagen}"
+                                     />
+                </p:panelGrid>
+                <p:spacer/>
+                <p:fileUpload fileUploadListener="#{galeriaBean.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                              update="@form" sizeLimit="1000000" fileLimit="1" cancelLabel="Cancelar"
+                              rendered="#{galeriaBean.cargarNuevaImagen}"
+                              uploadLabel="Cargar"
+
+                              fileLimitMessage="Solo puede elegir un archivo a la vez"
+                              invalidSizeMessage="El tamaño del archivo no puede sobrepasar 1 MB"
+                              required="true"
+                              invalidFileMessage="Debe elegir una imagen jpg"
+                              label="Elegir"
+                              widgetVar="fileUploadVar"
+                              allowTypes="/(\.|\/)(jpe?g)$/" />
+                <p:spacer/>
+
                 <p:dataGrid var="imagen" value="#{galeriaBean.imagenes}" columns="3" layout="grid"
                             rows="3" paginator="true" id="imagenes"
                             styleClass="custom_grid_3"
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                            rowsPerPageTemplate="6,12,16">
-                    <f:facet name="header">
-                        Galería
-                    </f:facet>
-
+                            rowsPerPageTemplate="3,6,9">
                     <p:panel header="#{imagen.nombre}" style="text-align:center">
                         <h:panelGrid columns="1" style="width:100%;">
-                        <p:graphicImage value="../imageshitchus/#{imagen.id}.jpg" style="max-height: 100px;max-width: 100px;" /> 
-
-                        <p:commandLink update=":main_form:carDetail" oncomplete="PF('carDialog').show()" title="Ver">
-                            <h:outputText styleClass="fa fa-search-plus" style="margin:0 auto;" />
-                            <f:setPropertyActionListener value="#{imagen}" target="#{galeriaBean.imagenSeleccionada}" />
-                        </p:commandLink>
-                        <h:panelGrid columns="2" style="width:100%">
-                            <p:outputLabel value="Pública:" class="negrita"/>
-                            <p:selectBooleanCheckbox value="#{imagen.publica}" >
-                                <p:ajax update="@form"  />
-                            </p:selectBooleanCheckbox>
-                        </h:panelGrid>
+                            <p:graphicImage value="../imageshitchus/#{imagen.id}.jpg" style="max-height: 100px;max-width: 100px;" /> 
+                            <h:panelGrid columns="2" style="width:100%">
+                                <p:commandLink update=":main_form:carDetail" oncomplete="PF('carDialog').show()" title="Ver">
+                                    <h:outputText styleClass="fa fa-search-plus" style="margin:0 auto;" />
+                                    <f:setPropertyActionListener value="#{imagen}" target="#{galeriaBean.imagenSeleccionada}" />
+                                </p:commandLink>
+                            </h:panelGrid>
+                            <h:panelGrid columns="4" style="width:100%">
+                                <p:outputLabel value="Pública:" class="negrita"/>
+                                <p:selectBooleanCheckbox value="#{imagen.publica}" >
+                                    <p:ajax update="@form" listener="#{galeriaBean.updateState(imagen)}" />
+                                </p:selectBooleanCheckbox>
+                                <p:outputLabel value="Perfil:" class="negrita"/>
+                                <p:selectBooleanCheckbox value="#{imagen.perfil}" disabled="#{imagen.perfil}">
+                                    <p:ajax update="@form" listener="#{galeriaBean.setProfilePicture(imagen)}" />
+                                </p:selectBooleanCheckbox>
+                            </h:panelGrid>
                         </h:panelGrid>
                     </p:panel>
-
                 </p:dataGrid>
                 <p:dialog header="Imagen" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel id="carDetail" style="text-align:center;">
@@ -52,7 +80,6 @@
                 </p:dialog>
             </p:panel>
         </h:form>
-
     </ui:define>
 </ui:composition>
 
