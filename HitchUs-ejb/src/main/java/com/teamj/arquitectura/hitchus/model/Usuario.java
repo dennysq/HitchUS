@@ -5,12 +5,14 @@
  */
 package com.teamj.arquitectura.hitchus.model;
 
+import com.teamj.arquitectura.hitchus.converter.BooleanToStringConverter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -56,7 +58,8 @@ public class Usuario implements Serializable {
     private BigDecimal estatura;
 
     @Column(name = "TRABAJO")
-    private String trabajo;
+    @Convert(converter = BooleanToStringConverter.class)
+    private Boolean trabajo;
 
     @Column(name = "PREMIUM")
     private String premium;
@@ -93,25 +96,25 @@ public class Usuario implements Serializable {
     private Date creado;
 
     @Column(name = "ENFERMEDADES_PUBLICA")
-    private String enfermedadesPublica;
-    
+    @Convert(converter = BooleanToStringConverter.class)
+    private Boolean enfermedadesPublica;
+
     @ManyToOne
     @JoinColumn(name = "ID_PAIS_ORIGEN")
     private PaisOrigen paisOrigen;
-    
+
     @ManyToOne
     @JoinColumn(name = "ID_CIUDAD_RESIDENCIA")
     private CiudadResidencia ciudadResidencia;
-    
+
     @OneToMany(mappedBy = "usuario1", targetEntity = Encuentro.class,
             fetch = FetchType.LAZY)
     List<Encuentro> encuentros;
-    
 
     public Usuario() {
     }
 
-    public Usuario(String nickname, String password, String email, Integer anioNacimiento, Integer mesNacimiento, BigDecimal estatura, String trabajo, String premium, String numeroTelefonico, String estado, BigDecimal calificacion, String genero, String intereses, String contextura, String nivelEducacion, String idiomas, BigDecimal peso, Date creado, String enfermedadesPublica) {
+    public Usuario(String nickname, String password, String email, Integer anioNacimiento, Integer mesNacimiento, BigDecimal estatura, Boolean trabajo, String premium, String numeroTelefonico, String estado, BigDecimal calificacion, String genero, String intereses, String contextura, String nivelEducacion, String idiomas, BigDecimal peso, Date creado, Boolean enfermedadesPublica) {
         this.nickname = nickname;
         this.password = password;
         this.email = email;
@@ -189,11 +192,11 @@ public class Usuario implements Serializable {
         this.estatura = estatura;
     }
 
-    public String getTrabajo() {
+    public Boolean getTrabajo() {
         return trabajo;
     }
 
-    public void setTrabajo(String trabajo) {
+    public void setTrabajo(Boolean trabajo) {
         this.trabajo = trabajo;
     }
 
@@ -285,12 +288,30 @@ public class Usuario implements Serializable {
         this.creado = creado;
     }
 
-    public String getEnfermedadesPublica() {
+    public Boolean getEnfermedadesPublica() {
         return enfermedadesPublica;
     }
 
-    public void setEnfermedadesPublica(String enfermedadesPublica) {
+    public void setEnfermedadesPublica(Boolean enfermedadesPublica) {
         this.enfermedadesPublica = enfermedadesPublica;
+    }
+
+    
+
+    public PaisOrigen getPaisOrigen() {
+        return paisOrigen;
+    }
+
+    public void setPaisOrigen(PaisOrigen paisOrigen) {
+        this.paisOrigen = paisOrigen;
+    }
+
+    public CiudadResidencia getCiudadResidencia() {
+        return ciudadResidencia;
+    }
+
+    public void setCiudadResidencia(CiudadResidencia ciudadResidencia) {
+        this.ciudadResidencia = ciudadResidencia;
     }
 
     @Override

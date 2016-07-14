@@ -7,6 +7,7 @@ package com.teamj.arquitectura.hitchus.services;
 
 import com.teamj.arquitectura.ApplicationContext;
 import com.teamj.arquitectura.hitchus.dao.CertificadoDAO;
+import com.teamj.arquitectura.hitchus.dao.CiudadResidenciaDAO;
 import com.teamj.arquitectura.hitchus.dao.EncuentroDAO;
 import com.teamj.arquitectura.hitchus.dao.EntidadCertificadoraDAO;
 import com.teamj.arquitectura.hitchus.dao.ImagenDAO;
@@ -15,6 +16,7 @@ import com.teamj.arquitectura.hitchus.dao.TipoCertificadoDAO;
 import com.teamj.arquitectura.hitchus.dao.UsuarioDAO;
 import com.teamj.arquitectura.hitchus.model.Certificado;
 import com.teamj.arquitectura.hitchus.model.CertificadoPK;
+import com.teamj.arquitectura.hitchus.model.CiudadResidencia;
 import com.teamj.arquitectura.hitchus.model.Encuentro;
 import com.teamj.arquitectura.hitchus.model.EntidadCertificadora;
 import com.teamj.arquitectura.hitchus.model.Imagen;
@@ -59,6 +61,8 @@ public class UsuarioServicio {
     private ImagenDAO imagenDAO;
     @EJB
     private PaisOrigenDAO paisDAO;
+    @EJB
+    private CiudadResidenciaDAO ciudadDAO;
 
     public boolean registrar(Usuario u) throws ValidationException {
         boolean flag = false;
@@ -75,13 +79,13 @@ public class UsuarioServicio {
                 temp.setAnioNacimiento(u.getAnioNacimiento());
                 temp.setNumeroTelefonico(u.getNumeroTelefonico());
 
-                temp.setTrabajo("N");
+                temp.setTrabajo(false);
 
-                temp.setPremium("N");
+                temp.setPremium("P");
                 temp.setEstado("ACT");
                 temp.setGenero("MAS");
                 temp.setEstatura(BigDecimal.ZERO);
-                temp.setEnfermedadesPublica("N");
+                temp.setEnfermedadesPublica(false);
                 temp.setCreado(new Date());
                 temp.setIntereses(" ");
                 String codecPassword = DigestUtils.md5Hex(u.getPassword());
@@ -237,5 +241,9 @@ public class UsuarioServicio {
         Imagen temp = new Imagen();
         temp.setUsuario(u);
         return this.imagenDAO.find(temp);
+    }
+
+    public List<CiudadResidencia> obtenerCiudades() {
+        return this.ciudadDAO.findAll();
     }
 }

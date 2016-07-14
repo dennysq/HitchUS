@@ -22,15 +22,32 @@
                 </div>
                 <p:spacer/>
                 <p:panelGrid columns="2" styleClass="center_block panel-grid-no-border" >
-                    <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:"/>
-                    <p:calendar id="fechaNacimiento" value="#{usuarioBean.fechaNacimiento}" placeholder="Fecha de Nacimiento"    />          
+                    <p:outputLabel for="correo" value="Correo Electrónico:" class="negrita"/>
+                    <p:inputText id="correo" 
+                                 maxlength="32"   
+                                 readonly="true"
+                                 required="true"
+                                 requiredMessage="Ingrese un correo electrónico"
+                                 placeholder="Correo" 
+                                 value="#{usuarioBean.usuario.email}" >
+                        <pe:keyFilter regEx="/[a-z0-9_\.\-@]/i"/> 
+                    </p:inputText>
+                    <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:" class="negrita"/>
+                    <p:calendar id="fechaNacimiento" value="#{usuarioBean.fechaNacimiento}" 
+                                placeholder="Fecha de Nacimiento"  pattern="MM-yyyy"  
+                                maxdate="#{applicationContext.maxDateOnlyMonth}"
+                                readonly="#{!usuarioBean.modifying}"
+                                locale="es" mask="false"
+                                disabled="#{!usuarioBean.modifying}"/> 
+                    
                     <p:outputLabel value="Género:" class="negrita" for="genero"/>
                     <h:selectOneMenu value="#{usuarioBean.usuario.genero}"
                                      id="genero"
                                      style="width: 200px;"
-                                     hideNoSelectionOption="true">
+                                     hideNoSelectionOption="true"
+                                     disabled="#{!usuarioBean.modifying}">
                         <f:selectItems value="#{usuarioBean.genero}" />
-                        <p:ajax event="change"  update="@form"/>
+                        <!--<p:ajax event="change"  update="@form"/>-->
                     </h:selectOneMenu>
 
                     <p:outputLabel value="País de Origen:" class="negrita" for="pais"/>
@@ -38,13 +55,14 @@
                                      id="pais"
                                      style="width: 200px;"
                                      hideNoSelectionOption="true"
+                                     disabled="#{!usuarioBean.modifying}"
                                      >
                         <f:selectItem itemValue="#{null}" itemLabel="--Seleccione--" noSelectionOption="true"/>
                         <f:selectItems value="#{usuarioBean.paisOrigenLista}" 
                                        var="paises" 
                                        itemLabel="#{paises.nombre}"
                                        itemValue="#{paises.id}"/>
-                        <p:ajax event="change"  update="@form"/>
+                        <!--<p:ajax event="change"  update="@form"/>-->
                     </h:selectOneMenu>
 
                     <p:outputLabel value="Ciudad de Residencia:" class="negrita" for="ciudad"/>
@@ -52,48 +70,50 @@
                                      id="ciudad"
                                      style="width: 200px;"
                                      hideNoSelectionOption="true"
+                                     disabled="#{!usuarioBean.modifying}"
                                      >
                         <f:selectItem itemValue="#{null}" itemLabel="--Seleccione--" noSelectionOption="true"/>
                         <f:selectItems value="#{usuarioBean.ciudadResidenciaLista}" 
                                        var="ciudades" 
                                        itemLabel="#{ciudades.nombre}"
                                        itemValue="#{ciudades.id}"/>
-                        <p:ajax event="change"  update="@form"/>
+                        <!--<p:ajax event="change"  update="@form"/>-->
                     </h:selectOneMenu>
                     <p:outputLabel value="Nivel de Eduación:" class="negrita" for="nivelEducacion"/>
                     <h:selectOneMenu value="#{usuarioBean.usuario.nivelEducacion}"
                                      id="nivelEducacion"
                                      style="width: 200px;"
                                      hideNoSelectionOption="true"
+                                     disabled="#{!usuarioBean.modifying}"
                                      >
                         <f:selectItems value="#{usuarioBean.nivelDeEducacion}" />
-                        <p:ajax event="change"  update="@form"/>
+                        <!--<p:ajax event="change"  update="@form"/>-->
                     </h:selectOneMenu>               
-                    <p:outputLabel for="idiomas" value="Idiomas:"/>
+                    <p:outputLabel for="idiomas" value="Idiomas:" class="negrita"/>
                     <p:inputText id="idiomas" 
                                  maxlength="200"  autocomplete="true" 
                                  readonly="#{!usuarioBean.modifying}"
                                  placeholder="Idiomas" 
                                  value="#{usuarioBean.usuario.idiomas}" >
-                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                        <pe:keyFilter regEx="/[a-z_,\s]/i"/> 
                     </p:inputText>     
-                    <p:outputLabel for="numeroTelefonico" value="Número Telefónico:"/>
+                    <p:outputLabel for="numeroTelefonico" value="Número Telefónico:" class="negrita"/>
                     <p:inputText id="numeroTelefonico" 
-                                 maxlength="200"  autocomplete="true" 
+                                 maxlength="14"  autocomplete="true" 
                                  readonly="#{!usuarioBean.modifying}"
                                  placeholder="Número Telefónico" 
                                  value="#{usuarioBean.usuario.numeroTelefonico}" >
-                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                        <pe:keyFilter regEx="/[0-9_\s]/i"/> 
                     </p:inputText>     
-                    <p:outputLabel for="estatura" value="Estatura:"/>
+                    <p:outputLabel for="estatura" value="Estatura:" class="negrita"/>
                     <p:inputText id="estatura" 
-                                 maxlength="200"  autocomplete="true" 
+                                 maxlength="4"  autocomplete="false" 
                                  readonly="#{!usuarioBean.modifying}"
                                  placeholder="Estatura" 
                                  value="#{usuarioBean.usuario.estatura}" >
-                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                        <pe:keyFilter regEx="/[0-9_.\s]/i"/> 
                     </p:inputText>     
-                    <p:outputLabel for="contextura" value="Contextura:"/>
+                    <p:outputLabel for="contextura" value="Contextura:" class="negrita"/>
                     <p:inputText id="contextura" 
                                  maxlength="200"  autocomplete="true" 
                                  readonly="#{!usuarioBean.modifying}"
@@ -101,25 +121,27 @@
                                  value="#{usuarioBean.usuario.contextura}" >
                         <pe:keyFilter regEx="/[a-z_\s]/i"/> 
                     </p:inputText>     
-                    <p:outputLabel for="intereses" value="Intereses:"/>
+
+                    <p:outputLabel value="Trabaja:" class="negrita"/>
+                    <p:selectBooleanCheckbox value="#{usuarioBean.usuario.trabajo}" 
+                                             disabled="#{!usuarioBean.modifying}">
+                    </p:selectBooleanCheckbox>
+
+                    <p:outputLabel value="Enfermedades:" class="negrita" rendered="#{usuarioBean.usuario.premium}"/>
+                    <p:selectBooleanCheckbox value="#{usuarioBean.usuario.enfermedadesPublica}" 
+                                             rendered="#{usuarioBean.usuario.premium}"
+                                             >
+                    </p:selectBooleanCheckbox>
+
+                    <p:outputLabel for="intereses" value="Intereses:" class="negrita"/>
                     <p:inputTextarea id="intereses" 
                                      maxlength="200" 
                                      readonly="#{!usuarioBean.modifying}"
                                      placeholder="Intereses" 
                                      value="#{usuarioBean.usuario.intereses}" >
-                        <pe:keyFilter regEx="/[a-z_\s]/i"/> 
+                        <pe:keyFilter regEx="/[a-z_,\s]/i"/> 
                     </p:inputTextarea>     
-                    <p:outputLabel for="correo" value="Correo Electrónico:"/>
-                    <p:inputText id="correo" 
-                                 maxlength="32"   
-                                 readonly="#{!usuarioBean.modifying}"
-                                 required="true"
-                                 requiredMessage="Ingrese un correo electrónico"
-                                 placeholder="Correo" 
-                                 value="#{usuarioBean.usuario.email}" >
-                        <pe:keyFilter regEx="/[a-z0-9_\.\-@]/i"/> 
-                    </p:inputText>
-                    <p:outputLabel for="password" value="Contraseña:" rendered="false"/>
+                    <p:outputLabel for="password" value="Contraseña:" rendered="false" class="negrita"/>
                     <p:password id="password" 
                                 maxlength="32"  
                                 rendered="false"
@@ -130,12 +152,6 @@
                                 placeholder="Contraseña" 
                                 value="#{usuarioBean.usuario.password}"   feedback="true"/>     
 
-                    <p:outputLabel for="acerca" value="Acerca de:"/>
-                    <p:inputTextarea id="acerca" rows="8" cols="30"
-                                     readonly="#{!usuarioBean.modifying}"
-                                     value="#{usuarioBean.usuario.intereses}"
-                                     placeholder="Cuéntanos acerca de ti"
-                                     maxlength="2000" counterTemplate="{0} caracteres restantes." autoResize="false" />
                 </p:panelGrid>
                 <p:spacer/>
                 <p:panelGrid id="controllers" columns="2" class="center_block" styleClass="no_border center_block panel-grid-no-border">

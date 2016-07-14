@@ -36,14 +36,14 @@
                             <f:validateLength minimum="3" />
                         </p:password>
                         <f:facet name="footer" class="center_block">
-                            <p:commandButton value="Acceder" id="login_button" icon="fa fa-sign-in" style="margin: 5px;color: white; background: #009345;" 
-                                             action="#{loginBean.login()}" update="@form" />
                             <p:commandButton value="Registrarse" 
                                              id="signup_button" icon="fa fa-angellist" 
                                              style="margin: 5px;color: white; background: #0071BB; " 
                                              actionListener="#{loginBean.beginSignUp()}" 
                                              immediate="true" update="signup_dialog" 
                                              oncomplete="PF('signup_dialog_var').show();" />
+                            <p:commandButton value="Acceder" id="login_button" icon="fa fa-sign-in" style="margin: 5px;color: white; background: #009345;" 
+                                             action="#{loginBean.login()}" update="@form" />
                         </f:facet>
                     </h:panelGrid>
                     <div  style="background-color: #455A64;border-radius: 5px; padding: 4px;">
@@ -76,7 +76,8 @@
                                     value="#{loginBean.fechaNacimiento}"
                                     placeholder="Fecha de Nacimiento" 
                                     pattern="dd-MM-yyyy" 
-                                    locale="es"/>
+                                    locale="es"
+                                    effect="show"/>
                         <p:inputText id="telefono_signup" 
                                      title="Solo caracteres numéricos" 
                                      maxlength="32" styleClass="login-form-input"  

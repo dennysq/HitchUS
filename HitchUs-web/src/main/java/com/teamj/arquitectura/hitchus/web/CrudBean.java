@@ -42,8 +42,6 @@ public class CrudBean implements Serializable {
         this.creating=false;
     }
 
-    
-
     public void reset() {
         this.modifying = false;
         this.creating = false;

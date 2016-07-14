@@ -18,7 +18,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.faces.bean.ManagedBean;
 import org.apache.commons.beanutils.BeanUtilsBean;
 
 /**
@@ -36,11 +39,14 @@ import org.apache.commons.beanutils.BeanUtilsBean;
  */
 @Startup
 @Singleton
+@ManagedBean
 public class ApplicationContext {
 
     private final String imagesPath = "C:\\hitchus";
     private List<Pais> paises;
     private Map<String, String> genero;
+    private Map<String, String> estado;
+    private Map<String, String> premium;
     private Map<String, String> nivelDeEducacion;
     private Map<String, String> siNo;
     @EJB
@@ -52,25 +58,35 @@ public class ApplicationContext {
     @EJB
     PaisOrigenDAO paisOrigenDAO;
 
+    
     @PostConstruct
     public void init() {
         BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
         beanUtilsBean.getConvertUtils().register(
                 new org.apache.commons.beanutils.converters.BigDecimalConverter(null), BigDecimal.class);
+        
         paises = new ArrayList<>();
         genero = new HashMap<>();
-        genero.put("MAS", "Masculino");
-        genero.put("FEM", "Femenino");
-        genero.put("OTR", "Otro");
+        genero.put("Masculino","MAS");
+        genero.put("Femenino","FEM");
+        genero.put("Otro","OTR");
         System.out.println("Iniciando contexto");
         nivelDeEducacion = new HashMap<>();
-        nivelDeEducacion.put("PRI", "Primaria");
-        nivelDeEducacion.put("BAC", "Bachillerato");
-        nivelDeEducacion.put("TER", "Tercer Nivel");
-        nivelDeEducacion.put("CUA", "Cuarto Nivel");
+        nivelDeEducacion.put("Primaria","PRI" );
+        nivelDeEducacion.put("Bachillerato","BAC" );
+        nivelDeEducacion.put("Tercer Nivel","TER");
+        nivelDeEducacion.put("Cuarto Nivel","CUA");
+        premium = new HashMap<>();
+        premium.put("Entregado","E" );
+        premium.put("Pendiente","P" );
+        premium.put("Validado","V");
+        premium.put("No Validado","N");
         siNo = new HashMap<>();
-        siNo.put("S", "SI");
-        siNo.put("N", "NO");
+        siNo.put("Si", "S");
+        siNo.put("No", "N");
+        estado = new HashMap<>();
+        estado.put("Activo","ACT");
+        estado.put("Desactivo","INA");
         InputStream csvFile = ApplicationContext.class.getClassLoader().getResourceAsStream("paises.csv");
         BufferedReader br = null;
         String line = "";
@@ -174,6 +190,19 @@ public class ApplicationContext {
 
     }
 
+    public String maxDate() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.YEAR, -18);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(c.getTime());
+    }
+    public String maxDateOnlyMonth() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.YEAR, -18);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+        return sdf.format(c.getTime());
+    }
+    
 // Add business logic below. (Right-click in editor and choose
 // "Insert Code > Add Business Method")
     public List<Pais> getPaises() {
@@ -211,4 +240,21 @@ public class ApplicationContext {
     public void setSiNo(Map<String, String> siNo) {
         this.siNo = siNo;
     }
+
+    public Map<String, String> getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Map<String, String> estado) {
+        this.estado = estado;
+    }
+
+    public Map<String, String> getPremium() {
+        return premium;
+    }
+
+    public void setPremium(Map<String, String> premium) {
+        this.premium = premium;
+    }
+    
 }

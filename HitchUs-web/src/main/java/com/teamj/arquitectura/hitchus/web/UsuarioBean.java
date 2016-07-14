@@ -13,6 +13,8 @@ import com.teamj.arquitectura.hitchus.model.Usuario;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -113,6 +116,7 @@ public class UsuarioBean extends CrudBean implements Serializable {
         this.paisOrigenLista = paisOrigenLista;
     }
 
+    
     public Map<String, String> getGenero() {
         return genero;
     }
@@ -160,19 +164,39 @@ public class UsuarioBean extends CrudBean implements Serializable {
     public void setIdCiudadResidenciaSeleccionada(Integer idCiudadResidenciaSeleccionada) {
         this.idCiudadResidenciaSeleccionada = idCiudadResidenciaSeleccionada;
     }
-    
-    
-    
 
     @PostConstruct
     public void init() {
+        BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
+        beanUtilsBean.getConvertUtils().register(
+                new org.apache.commons.beanutils.converters.BigDecimalConverter(null), BigDecimal.class);
         this.usuario = new Usuario();
         this.paisOrigenLista = this.usuarioServicio.obtenerPaises();
-        this.genero=applicationContext.getGenero();
-        this.nivelDeEducacion=applicationContext.getNivelDeEducacion();
-        this.siNo=applicationContext.getSiNo();
+        this.ciudadResidenciaLista = this.usuarioServicio.obtenerCiudades();
+        this.genero = applicationContext.getGenero();
+        this.nivelDeEducacion = applicationContext.getNivelDeEducacion();
+        this.siNo = applicationContext.getSiNo();
         try {
             BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
+            this.fechaNacimiento = simpleDateFormat.parse(usuario.getMesNacimiento() + "-" + usuario.getAnioNacimiento());
+
+            for (PaisOrigen p : this.paisOrigenLista) {
+                if (this.usuario.getPaisOrigen().equals(p)) {
+                    this.idPaisOrigenSeleccionado = p.getId();
+                    break;
+                } else {
+                }
+            }
+            for (CiudadResidencia c : this.ciudadResidenciaLista) {
+                if (this.usuario.getCiudadResidencia().equals(c)) {
+                    this.idCiudadResidenciaSeleccionada = c.getId();
+                    break;
+                } else {
+                }
+            }
+
+            System.out.println("" + usuario);
 
         } catch (Exception e) {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -202,6 +226,18 @@ public class UsuarioBean extends CrudBean implements Serializable {
     public void update() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
+            for (PaisOrigen p : this.paisOrigenLista) {
+                if (this.idPaisOrigenSeleccionado.equals(p.getId())) {
+                    this.usuario.setPaisOrigen(p);
+                    break;
+                }
+            }
+            for (CiudadResidencia c : this.ciudadResidenciaLista) {
+                if (this.idCiudadResidenciaSeleccionada.equals(c.getId())) {
+                    this.usuario.setCiudadResidencia(c);
+                    break;
+                }
+            }
             usuarioServicio.editarPerfil(this.usuario);
             BeanUtils.copyProperties(sessionBean.getUser(), this.usuario);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "La información del usuario se ha actualizado correctamente"));
