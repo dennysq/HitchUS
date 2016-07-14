@@ -23,17 +23,27 @@
                 <p:panel id="login_panel" header="Log in" style="width: 300px;" styleClass="center_inline center_block no_border" >
                     <h:panelGrid columns="2"  cellpadding="5">
                         <p:outputLabel for="correo" value="Email:" />
-                        <p:inputText value="#{loginBean.correoUsuario}" id="correo" autocomplete="true"
-                                     required="true" label="correo" requiredMessage="Introduzca el correo de usuario">
+                        <p:inputText value="#{loginBean.correoUsuario}" 
+                                     id="correo" autocomplete="true"
+                                     required="true" 
+                                     label="correo" 
+                                     requiredMessage="Introduzca el correo de usuario">
                             <f:validateLength minimum="3" />
                         </p:inputText>
                         <p:outputLabel for="password" value="Password:" />
                         <p:password value="#{loginBean.claveUsuario}" id="password" required="true" 
                                     label="password" requiredMessage="Introduzca la contraseña de usuario" >
-                            <f:validateLength minimum="3" /></p:password>
+                            <f:validateLength minimum="3" />
+                        </p:password>
                         <f:facet name="footer" class="center_block">
-                            <p:commandButton value="Acceder" id="login_button" icon="fa fa-sign-in" style="margin: 5px;color: white; background: #009345;" action="#{loginBean.login()}" update="@form" />
-                            <p:commandButton value="Registrarse" id="signup_button" icon="fa fa-angellist" style="margin: 5px;color: white; background: #0071BB; " actionListener="#{loginBean.beginSignUp()}" immediate="true" update="signup_dialog" oncomplete="PF('signup_dialog_var').show();" />
+                            <p:commandButton value="Acceder" id="login_button" icon="fa fa-sign-in" style="margin: 5px;color: white; background: #009345;" 
+                                             action="#{loginBean.login()}" update="@form" />
+                            <p:commandButton value="Registrarse" 
+                                             id="signup_button" icon="fa fa-angellist" 
+                                             style="margin: 5px;color: white; background: #0071BB; " 
+                                             actionListener="#{loginBean.beginSignUp()}" 
+                                             immediate="true" update="signup_dialog" 
+                                             oncomplete="PF('signup_dialog_var').show();" />
                         </f:facet>
                     </h:panelGrid>
                     <div  style="background-color: #455A64;border-radius: 5px; padding: 4px;">
@@ -53,7 +63,9 @@
                       header="Nuevo Usuario" >
                 <h:form id="register_form">
                     <p:panelGrid columns="1"  styleClass="center_block login-form-container panel-grid-no-border">
-                        <p:inputText type="email" required="true" id="email" maxlength="32" styleClass="login-form-input"  autocomplete="true" placeholder="Correo electrónico" 
+                        <p:inputText type="email" required="true" id="email" 
+                                     maxlength="32" styleClass="login-form-input"  
+                                     autocomplete="true" placeholder="Correo electrónico" 
                                      value="#{loginBean.correoUsuarioL}">
                             <pe:keyFilter regEx="/[a-z0-9_\.\-@]/i"/> 
                         </p:inputText>     
@@ -62,13 +74,25 @@
                         </p:inputText>     
                         <p:calendar id="fecha" maxdate="#{loginBean.maxDate()}"
                                     value="#{loginBean.fechaNacimiento}"
-                                    placeholder="Fecha de Nacimiento" pattern="dd-MM-yyyy" locale="es"/>
-                        <p:inputText id="telefono_signup" title="Solo caracteres numéricos" maxlength="32" styleClass="login-form-input"  placeholder="Teléfono Ej. +593983015478" value="#{loginBean.telefonoUsuario}" >
+                                    placeholder="Fecha de Nacimiento" 
+                                    pattern="dd-MM-yyyy" locale="es"/>
+                        <p:inputText id="telefono_signup" 
+                                     title="Solo caracteres numéricos" 
+                                     maxlength="32" styleClass="login-form-input"  
+                                     placeholder="Teléfono Ej. +593983015478" 
+                                     value="#{loginBean.telefonoUsuario}" >
                             <pe:keyFilter regEx="\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$"/> 
                         </p:inputText>     
-                        <p:password id="password_signup" maxlength="32" styleClass="login-form-input" placeholder="Contraseña" value="#{loginBean.claveUsuarioL}"  lang="es" feedback="true"/>     
+                        <p:password id="password_signup" 
+                                    maxlength="32" styleClass="login-form-input" 
+                                    placeholder="Contraseña" 
+                                    value="#{loginBean.claveUsuarioL}"  
+                                    lang="es" feedback="true"/>     
                         <p:spacer/>
-                        <p:commandButton value="Registrarme" icon="fa fa-check" process="@form"  styleClass="login-form-input" actionListener="#{loginBean.signUp()}" update=":main_form"/>
+                        <p:commandButton value="Registrarme" icon="fa fa-check"
+                                         process="@form"  styleClass="login-form-input" 
+                                         actionListener="#{loginBean.signUp()}" 
+                                         update=":main_form"/>
                         <p:spacer/>
                         <f:facet name="footer" class="center_block">
                             <p:outputLabel value="Al Registrarse acepta nuestros términos y condiciones" style="text-align: center;  color: #455A64;"/>

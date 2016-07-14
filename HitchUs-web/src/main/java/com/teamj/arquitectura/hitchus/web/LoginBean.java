@@ -157,7 +157,6 @@ public class LoginBean implements Serializable {
     }
 
     public void beginSignUp() {
-
         nicknameUsuario = "";
         claveUsuarioL = "";
         correoUsuarioL = "";
