@@ -75,13 +75,14 @@
                         <p:calendar id="fecha" maxdate="#{loginBean.maxDate()}"
                                     value="#{loginBean.fechaNacimiento}"
                                     placeholder="Fecha de Nacimiento" 
-                                    pattern="dd-MM-yyyy" locale="es"/>
+                                    pattern="dd-MM-yyyy" 
+                                    locale="es"/>
                         <p:inputText id="telefono_signup" 
                                      title="Solo caracteres numéricos" 
                                      maxlength="32" styleClass="login-form-input"  
                                      placeholder="Teléfono Ej. +593983015478" 
                                      value="#{loginBean.telefonoUsuario}" >
-                            <pe:keyFilter regEx="\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$"/> 
+                            <pe:keyFilter regEx="/[a-z0-9_]/i"/> 
                         </p:inputText>     
                         <p:password id="password_signup" 
                                     maxlength="32" styleClass="login-form-input" 
@@ -94,7 +95,7 @@
                                          actionListener="#{loginBean.signUp()}" 
                                          update=":main_form"/>
                         <p:spacer/>
-                        <f:facet name="footer" class="center_block">
+                        <f:facet name="footer" class="center_inline">
                             <p:outputLabel value="Al Registrarse acepta nuestros términos y condiciones" style="text-align: center;  color: #455A64;"/>
                         </f:facet>
                     </p:panelGrid>
