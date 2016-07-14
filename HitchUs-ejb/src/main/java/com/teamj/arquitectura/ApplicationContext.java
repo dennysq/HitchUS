@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import org.apache.commons.beanutils.BeanUtilsBean;
 
 /**
  *
@@ -52,6 +54,9 @@ public class ApplicationContext {
 
     @PostConstruct
     public void init() {
+        BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
+        beanUtilsBean.getConvertUtils().register(
+                new org.apache.commons.beanutils.converters.BigDecimalConverter(null), BigDecimal.class);
         paises = new ArrayList<>();
         genero = new HashMap<>();
         genero.put("MAS", "Masculino");
@@ -174,8 +179,6 @@ public class ApplicationContext {
     public List<Pais> getPaises() {
         return paises;
     }
-
-     
 
     public String getImagesPath() {
         return imagesPath;

@@ -23,13 +23,18 @@
                 <p:spacer/>
                 <p:panelGrid columns="2" styleClass="center_block panel-grid-no-border" >
                     <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:"/>
-                    <p:calendar id="fechaNacimiento" value="#{usuarioBean.fechaNacimiento}" placeholder="Fecha de Nacimiento"    />          
+                    <p:calendar id="fecha" value="#{usuarioBean.fechaNacimiento}" placeholder="Fecha de Nacimiento"    />
+                    <p:inputText id="telefono_signup" title="Solo caracteres numéricos" maxlength="32" styleClass="login-form-input"  placeholder="Teléfono" value="#{loginBean.telefonoUsuario}" >
+                        <pe:keyFilter regEx="/[a-z0-9_]/i"/> 
+                    </p:inputText>     
+                    
                     <p:outputLabel value="Género:" class="negrita" for="genero"/>
                     <h:selectOneMenu value="#{usuarioBean.usuario.genero}"
                                      id="genero"
                                      style="width: 200px;"
-                                     hideNoSelectionOption="true">
-                        <f:selectItems value="#{usuarioBean.genero}" />
+                                     hideNoSelectionOption="true"
+                                     >
+                        <f:selectItems value="#{usuarioBean.genero}" 
                         <p:ajax event="change"  update="@form"/>
                     </h:selectOneMenu>
 
@@ -46,7 +51,7 @@
                                        itemValue="#{paises.id}"/>
                         <p:ajax event="change"  update="@form"/>
                     </h:selectOneMenu>
-
+                    
                     <p:outputLabel value="Ciudad de Residencia:" class="negrita" for="ciudad"/>
                     <h:selectOneMenu value="#{usuarioBean.idCiudadResidenciaSeleccionada}"
                                      id="ciudad"
@@ -60,13 +65,17 @@
                                        itemValue="#{ciudades.id}"/>
                         <p:ajax event="change"  update="@form"/>
                     </h:selectOneMenu>
+
+
+                  
+
                     <p:outputLabel value="Nivel de Eduación:" class="negrita" for="nivelEducacion"/>
                     <h:selectOneMenu value="#{usuarioBean.usuario.nivelEducacion}"
                                      id="nivelEducacion"
                                      style="width: 200px;"
                                      hideNoSelectionOption="true"
                                      >
-                        <f:selectItems value="#{usuarioBean.nivelDeEducacion}" />
+                        <f:selectItems value="#{usuarioBean.nivelDeEducacion}" 
                         <p:ajax event="change"  update="@form"/>
                     </h:selectOneMenu>               
                     <p:outputLabel for="idiomas" value="Idiomas:"/>
@@ -103,12 +112,16 @@
                     </p:inputText>     
                     <p:outputLabel for="intereses" value="Intereses:"/>
                     <p:inputTextarea id="intereses" 
-                                     maxlength="200" 
-                                     readonly="#{!usuarioBean.modifying}"
-                                     placeholder="Intereses" 
-                                     value="#{usuarioBean.usuario.intereses}" >
+                                 maxlength="200" 
+                                 readonly="#{!usuarioBean.modifying}"
+                                 placeholder="Intereses" 
+                                 value="#{usuarioBean.usuario.intereses}" >
                         <pe:keyFilter regEx="/[a-z_\s]/i"/> 
                     </p:inputTextarea>     
+
+
+
+
                     <p:outputLabel for="correo" value="Correo Electrónico:"/>
                     <p:inputText id="correo" 
                                  maxlength="32"   
@@ -116,7 +129,7 @@
                                  required="true"
                                  requiredMessage="Ingrese un correo electrónico"
                                  placeholder="Correo" 
-                                 value="#{usuarioBean.usuario.email}" >
+                                 value="#{usuarioBean.usuario.correo}" >
                         <pe:keyFilter regEx="/[a-z0-9_\.\-@]/i"/> 
                     </p:inputText>
                     <p:outputLabel for="password" value="Contraseña:" rendered="false"/>
@@ -129,11 +142,18 @@
                                 requiredMessage="Ingrese una contraseña"
                                 placeholder="Contraseña" 
                                 value="#{usuarioBean.usuario.password}"   feedback="true"/>     
-
+                    <p:outputLabel for="telefono" value="Teléfono:"/>
+                    <p:inputText id="telefono" 
+                                 maxlength="32"   
+                                 placeholder="Teléfono" 
+                                 readonly="#{!usuarioBean.modifying}"
+                                 value="#{usuarioBean.usuario.telefono}" >
+                        <pe:keyFilter regEx="/^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i"/> 
+                    </p:inputText>
                     <p:outputLabel for="acerca" value="Acerca de:"/>
                     <p:inputTextarea id="acerca" rows="8" cols="30"
                                      readonly="#{!usuarioBean.modifying}"
-                                     value="#{usuarioBean.usuario.intereses}"
+                                     value="#{usuarioBean.usuario.acercaDe}"
                                      placeholder="Cuéntanos acerca de ti"
                                      maxlength="2000" counterTemplate="{0} caracteres restantes." autoResize="false" />
                 </p:panelGrid>
@@ -142,14 +162,16 @@
                     <p:commandButton value="Aceptar"
                                      update="@form"
                                      rendered="#{usuarioBean.modifying}"
-                                     actionListener="#{usuarioBean.update()}"        >
+                                     actionListener="#{usuarioBean.update()}" 
+                                     >
                         <p:confirm header="Confirmación" message="¿Guardar Cambios?" icon="ui-icon-alert" />
                     </p:commandButton>                 
                     <p:commandButton value="Cancelar"
                                      update="@form"
                                      immediate="true"
                                      rendered="#{usuarioBean.modifying}"
-                                     actionListener="#{usuarioBean.cancel()}"                                     >
+                                     actionListener="#{usuarioBean.cancel()}" 
+                                     >
                     </p:commandButton>                 
                     <p:commandButton value="Modificar Información"
                                      update="@form"
@@ -160,7 +182,8 @@
                                      update="@form"
                                      icon="fa fa-ellipsis-h"
                                      onclick="PF('chpassword_dialog_var').show();"
-                                     rendered="#{!usuarioBean.modifying}"                                     />
+                                     rendered="#{!usuarioBean.modifying}"
+                                     />
                 </p:panelGrid>
                 <p:spacer/>
             </p:panel>
@@ -188,6 +211,7 @@
                                      oncomplete="PF('chpassword_dialog_var').hide();">
                         <p:confirm header="Confirmación" message="¿Guardar Cambios?" icon="ui-icon-alert" />
                     </p:commandButton>
+
                     <p:spacer/>
                 </p:panelGrid>
             </h:form>
