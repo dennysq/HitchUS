@@ -81,7 +81,7 @@ public class UsuarioServicio {
 
                 temp.setTrabajo(false);
 
-                temp.setPremium("P");
+                temp.setPremium("N");
                 temp.setEstado("ACT");
                 temp.setGenero("MAS");
                 temp.setEstatura(BigDecimal.ZERO);

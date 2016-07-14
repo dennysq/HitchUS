@@ -22,33 +22,6 @@
                 </div>
                 <p:spacer/>
                 <p:panelGrid columns="2" styleClass="center_block panel-grid-no-border" >
-                    <p:outputLabel for="correo" value="Correo Electrónico:" class="negrita"/>
-                    <p:inputText id="correo" 
-                                 maxlength="32"   
-                                 readonly="true"
-                                 required="true"
-                                 requiredMessage="Ingrese un correo electrónico"
-                                 placeholder="Correo" 
-                                 value="#{usuarioBean.usuario.email}" >
-                        <pe:keyFilter regEx="/[a-z0-9_\.\-@]/i"/> 
-                    </p:inputText>
-                    <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:" class="negrita"/>
-                    <p:calendar id="fechaNacimiento" value="#{usuarioBean.fechaNacimiento}" 
-                                placeholder="Fecha de Nacimiento"  pattern="MM-yyyy"  
-                                maxdate="#{applicationContext.maxDateOnlyMonth}"
-                                readonly="#{!usuarioBean.modifying}"
-                                locale="es" mask="false"/>          
-
-                    <p:outputLabel value="Género:" class="negrita" for="genero"/>
-                    <h:selectOneMenu value="#{usuarioBean.usuario.genero}"
-                                     id="genero"
-                                     style="width: 200px;"
-                                     disabled="#{!configuracionBean.modifying}"
-                                     >
-                        <f:selectItems value="#{usuarioBean.genero}" />
-                        <!--<p:ajax event="change"  update="@this"/>-->
-                    </h:selectOneMenu>
-
                     <p:outputLabel value="Estado:" class="negrita" for="estado"/>
                     <h:selectOneMenu value="#{configuracionBean.usuario.estado}"
                                      id="estado"
@@ -59,11 +32,16 @@
                         <!--<p:ajax event="change"  update="@this"/>-->
                     </h:selectOneMenu>
 
-                    <p:outputLabel value="Solicitar Cuenta Premium" class="negrita"/>
-                    <p:selectBooleanCheckbox value="#{configuracionBean.usuario.premium}" 
-                                             disabled="#{!configuracionBean.modifying}">
-                    </p:selectBooleanCheckbox>
-
+                    <p:outputLabel value="Cuenta Premium" class="negrita"/>
+                    <p:commandButton value="Solicitar"
+                                     update="@form"
+                                     actionListener="#{configuracionBean.cambiarEstado()}" 
+                                     disabled="#{usuarioBean.usuario.premium eq 'P'}"
+                                     icon="fa fa-edit"
+                                     >
+                    <p:confirm header="Confirmación" message="Al solicitar nuestra cuenta Premium Ud acpeta nuestros términos y
+                               Condiciones" icon="ui-icon-alert" />
+                    </p:commandButton>
 
                 </p:panelGrid>
                 <p:spacer/>

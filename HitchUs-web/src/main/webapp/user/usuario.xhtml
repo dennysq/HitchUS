@@ -39,7 +39,7 @@
                                 readonly="#{!usuarioBean.modifying}"
                                 locale="es" mask="false"
                                 disabled="#{!usuarioBean.modifying}"/> 
-                    
+
                     <p:outputLabel value="Género:" class="negrita" for="genero"/>
                     <h:selectOneMenu value="#{usuarioBean.usuario.genero}"
                                      id="genero"
@@ -127,9 +127,10 @@
                                              disabled="#{!usuarioBean.modifying}">
                     </p:selectBooleanCheckbox>
 
-                    <p:outputLabel value="Enfermedades:" class="negrita" rendered="#{usuarioBean.usuario.premium}"/>
+                    <p:outputLabel value="Publicar Enfermedades:" class="negrita" rendered="#{usuarioBean.usuario.premium eq 'V'}"/>
                     <p:selectBooleanCheckbox value="#{usuarioBean.usuario.enfermedadesPublica}" 
-                                             rendered="#{usuarioBean.usuario.premium}"
+                                             rendered="#{usuarioBean.usuario.premium eq 'V'}"
+                                             disabled="#{!usuarioBean.modifying}"
                                              >
                     </p:selectBooleanCheckbox>
 
@@ -165,49 +166,18 @@
                                      update="@form"
                                      immediate="true"
                                      rendered="#{usuarioBean.modifying}"
-                                     actionListener="#{usuarioBean.cancel()}"                                     >
+                                     actionListener="#{usuarioBean.cancel}" 
+                                     >
                     </p:commandButton>                 
-                    <p:commandButton value="Modificar Información"
+                    <p:commandButton value="Actualizar Información"
                                      update="@form"
                                      actionListener="#{usuarioBean.beginModification()}" 
                                      rendered="#{!usuarioBean.modifying}"
                                      icon="fa fa-edit"/>
-                    <p:commandButton value="Cambiar Contraseña"
-                                     update="@form"
-                                     icon="fa fa-ellipsis-h"
-                                     onclick="PF('chpassword_dialog_var').show();"
-                                     rendered="#{!usuarioBean.modifying}"                                     />
                 </p:panelGrid>
                 <p:spacer/>
             </p:panel>
         </h:form>
-        <p:dialog id="chpassword_dialog" 
-                  widgetVar="chpassword_dialog_var" 
-                  modal="true" 
-                  closable="true" 
-                  resizable="false" 
-                  header="Cambiar Contraseña" >
-            <h:form id="chpassword_form">
-                <p:panelGrid columns="1"  styleClass="center_block login-form-container panel-grid-no-border">
-
-                    <p:password id="old_pass" maxlength="32" styleClass="login-form-input" required="true" 
-                                requiredMessage="Ingrese la contraseña anterior" placeholder="Antigua Contraseña" value="#{usuarioBean.oldPassword}"  />     
-                    <p:password id="new_pass" maxlength="32" styleClass="login-form-input" required="true" 
-                                requiredMessage="Ingrese una nueva contraseña" placeholder="Nueva Contraseña" value="#{usuarioBean.newPassword}"   feedback="true" match="renew_pass" />     
-                    <p:password id="renew_pass" maxlength="32" styleClass="login-form-input" required="true" 
-                                requiredMessage="Repita la nueva contraseña" placeholder="Repita Nueva Contraseña" value="#{usuarioBean.reNewPassword}"  />     
-                    <p:spacer/>
-                    <p:commandButton value="Cambiar Contraseña" icon="fa fa-pencil-square-o" process="@form"  
-                                     styleClass="login-form-input" 
-                                     actionListener="#{usuarioBean.changePassword()}" 
-                                     update=":main_form"
-                                     oncomplete="PF('chpassword_dialog_var').hide();">
-                        <p:confirm header="Confirmación" message="¿Guardar Cambios?" icon="ui-icon-alert" />
-                    </p:commandButton>
-                    <p:spacer/>
-                </p:panelGrid>
-            </h:form>
-        </p:dialog>
     </ui:define>
 </ui:composition>
 

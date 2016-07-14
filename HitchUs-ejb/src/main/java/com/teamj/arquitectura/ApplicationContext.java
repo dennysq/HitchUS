@@ -86,7 +86,7 @@ public class ApplicationContext {
         siNo.put("No", "N");
         estado = new HashMap<>();
         estado.put("Activo","ACT");
-        estado.put("Desactivo","INA");
+        estado.put("Inactivo","INA");
         InputStream csvFile = ApplicationContext.class.getClassLoader().getResourceAsStream("paises.csv");
         BufferedReader br = null;
         String line = "";

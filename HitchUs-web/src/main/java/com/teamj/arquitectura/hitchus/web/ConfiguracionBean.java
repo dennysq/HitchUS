@@ -76,7 +76,6 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
         this.premium = premium;
     }
 
-    
     public Usuario getUsuario() {
         return usuario;
     }
@@ -96,10 +95,11 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
             this.estado = applicationContext.getEstado();
 
             BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
-
+            System.out.println(""+usuario);
+            System.out.println(""+sessionBean.getUser());
         } catch (Exception e) {
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado"+e, e.getMessage()));
         }
     }
 
@@ -125,12 +125,12 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
     public void update() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-
+            System.out.println(""+usuario);
             usuarioServicio.editarPerfil(this.usuario);
             System.out.println("llego al editar");
             BeanUtils.copyProperties(sessionBean.getUser(), this.usuario);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "La información del usuario se ha actualizado correctamente"));
-
+            System.out.println(""+sessionBean.getUser());
         } catch (ValidationException | IllegalAccessException | InvocationTargetException e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
         }
@@ -148,7 +148,21 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
         }
         this.reset();
+    }
 
+    public void cambiarEstado() {
+        this.usuario.setPremium("P");
+        usuarioServicio.editarPerfil(usuario);
+
+        try {
+            BeanUtils.copyProperties(sessionBean.getUser(),this.usuario);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud Enviada con Éxito", null));
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
+
+        }
     }
 
 }

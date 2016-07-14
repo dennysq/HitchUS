@@ -33,7 +33,7 @@
                         <p:outputLabel for="password" value="Password:" />
                         <p:password value="#{loginBean.claveUsuario}" id="password" required="true" 
                                     label="password" requiredMessage="Introduzca la contraseña de usuario" >
-                            <f:validateLength minimum="3" />
+                            <f:validateLength minimum="1" />
                         </p:password>
                         <f:facet name="footer" class="center_block">
                             <p:commandButton value="Registrarse" 
