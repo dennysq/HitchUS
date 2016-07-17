@@ -246,4 +246,8 @@ public class UsuarioServicio {
     public List<CiudadResidencia> obtenerCiudades() {
         return this.ciudadDAO.findAll();
     }
+    
+    public Usuario getCurrentUser(Integer id){
+        return this.usuarioDAO.findById(id, true);
+    }
 }

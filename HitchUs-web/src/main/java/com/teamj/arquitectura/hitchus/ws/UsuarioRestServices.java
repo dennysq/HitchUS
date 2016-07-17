@@ -93,25 +93,25 @@ public class UsuarioRestServices {
         return usuarioServicio.ingresar(email, password);
     }
     
-    //2 FALTA USUARIO POR CONFLICTO
+    //2
     @GET
     @Produces("application/json")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("/listEncuentros")
     public List<Encuentro> listEncuentros(@FormParam(value= "id")String id){    
 
-        return null;
-        //return usuarioServicio.obtenerEncuentrosPorUsuario(usuarioServicio.getCurrentUsuario(Integer.parseInt(id)));
+        //return null;
+        return usuarioServicio.obtenerEncuentrosPorUsuario(usuarioServicio.getCurrentUser(Integer.parseInt(id)));
     }
     
-    //3 FALTA USUARIO POR CONFLICTO
+    //3 
     @GET
     @Produces("application/json")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("/getUsuario")
     public Usuario getUsuario(@FormParam(value= "id")String id){    
-        return null;
-     //   return usuarioServicio.getCurrentUsuario(Integer.parseInt(id));
+       // return null;
+       return usuarioServicio.getCurrentUser(Integer.parseInt(id));
     }
     
     
@@ -125,15 +125,16 @@ public class UsuarioRestServices {
         return certificadoServicio.obtenerTiposDeCertificado();
     }
     
-    //5 FALTA USUARIO POR CONFLICTO
+    //5
     @POST
     @Produces("application/json")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("/getEstadisticaUsuario")
     public EstadisticaUsuario getEstadisticaUsuario(@FormParam(value= "id")String id){
 
-        return null;
-        //return estadisticaUsuarioServicio.obtenerEstadisticaUsuario(Integer.parseInt(id));
+       
+        return estadisticaUsuarioServicio.getEstadisticaUsuario(Integer.parseInt(id));
+         //return null;
     }
     
     
