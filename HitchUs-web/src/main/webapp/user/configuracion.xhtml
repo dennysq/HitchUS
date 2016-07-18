@@ -6,13 +6,10 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
-                xmlns:pe="http://primefaces.org/ui/extensions"
-
-                >
+                xmlns:pe="http://primefaces.org/ui/extensions"                >
     <ui:define name="title">Configuración de Usuario</ui:define>
     <f:metadata>
         <f:viewAction action="#{configuracionBean.init()}" />
-
     </f:metadata>
     <ui:define name="content">
         <h:form id="main_form">
@@ -31,7 +28,6 @@
                         <f:selectItems value="#{configuracionBean.estado}" />
                         <!--<p:ajax event="change"  update="@this"/>-->
                     </h:selectOneMenu>
-
                     <p:outputLabel value="Cuenta Premium" class="negrita"/>
                     <p:commandButton value="Solicitar"
                                      update="@form"

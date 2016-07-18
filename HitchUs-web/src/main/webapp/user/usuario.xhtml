@@ -19,7 +19,7 @@
             <p:panel class="no_border" >
                 <div class="center_inline">
                     <h1>Perfil</h1>
-                    <h:graphicImage value="../images/premium.png" height="15"   />
+                    <h:graphicImage value="../images/premium.png" height="15"  rendered="#{sessionBean.user.premium eq 'V'}" />
                 </div>
                 <p:spacer/>
                 <p:graphicImage value="#{usuarioBean.rutaFotoDePerfil}" style="display: block;margin-left: auto;    margin-right: auto;max-height: 200px;max-width: 200px;" /> 

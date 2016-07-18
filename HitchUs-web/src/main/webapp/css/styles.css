@@ -38,7 +38,7 @@ and open the template in the editor.
     height: 60px;
 
     bottom: 0;
-    
+
     padding: 5px;
     text-align: center;
     width: 99%;
@@ -171,11 +171,16 @@ body {
     font-weight: bold;
 }
 .colored {
-    
+
     color: #ff9900;
-    
+
 }
 .custom_grid_3 .ui-datagrid-column {width: 33.33%;}
+.dateTimeField input {
+    width: 300px; 
+    padding: 10px;  
+
+}
 /*div {
     -webkit-animation: mymove 5s 1;  Chrome, Safari, Opera 
     animation: mymove 5s 1;

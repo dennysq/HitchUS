@@ -20,7 +20,7 @@
                 <p:spacer height="30px;"/>
                 <p:graphicImage style="display: block; margin-left: auto;margin-right: auto; width: 600px;height: 300px;" value="images/hitchus_logo.png"   />
                 <p:spacer height="30px;"/>
-                <p:panel id="login_panel" header="Log in" style="width: 300px;" styleClass="center_inline center_block no_border" >
+                <p:panel id="login_panel" header="Log in" style="width: 330px;" styleClass="center_inline center_block no_border" >
                     <h:panelGrid columns="2"  cellpadding="5">
                         <p:outputLabel for="correo" value="Email:" />
                         <p:inputText value="#{loginBean.correoUsuario}" 
@@ -44,12 +44,15 @@
                                              actionListener="#{loginBean.beginSignUp()}" 
                                              immediate="true" update="signup_dialog" 
                                              oncomplete="PF('signup_dialog_var').show();" />
-                            
+
                         </f:facet>
 
                     </h:panelGrid>
-                    <p:captcha label="Captcha" required="#{sessionBean.loginAttemps>3}" rendered="#{sessionBean.loginAttemps>3}"/>
-                    
+                    <p:captcha label="Captcha" requiredMessage="Verifique que no es un robot"
+                               validatorMessage="Verifique que no es un robot"
+                               converterMessage="Verifique que no es un robot"
+                               required="#{sessionBean.loginAttemps>3}" rendered="#{sessionBean.loginAttemps>3}"/>
+
                     <div  style="background-color: #455A64;border-radius: 5px; padding: 4px;">
                         <p:panelGrid  >
                             <p:graphicImage style="padding: 3px;" value="images/facebook.png"/>
@@ -81,15 +84,27 @@
                                     placeholder="Fecha de Nacimiento" 
                                     pattern="dd-MM-yyyy" 
                                     locale="es"
+                                    styleClass="dateTimeField"
                                     effect="show"/>
-                        <p:inputText id="telefono_signup" 
-                                     title="Solo caracteres numéricos" 
-                                     maxlength="32" styleClass="login-form-input"  
-                                     placeholder="Teléfono Ej. +593983015478" 
-                                     value="#{loginBean.telefonoUsuario}" >
-                            <pe:keyFilter regEx="/[a-z0-9_]/i"/> 
-                        </p:inputText>     
-                        <p:password id="password_signup" 
+                        <p:panelGrid columns="2"  styleClass="center_block login-form-container panel-grid-no-border">
+                            <h:selectOneMenu value="#{loginBean.codigoTelefonicoSeleccionado}"
+                                             id="estado"
+                                             style="width: 80px;height:35px "                                             >
+                                <f:selectItems value="#{constant.paises}"
+                                               var="pais"
+                                               itemLabel="#{pais.codigoTelefonico}"
+                                               itemValue="#{pais.codigoTelefonico}"   />
+                            </h:selectOneMenu>
+                            <p:inputText id="telefono_signup" 
+                                         title="Solo caracteres numéricos" 
+                                         maxlength="32" styleClass="login-form-input"  
+                                         style="width: 190px;"
+                                         placeholder="Teléfono Ej. 983015478" 
+                                         value="#{loginBean.telefonoUsuario}" >
+                                <pe:keyFilter regEx="/[a-z0-9_]/i"/> 
+                            </p:inputText>     
+                        </p:panelGrid>
+                        <p:password id="password_signup"    
                                     maxlength="32" styleClass="login-form-input" 
                                     placeholder="Contraseña" 
                                     value="#{loginBean.claveUsuarioL}"  

@@ -5,7 +5,6 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
-
 import com.teamj.arquitectura.hitchus.util.Pais;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +29,8 @@ import javax.faces.bean.ManagedBean;
  */
 @ManagedBean
 @ApplicationScoped
-public class Constant implements Serializable{
+public class Constant implements Serializable {
+
     private final String imagesPath = "C:\\hitchus";
     //private final String imagesPath = "/home/ec2-user/hitchus";
     private List<Pais> paises;
@@ -40,31 +40,30 @@ public class Constant implements Serializable{
     private Map<String, String> nivelDeEducacion;
     private Map<String, String> siNo;
 
-    
     @PostConstruct
-    public void init() {        
+    public void init() {
         paises = new ArrayList<>();
         genero = new HashMap<>();
-        genero.put("Masculino","MAS");
-        genero.put("Femenino","FEM");
-        genero.put("Otro","OTR");
+        genero.put("Masculino", "MAS");
+        genero.put("Femenino", "FEM");
+        genero.put("Otro", "OTR");
         System.out.println("Iniciando contexto");
         nivelDeEducacion = new HashMap<>();
-        nivelDeEducacion.put("Primaria","PRI" );
-        nivelDeEducacion.put("Bachillerato","BAC" );
-        nivelDeEducacion.put("Tercer Nivel","TER");
-        nivelDeEducacion.put("Cuarto Nivel","CUA");
+        nivelDeEducacion.put("Primaria", "PRI");
+        nivelDeEducacion.put("Bachillerato", "BAC");
+        nivelDeEducacion.put("Tercer Nivel", "TER");
+        nivelDeEducacion.put("Cuarto Nivel", "CUA");
         premium = new HashMap<>();
-        premium.put("Entregado","E" );
-        premium.put("Pendiente","P" );
-        premium.put("Validado","V");
-        premium.put("No Validado","N");
+        premium.put("Entregado", "E");
+        premium.put("Pendiente", "P");
+        premium.put("Validado", "V");
+        premium.put("No Validado", "N");
         siNo = new HashMap<>();
         siNo.put("Si", "S");
         siNo.put("No", "N");
         estado = new HashMap<>();
-        estado.put("Activo","ACT");
-        estado.put("Inactivo","INA");
+        estado.put("Activo", "ACT");
+        estado.put("Inactivo", "INA");
         InputStream csvFile = getClass().getClassLoader().getResourceAsStream("paises.csv");
         BufferedReader br = null;
         String line = "";
@@ -73,18 +72,26 @@ public class Constant implements Serializable{
         try {
             br = new BufferedReader(new InputStreamReader(csvFile));
             Pais pais;
+            int i = 0;
             while ((line = br.readLine()) != null) {
                 pais = new Pais();
-
+                if (i == 0) {
+                    i++;
+                    continue;
+                }
+                i++;
                 // use comma as separator
                 String[] field = line.split(cvsSplitBy);
                 if (field != null && field.length >= 6) {
-                    pais.setNombre(field[0]);
-                    pais.setNombreIngles(field[1]);
-                    pais.setNombreFrances(field[2]);
-                    pais.setIso2(field[3]);
-                    pais.setIso3(field[4]);
-                    pais.setCodigoTelefónico(field[5]);
+                    if (field[5].replace("\"", "").isEmpty()) {
+                        continue;
+                    }
+                    pais.setNombre(field[0].replace("\"", ""));
+                    pais.setNombreIngles(field[1].replace("\"", ""));
+                    pais.setNombreFrances(field[2].replace("\"", ""));
+                    pais.setIso2(field[3].replace("\"", ""));
+                    pais.setIso3(field[4].replace("\"", ""));
+                    pais.setCodigoTelefonico("+" + field[5].replace("\"", ""));
                     this.paises.add(pais);
                 }
 
@@ -102,7 +109,7 @@ public class Constant implements Serializable{
                 }
             }
         }
-        
+
     }
 
     public String maxDate() {
@@ -111,13 +118,13 @@ public class Constant implements Serializable{
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         return sdf.format(c.getTime());
     }
+
     public String maxDateOnlyMonth() {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.YEAR, -18);
         SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
         return sdf.format(c.getTime());
     }
-    
 
     public List<Pais> getPaises() {
         return paises;
@@ -170,6 +177,5 @@ public class Constant implements Serializable{
     public void setPremium(Map<String, String> premium) {
         this.premium = premium;
     }
-    
-    
+
 }

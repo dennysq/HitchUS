@@ -28,6 +28,8 @@ public class LoginBean implements Serializable {
 
     private String correoUsuario;
     private String claveUsuario;
+    private String codigoTelefonicoSeleccionado;
+    private String codigoTelefonico;
 
     private String correoUsuarioL;
     private String claveUsuarioL;
@@ -41,6 +43,14 @@ public class LoginBean implements Serializable {
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
 
+    public String getCodigoTelefonico() {
+        return codigoTelefonico;
+    }
+
+    public void setCodigoTelefonico(String codigoTelefonico) {
+        this.codigoTelefonico = codigoTelefonico;
+    }
+
     public String getCorreoUsuario() {
         return correoUsuario;
     }
@@ -51,6 +61,14 @@ public class LoginBean implements Serializable {
 
     public String getClaveUsuario() {
         return claveUsuario;
+    }
+
+    public void setCodigoTelefonicoSeleccionado(String codigoTelefonicoSeleccionado) {
+        this.codigoTelefonicoSeleccionado = codigoTelefonicoSeleccionado;
+    }
+
+    public String getCodigoTelefonicoSeleccionado() {
+        return codigoTelefonicoSeleccionado;
     }
 
     public void setClaveUsuario(String claveUsuario) {
@@ -108,6 +126,7 @@ public class LoginBean implements Serializable {
     @PostConstruct
     public void init() {
         // this.usuario = new Usuario();
+        this.codigoTelefonicoSeleccionado="+593";
     }
 
     public String maxDate() {
@@ -187,7 +206,7 @@ public class LoginBean implements Serializable {
                 u.setEmail(correoUsuarioL);
                 u.setPassword(claveUsuarioL);
                 u.setNickname(nicknameUsuario);
-                u.setNumeroTelefonico(telefonoUsuario);
+                u.setNumeroTelefonico(codigoTelefonicoSeleccionado+telefonoUsuario);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(fechaNacimiento);
                 int mes = calendar.get(Calendar.MONTH);

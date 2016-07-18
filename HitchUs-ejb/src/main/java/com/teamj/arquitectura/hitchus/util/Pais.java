@@ -15,7 +15,7 @@ public class Pais {
     String nombreFrances;
     String iso2;
     String iso3;
-    String codigoTelefónico;
+    String codigoTelefonico;
 
     public String getNombre() {
         return nombre;
@@ -57,16 +57,16 @@ public class Pais {
         this.iso3 = iso3;
     }
 
-    public String getCodigoTelefónico() {
-        return codigoTelefónico;
+    public String getCodigoTelefonico() {
+        return codigoTelefonico;
     }
 
-    public void setCodigoTelefónico(String codigoTelefónico) {
-        this.codigoTelefónico = codigoTelefónico;
+    public void setCodigoTelefonico(String codigoTelefonico) {
+        this.codigoTelefonico = codigoTelefonico;
     }
 
     @Override
     public String toString() {
-        return "Pais{" + "nombre=" + nombre + ", nombreIngles=" + nombreIngles + ", nombreFrances=" + nombreFrances + ", iso2=" + iso2 + ", iso3=" + iso3 + ", codigoTelef\u00f3nico=" + codigoTelefónico + '}';
+        return "Pais{" + "nombre=" + nombre + ", nombreIngles=" + nombreIngles + ", nombreFrances=" + nombreFrances + ", iso2=" + iso2 + ", iso3=" + iso3 + ", codigoTelef\u00f3nico=" + codigoTelefonico + '}';
     }
 }
