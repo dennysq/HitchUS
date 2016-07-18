@@ -11,6 +11,7 @@ import com.teamj.arquitectura.hitchus.model.Usuario;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -24,7 +25,7 @@ import org.apache.commons.io.FileUtils;
  */
 @Stateless
 @LocalBean
-public class ImagenServicio {
+public class ImagenServicio implements Serializable{
 
     @EJB
     private ImagenDAO imagenDAO;

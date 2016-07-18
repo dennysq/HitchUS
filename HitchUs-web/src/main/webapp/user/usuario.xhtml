@@ -26,7 +26,7 @@
                     <p:inputText id="correo" 
                                  maxlength="32"   
                                  readonly="true"
-                                 required="true"
+                                 
                                  requiredMessage="Ingrese un correo electrónico"
                                  placeholder="Correo" 
                                  value="#{usuarioBean.usuario.email}" >
@@ -35,7 +35,7 @@
                     <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:" class="negrita"/>
                     <p:calendar id="fechaNacimiento" value="#{usuarioBean.fechaNacimiento}" 
                                 placeholder="Fecha de Nacimiento"  pattern="MM-yyyy"  
-                                maxdate="#{applicationContext.maxDateOnlyMonth}"
+                                
                                 readonly="#{!usuarioBean.modifying}"
                                 locale="es" mask="false"
                                 disabled="#{!usuarioBean.modifying}"/> 

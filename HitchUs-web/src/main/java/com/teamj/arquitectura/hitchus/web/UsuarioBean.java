@@ -5,7 +5,6 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
-import com.teamj.arquitectura.ApplicationContext;
 import com.teamj.arquitectura.hitchus.exception.ValidationException;
 import com.teamj.arquitectura.hitchus.model.CiudadResidencia;
 import com.teamj.arquitectura.hitchus.model.PaisOrigen;
@@ -14,6 +13,7 @@ import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -40,8 +40,8 @@ public class UsuarioBean extends CrudBean implements Serializable {
     @EJB
     private UsuarioServicio usuarioServicio;
 
-    @EJB
-    private ApplicationContext applicationContext;
+    @ManagedProperty(value="#{constant}")
+    private Constant constant;
 
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
@@ -74,6 +74,14 @@ public class UsuarioBean extends CrudBean implements Serializable {
 
     public String getNewPassword() {
         return newPassword;
+    }
+
+    public void setConstant(Constant constant) {
+        this.constant = constant;
+    }
+
+    public Constant getConstant() {
+        return constant;
     }
 
     public Integer getIdPaisOrigenSeleccionado() {
@@ -116,7 +124,6 @@ public class UsuarioBean extends CrudBean implements Serializable {
         this.paisOrigenLista = paisOrigenLista;
     }
 
-    
     public Map<String, String> getGenero() {
         return genero;
     }
@@ -173,32 +180,32 @@ public class UsuarioBean extends CrudBean implements Serializable {
         this.usuario = new Usuario();
         this.paisOrigenLista = this.usuarioServicio.obtenerPaises();
         this.ciudadResidenciaLista = this.usuarioServicio.obtenerCiudades();
-        this.genero = applicationContext.getGenero();
-        this.nivelDeEducacion = applicationContext.getNivelDeEducacion();
-        this.siNo = applicationContext.getSiNo();
+        this.genero = constant.getGenero();
+        this.nivelDeEducacion = constant.getNivelDeEducacion();
+        this.siNo = constant.getSiNo();
         try {
             BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
             this.fechaNacimiento = simpleDateFormat.parse(usuario.getMesNacimiento() + "-" + usuario.getAnioNacimiento());
 
             for (PaisOrigen p : this.paisOrigenLista) {
-                if (this.usuario.getPaisOrigen().equals(p)) {
+                if (this.usuario.getPaisOrigen()!=null && this.usuario.getPaisOrigen().equals(p)) {
                     this.idPaisOrigenSeleccionado = p.getId();
                     break;
-                } else {
-                }
+                } 
             }
             for (CiudadResidencia c : this.ciudadResidenciaLista) {
-                if (this.usuario.getCiudadResidencia().equals(c)) {
+                if (this.usuario.getCiudadResidencia()!=null && this.usuario.getCiudadResidencia().equals(c)) {
                     this.idCiudadResidenciaSeleccionada = c.getId();
                     break;
                 } else {
                 }
+                
             }
 
             System.out.println("" + usuario);
 
-        } catch (Exception e) {
+        } catch (IllegalAccessException | InvocationTargetException | ParseException e) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
         }
@@ -208,21 +215,6 @@ public class UsuarioBean extends CrudBean implements Serializable {
         this.beginModify();
     }
 
-//    public void becomeAProvider() {
-//        this.beginModify();
-//        this.usuario = new Usuario();
-//        try {
-//            BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
-//            this.usuario.setActivo("P");
-//            usuarioServicio.actualizar(this.usuario);
-//            sessionBean.getUser().setActivo("P");
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo Proveedor", " Debes cerrar sesión para que los cambios tengan efecto "));
-//        } catch (IllegalAccessException | InvocationTargetException | ValidationException e) {
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
-//        }
-//    }
     public void update() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
@@ -271,4 +263,5 @@ public class UsuarioBean extends CrudBean implements Serializable {
         }
         this.reset();
     }
+    
 }

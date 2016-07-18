@@ -9,13 +9,10 @@ import com.teamj.arquitectura.hitchus.dao.CertificadoDAO;
 import com.teamj.arquitectura.hitchus.dao.EntidadCertificadoraDAO;
 import com.teamj.arquitectura.hitchus.dao.TipoCertificadoDAO;
 import com.teamj.arquitectura.hitchus.model.Certificado;
-import com.teamj.arquitectura.hitchus.model.CertificadoPK;
-import com.teamj.arquitectura.hitchus.model.EntidadCertificadora;
 import com.teamj.arquitectura.hitchus.model.TipoCertificado;
 import com.teamj.arquitectura.hitchus.model.Usuario;
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -26,7 +23,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalBean
-public class CertificadoServicio {
+public class CertificadoServicio implements Serializable{
 
     @EJB
     private CertificadoDAO certificadoDAO;

@@ -11,7 +11,7 @@
                 >
     <ui:define name="title">Configuración de Usuario</ui:define>
     <f:metadata>
-        <f:viewAction action="#{usuarioBean.init()}" />
+        <f:viewAction action="#{configuracionBean.init()}" />
 
     </f:metadata>
     <ui:define name="content">
@@ -36,7 +36,7 @@
                     <p:commandButton value="Solicitar"
                                      update="@form"
                                      actionListener="#{configuracionBean.cambiarEstado()}" 
-                                     disabled="#{usuarioBean.usuario.premium eq 'P'}"
+                                     disabled="#{configuracionBean.usuario.premium eq 'P'}"
                                      icon="fa fa-edit"
                                      >
                     <p:confirm header="Confirmación" message="Al solicitar nuestra cuenta Premium Ud acpeta nuestros términos y
@@ -67,7 +67,7 @@
                                      update="@form"
                                      icon="fa fa-ellipsis-h"
                                      onclick="PF('chpassword_dialog_var').show();"
-                                     rendered="#{!usuarioBean.modifying}"                                     />
+                                     rendered="#{!configuracionBean.modifying}"                                     />
                 </p:panelGrid>
                 <p:spacer/>
             </p:panel>
@@ -82,15 +82,15 @@
                 <p:panelGrid columns="1"  styleClass="center_block login-form-container panel-grid-no-border">
 
                     <p:password id="old_pass" maxlength="32" styleClass="login-form-input" required="true" 
-                                requiredMessage="Ingrese la contraseña anterior" placeholder="Antigua Contraseña" value="#{usuarioBean.oldPassword}"  />     
+                                requiredMessage="Ingrese la contraseña anterior" placeholder="Antigua Contraseña" value="#{configuracionBean.oldPassword}"  />     
                     <p:password id="new_pass" maxlength="32" styleClass="login-form-input" required="true" 
-                                requiredMessage="Ingrese una nueva contraseña" placeholder="Nueva Contraseña" value="#{usuarioBean.newPassword}"   feedback="true" match="renew_pass" />     
+                                requiredMessage="Ingrese una nueva contraseña" placeholder="Nueva Contraseña" value="#{configuracionBean.newPassword}"   feedback="true" match="renew_pass" />     
                     <p:password id="renew_pass" maxlength="32" styleClass="login-form-input" required="true" 
-                                requiredMessage="Repita la nueva contraseña" placeholder="Repita Nueva Contraseña" value="#{usuarioBean.reNewPassword}"  />     
+                                requiredMessage="Repita la nueva contraseña" placeholder="Repita Nueva Contraseña" value="#{configuracionBean.reNewPassword}"  />     
                     <p:spacer/>
                     <p:commandButton value="Cambiar Contraseña" icon="fa fa-pencil-square-o" process="@form"  
                                      styleClass="login-form-input" 
-                                     actionListener="#{usuarioBean.changePassword()}" 
+                                     actionListener="#{configuracionBean.changePassword()}" 
                                      update=":main_form"
                                      oncomplete="PF('chpassword_dialog_var').hide();">
                         <p:confirm header="Confirmación" message="¿Guardar Cambios?" icon="ui-icon-alert" />

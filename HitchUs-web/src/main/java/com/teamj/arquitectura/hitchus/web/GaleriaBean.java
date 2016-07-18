@@ -5,7 +5,6 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
-import com.teamj.arquitectura.ApplicationContext;
 import com.teamj.arquitectura.hitchus.model.Imagen;
 import com.teamj.arquitectura.hitchus.services.ImagenServicio;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
@@ -43,6 +42,8 @@ public class GaleriaBean implements Serializable {
     private Imagen imagenSeleccionada;
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
+    @ManagedProperty(value = "#{constant}")
+    private Constant constant;
     private boolean cargarNuevaImagen;
     private String nombre;
     private String descripcion;
@@ -64,6 +65,15 @@ public class GaleriaBean implements Serializable {
     public String getFileName() {
         return fileName;
     }
+
+    public Constant getConstant() {
+        return constant;
+    }
+
+    public void setConstant(Constant constant) {
+        this.constant = constant;
+    }
+    
 
     public void setFile(UploadedFile file) {
         this.file = file;
@@ -179,7 +189,7 @@ public class GaleriaBean implements Serializable {
     public void upload() {
         if (file != null) {
             try {
-                usuarioServicio.guardarImagen(file.getInputstream(), nombre, sessionBean.getUser(), descripcion, true, false);
+                usuarioServicio.guardarImagen(file.getInputstream(), constant.getImagesPath(), nombre, sessionBean.getUser(), descripcion, true, false);
                 FacesMessage message = new FacesMessage("Imagen ", file.getFileName() + " cargada correctamente.");
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 imagenes = imagenServicio.obtenerImagenesPorUsuario(sessionBean.getUser());

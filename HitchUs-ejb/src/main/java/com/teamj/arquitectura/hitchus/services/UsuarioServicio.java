@@ -5,7 +5,7 @@
  */
 package com.teamj.arquitectura.hitchus.services;
 
-import com.teamj.arquitectura.ApplicationContext;
+
 import com.teamj.arquitectura.hitchus.dao.CertificadoDAO;
 import com.teamj.arquitectura.hitchus.dao.CiudadResidenciaDAO;
 import com.teamj.arquitectura.hitchus.dao.EncuentroDAO;
@@ -26,6 +26,7 @@ import com.teamj.arquitectura.hitchus.model.Usuario;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -42,25 +43,29 @@ import org.apache.commons.io.FileUtils;
  */
 @Stateless
 @LocalBean
-public class UsuarioServicio {
+public class UsuarioServicio implements Serializable{
 
     @EJB
     private CertificadoDAO certificadoDAO;
-    @EJB
-    ApplicationContext applicationContext;
+    
     @EJB
     private TipoCertificadoDAO tipoCertificadoDAO;
+    
     @EJB
     private EntidadCertificadoraDAO entidadCertificadoraDAO;
+    
     @EJB
     private UsuarioDAO usuarioDAO;
 
     @EJB
     private EncuentroDAO encuentroDAO;
+    
     @EJB
     private ImagenDAO imagenDAO;
+    
     @EJB
     private PaisOrigenDAO paisDAO;
+    
     @EJB
     private CiudadResidenciaDAO ciudadDAO;
 
@@ -150,14 +155,14 @@ public class UsuarioServicio {
         return null;
     }
 
-    public void guardarImagen(InputStream input, String name, Usuario usuario, String descripcion, boolean publica, boolean perfil) {
+    public void guardarImagen(InputStream input,String path, String name, Usuario usuario, String descripcion, boolean publica, boolean perfil) {
 
         Imagen tempImg = new Imagen();
         tempImg.setPerfil(perfil);
         tempImg.setPublica(publica);
         tempImg.setDescripcion(descripcion);
         tempImg.setUsuario(usuario);
-        tempImg.setUrl(applicationContext.getImagesPath());
+        tempImg.setUrl(path);
         tempImg.setNombre(name);
         //create destination File
 
@@ -183,40 +188,6 @@ public class UsuarioServicio {
             this.usuarioDAO.remove(temp);
         }
     }
-
-//    public boolean actualizar(Usuario u) throws ValidationException {
-//        boolean flag = false;
-//        try {
-//            Usuario userToUpdate = this.usuarioDAO.findById(u.getId(), false);
-//            if (userToUpdate != null) {
-//                userToUpdate.setActivo(u.getActivo());
-//                userToUpdate.setNombre(u.getNombre());
-//                //el passoword no voy a tomar en cuenta
-//                userToUpdate.setEmail(u.getEmail());
-//                this.usuarioDAO.update(userToUpdate);
-//            }
-//            flag = true;
-//
-//        } catch (Exception e) {
-//            throw new ValidationException(e, "Error  al actualizar el usuario");
-//        }
-//
-//        return flag;
-//    }
-//
-//    public boolean cambiarContraseña(Usuario u, String oldP, String newP, String reNewP) throws ValidationException {
-//        boolean flag = false;
-//        try {
-//            if (DigestUtils.md5Hex(oldP).equals(u.getClave()) && newP.equals(reNewP)) {
-//                u.setClave(DigestUtils.md5Hex(newP));
-//                this.usuarioDAO.update(u);
-//                flag = true;
-//            }
-//        } catch (Exception e) {
-//            throw new ValidationException(e, "Error  al actualizar el usuario");
-//        }
-//        return flag;
-//    }
     public boolean cambiarContraseña(Usuario user, String oldPassword, String newPassword, String reNewPassword) throws ValidationException {
         boolean flag = false;
         try {

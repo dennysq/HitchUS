@@ -6,6 +6,7 @@
 package com.teamj.arquitectura.hitchus.services;
 
 import com.teamj.arquitectura.hitchus.dao.EncuentroDAO;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -16,7 +17,7 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class EncuentroServicio {
+public class EncuentroServicio implements Serializable{
 
     @EJB
     private EncuentroDAO encuentroDAO;    

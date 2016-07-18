@@ -5,16 +5,13 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
-import com.teamj.arquitectura.ApplicationContext;
+
 import com.teamj.arquitectura.hitchus.exception.ValidationException;
-import com.teamj.arquitectura.hitchus.model.CiudadResidencia;
-import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -23,10 +20,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -38,22 +33,57 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
 
     @EJB
     private UsuarioServicio usuarioServicio;
+    @ManagedProperty(value = "#{constant}")
+    private Constant constant;
 
-    @EJB
-    private ApplicationContext applicationContext;
-
+    
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
 
     private Usuario usuario;
+    private String oldPassword;
+    private String newPassword;
+    private String reNewPassword;
     private Map<String, String> estado;
     private Map<String, String> premium;
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getReNewPassword() {
+        return reNewPassword;
+    }
+
+    public void setReNewPassword(String reNewPassword) {
+        this.reNewPassword = reNewPassword;
+    }
 
     public ConfiguracionBean() {
     }
 
     public SessionBean getSessionBean() {
         return sessionBean;
+    }
+
+    public void setConstant(Constant constant) {
+        this.constant = constant;
+    }
+
+    public Constant getConstant() {
+        return constant;
     }
 
     public void setSessionBean(SessionBean sessionBean) {
@@ -92,7 +122,7 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
                     new org.apache.commons.beanutils.converters.BigDecimalConverter(null), BigDecimal.class);
 
             this.usuario = new Usuario();
-            this.estado = applicationContext.getEstado();
+            this.estado = constant.getEstado();
 
             BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
             System.out.println(""+usuario);
@@ -106,22 +136,6 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
     public void beginModification() {
         this.beginModify();
     }
-
-//    public void becomeAProvider() {
-//        this.beginModify();
-//        this.usuario = new Usuario();
-//        try {
-//            BeanUtils.copyProperties(this.usuario, sessionBean.getUser());
-//            this.usuario.setActivo("P");
-//            usuarioServicio.actualizar(this.usuario);
-//            sessionBean.getUser().setActivo("P");
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Nuevo Proveedor", " Debes cerrar sesión para que los cambios tengan efecto "));
-//        } catch (IllegalAccessException | InvocationTargetException | ValidationException e) {
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
-//        }
-//    }
     public void update() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
