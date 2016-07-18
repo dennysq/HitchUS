@@ -8,16 +8,12 @@ package com.teamj.arquitectura.hitchus.services;
 import com.teamj.arquitectura.hitchus.dao.ImagenDAO;
 import com.teamj.arquitectura.hitchus.model.Imagen;
 import com.teamj.arquitectura.hitchus.model.Usuario;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.validation.ValidationException;
-import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -40,30 +36,6 @@ public class ImagenServicio implements Serializable{
         }
         return flag;
     }
-
-    public void guardarImagen(InputStream input, String path, String name, Usuario usuario, String descripcion, String nombre, boolean publica, boolean perfil) {
-
-        Imagen tempImg = new Imagen();
-        tempImg.setPerfil(perfil);
-        tempImg.setPublica(publica);
-        tempImg.setNombre(nombre);
-        tempImg.setDescripcion(descripcion);
-        //     tempImg.setUsuario(usuario);
-        tempImg.setUrl(path);
-        //create destination File
-        //String destPath = "your path here";
-        this.imagenDAO.insert(tempImg);
-        File destFile = new File(path, "" + tempImg.getId()+".jpg");
-
-        //use org.apache.commons.io.FileUtils to copy the File
-        try {
-            FileUtils.copyInputStreamToFile(input, destFile);
-
-        } catch (IOException e) {
-            //log error
-        }
-    }
-
     public void eliminar(Integer id) {
         Imagen temp = this.imagenDAO.findById(id, false);
         if (temp != null) {
