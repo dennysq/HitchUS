@@ -36,16 +36,20 @@
                             <f:validateLength minimum="1" />
                         </p:password>
                         <f:facet name="footer" class="center_block">
+                            <p:commandButton value="Acceder" id="login_button" icon="fa fa-sign-in" style="margin: 5px;color: white; background: #009345;" 
+                                             action="#{loginBean.login()}" update="@form" />
                             <p:commandButton value="Registrarse" 
                                              id="signup_button" icon="fa fa-angellist" 
                                              style="margin: 5px;color: white; background: #0071BB; " 
                                              actionListener="#{loginBean.beginSignUp()}" 
                                              immediate="true" update="signup_dialog" 
                                              oncomplete="PF('signup_dialog_var').show();" />
-                            <p:commandButton value="Acceder" id="login_button" icon="fa fa-sign-in" style="margin: 5px;color: white; background: #009345;" 
-                                             action="#{loginBean.login()}" update="@form" />
+                            
                         </f:facet>
+
                     </h:panelGrid>
+                    <p:captcha label="Captcha" required="#{sessionBean.loginAttemps>3}" rendered="#{sessionBean.loginAttemps>3}"/>
+                    
                     <div  style="background-color: #455A64;border-radius: 5px; padding: 4px;">
                         <p:panelGrid  >
                             <p:graphicImage style="padding: 3px;" value="images/facebook.png"/>

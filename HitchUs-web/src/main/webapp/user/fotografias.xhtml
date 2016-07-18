@@ -66,7 +66,7 @@
                                   widgetVar="fileUploadVar"
                                   allowTypes="/(\.|\/)(jpe?g)$/" />
                     <p:outputLabel  id="nombrearchivo" value="#{galeriaBean.fileName}"/>
-                    <p:commandButton value="Cargar"  actionListener="#{galeriaBean.upload}" update="@form"/>
+                    <p:commandButton value="Guardar"  actionListener="#{galeriaBean.upload}" update="@form"/>
                     <p:commandButton value="Cancelar"
                                      immediate="true"
                                      actionListener="#{galeriaBean.hideFileUploadDialog()}"
@@ -106,7 +106,7 @@
                         </h:panelGrid>
                     </p:panel>
                 </p:dataGrid>
-                <p:dialog header="Imagen" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:dialog header="#{galeriaBean.imagenSeleccionada.nombre}" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel id="carDetail" style="text-align:center;">
                         <p:panelGrid  columns="1" rendered="#{not empty galeriaBean.imagenSeleccionada}" >
                             <f:facet name="header">

@@ -5,7 +5,6 @@
  */
 package com.teamj.arquitectura.hitchus.services;
 
-
 import com.teamj.arquitectura.hitchus.dao.CertificadoDAO;
 import com.teamj.arquitectura.hitchus.dao.CiudadResidenciaDAO;
 import com.teamj.arquitectura.hitchus.dao.EncuentroDAO;
@@ -28,8 +27,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -43,29 +44,29 @@ import org.apache.commons.io.FileUtils;
  */
 @Stateless
 @LocalBean
-public class UsuarioServicio implements Serializable{
+public class UsuarioServicio implements Serializable {
 
     @EJB
     private CertificadoDAO certificadoDAO;
-    
+
     @EJB
     private TipoCertificadoDAO tipoCertificadoDAO;
-    
+
     @EJB
     private EntidadCertificadoraDAO entidadCertificadoraDAO;
-    
+
     @EJB
     private UsuarioDAO usuarioDAO;
 
     @EJB
     private EncuentroDAO encuentroDAO;
-    
+
     @EJB
     private ImagenDAO imagenDAO;
-    
+
     @EJB
     private PaisOrigenDAO paisDAO;
-    
+
     @EJB
     private CiudadResidenciaDAO ciudadDAO;
 
@@ -91,7 +92,9 @@ public class UsuarioServicio implements Serializable{
                 temp.setGenero("MAS");
                 temp.setEstatura(BigDecimal.ZERO);
                 temp.setEnfermedadesPublica(false);
-                temp.setCreado(new Date());
+                
+                temp.setCreado(Calendar.getInstance(TimeZone.getTimeZone("ECT")).getTime());
+                
                 temp.setIntereses(" ");
                 String codecPassword = DigestUtils.md5Hex(u.getPassword());
                 temp.setPassword(codecPassword);
@@ -155,7 +158,7 @@ public class UsuarioServicio implements Serializable{
         return null;
     }
 
-    public void guardarImagen(InputStream input,String path, String name, Usuario usuario, String descripcion, boolean publica, boolean perfil) {
+    public void guardarImagen(InputStream input, String path, String name, Usuario usuario, String descripcion, boolean publica, boolean perfil) {
 
         Imagen tempImg = new Imagen();
         tempImg.setPerfil(perfil);
@@ -188,6 +191,7 @@ public class UsuarioServicio implements Serializable{
             this.usuarioDAO.remove(temp);
         }
     }
+
     public boolean cambiarContraseña(Usuario user, String oldPassword, String newPassword, String reNewPassword) throws ValidationException {
         boolean flag = false;
         try {
@@ -214,11 +218,22 @@ public class UsuarioServicio implements Serializable{
         return this.imagenDAO.find(temp);
     }
 
+    public Imagen obtenerImagenPerfil(Usuario u) {
+        Imagen temp = new Imagen();
+        temp.setUsuario(u);
+        temp.setPerfil(Boolean.TRUE);
+        List<Imagen> imagenes = this.imagenDAO.find(temp);
+        if (imagenes != null && !imagenes.isEmpty()) {
+            return imagenes.get(0);
+        }
+        return null;
+    }
+
     public List<CiudadResidencia> obtenerCiudades() {
         return this.ciudadDAO.findAll();
     }
-    
-    public Usuario getCurrentUser(Integer id){
+
+    public Usuario getCurrentUser(Integer id) {
         return this.usuarioDAO.findById(id, true);
     }
 }

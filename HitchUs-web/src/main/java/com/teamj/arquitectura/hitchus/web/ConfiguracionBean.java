@@ -178,5 +178,16 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
 
         }
     }
+    
+    public void changePassword() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (this.usuarioServicio.cambiarContraseña(sessionBean.getUser(), oldPassword, newPassword, reNewPassword)) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "La contraseña ha sido actualizada"));
+        } else {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La contraseña no pudo ser actualizada"));
+        }
+        this.reset();
+    }
+    
 
 }

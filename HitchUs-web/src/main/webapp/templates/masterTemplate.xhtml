@@ -101,18 +101,14 @@ and open the template in the editor.
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link href="#{facesContext.externalContext.requestContextPath}/css/styles.css" rel="stylesheet"/>
     </h:head>
-    <!--ui:include src="header.xhtml"
-    
-    <p:menuitem>
-                    <h:link style="margin-left:  10px;margin-right: 10px;" outcome="home.xhtml">
-                        <h:graphicImage value="../images/user3.png" height="15"   />
-                    </h:link>
-                </p:menuitem>/-->
     <h:body>
         <h:form id="menu_form">
-            
             <p:menubar  styleClass="centeredMenuBar" >
-                
+                <p:menuitem>
+                    <h:link style="margin-left:  10px;margin-right: 10px;" rendered="#{sessionBean.user.premium eq 'V'}" outcome="home.xhtml">
+                        <h:graphicImage value="../images/premium.png" height="15"   />
+                    </h:link>
+                </p:menuitem>
                 <p:menuitem value="Perfil"  icon="fa fa-user" url="usuario.xhtml"/>              
                 <p:menuitem value="Mis Fotografias" icon="fa fa-picture-o" url="fotografias.xhtml"/>
                 <p:menuitem value="Mis Hitches" icon="fa fa-users" url="encuentros.xhtml"/>

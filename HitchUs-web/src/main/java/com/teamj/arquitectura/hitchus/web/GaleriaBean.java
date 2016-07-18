@@ -73,7 +73,6 @@ public class GaleriaBean implements Serializable {
     public void setConstant(Constant constant) {
         this.constant = constant;
     }
-    
 
     public void setFile(UploadedFile file) {
         this.file = file;

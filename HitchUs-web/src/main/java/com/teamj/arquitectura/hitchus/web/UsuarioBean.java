@@ -7,6 +7,7 @@ package com.teamj.arquitectura.hitchus.web;
 
 import com.teamj.arquitectura.hitchus.exception.ValidationException;
 import com.teamj.arquitectura.hitchus.model.CiudadResidencia;
+import com.teamj.arquitectura.hitchus.model.Imagen;
 import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
@@ -40,7 +41,7 @@ public class UsuarioBean extends CrudBean implements Serializable {
     @EJB
     private UsuarioServicio usuarioServicio;
 
-    @ManagedProperty(value="#{constant}")
+    @ManagedProperty(value = "#{constant}")
     private Constant constant;
 
     @ManagedProperty(value = "#{sessionBean}")
@@ -50,6 +51,7 @@ public class UsuarioBean extends CrudBean implements Serializable {
     private String oldPassword;
     private String newPassword;
     private String reNewPassword;
+    private String rutaFotoDePerfil;
     private Date fechaNacimiento;
     private List<PaisOrigen> paisOrigenLista;
     private List<CiudadResidencia> ciudadResidenciaLista;
@@ -62,6 +64,14 @@ public class UsuarioBean extends CrudBean implements Serializable {
 
     public SessionBean getSessionBean() {
         return sessionBean;
+    }
+
+    public String getRutaFotoDePerfil() {
+        return rutaFotoDePerfil;
+    }
+
+    public void setRutaFotoDePerfil(String rutaFotoDePerfil) {
+        this.rutaFotoDePerfil = rutaFotoDePerfil;
     }
 
     public void setSessionBean(SessionBean sessionBean) {
@@ -189,22 +199,22 @@ public class UsuarioBean extends CrudBean implements Serializable {
             this.fechaNacimiento = simpleDateFormat.parse(usuario.getMesNacimiento() + "-" + usuario.getAnioNacimiento());
 
             for (PaisOrigen p : this.paisOrigenLista) {
-                if (this.usuario.getPaisOrigen()!=null && this.usuario.getPaisOrigen().equals(p)) {
+                if (this.usuario.getPaisOrigen() != null && this.usuario.getPaisOrigen().equals(p)) {
                     this.idPaisOrigenSeleccionado = p.getId();
                     break;
-                } 
+                }
             }
             for (CiudadResidencia c : this.ciudadResidenciaLista) {
-                if (this.usuario.getCiudadResidencia()!=null && this.usuario.getCiudadResidencia().equals(c)) {
+                if (this.usuario.getCiudadResidencia() != null && this.usuario.getCiudadResidencia().equals(c)) {
                     this.idCiudadResidenciaSeleccionada = c.getId();
                     break;
                 } else {
                 }
-                
+
             }
 
             System.out.println("" + usuario);
-
+            obtenerFotoDePerfil();
         } catch (IllegalAccessException | InvocationTargetException | ParseException e) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
@@ -251,17 +261,19 @@ public class UsuarioBean extends CrudBean implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
         }
         this.reset();
-
     }
 
-    public void changePassword() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        if (this.usuarioServicio.cambiarContraseña(sessionBean.getUser(), oldPassword, newPassword, reNewPassword)) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "La contraseña ha sido actualizada"));
+    private void obtenerFotoDePerfil() {
+
+        Imagen i = usuarioServicio.obtenerImagenPerfil(sessionBean.getUser());
+        if (i != null) {
+            rutaFotoDePerfil = "../imageshitchus/" + i.getId() + ".jpg";
+        } else if (sessionBean.getUser().getGenero().equals("FEM")) {
+            rutaFotoDePerfil = "../images/fb-woman-profile.jpg";
         } else {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La contraseña no pudo ser actualizada"));
+            rutaFotoDePerfil = "../images/fb-man-profile.jpg";
         }
-        this.reset();
+
     }
-    
+
 }

@@ -117,6 +117,11 @@ public class LoginBean implements Serializable {
         return sdf.format(c.getTime());
     }
 
+    public void submitCaptcha() {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
     public String login() {
 
         FacesMessage msg = null;
@@ -138,6 +143,7 @@ public class LoginBean implements Serializable {
                     msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error",
                             "Credenciales no válidas");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
+                    sessionBean.addAttemp();
                 }
             } catch (Exception e) {
             }
