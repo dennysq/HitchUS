@@ -37,6 +37,7 @@ public class Constant implements Serializable {
     private Map<String, String> genero;
     private Map<String, String> estado;
     private Map<String, String> premium;
+    private Map<String, String> enfermedades;
     private Map<String, String> nivelDeEducacion;
     private Map<String, String> siNo;
 
@@ -64,6 +65,14 @@ public class Constant implements Serializable {
         estado = new HashMap<>();
         estado.put("Activo", "ACT");
         estado.put("Inactivo", "INA");
+        enfermedades=new HashMap<>();
+        enfermedades.put("VIH SIDA", "VIH SIDA");
+        enfermedades.put("Clamidia", "Clamidia");
+        enfermedades.put("Sífilis", "Sífilis");
+        enfermedades.put("Herpes", "Herpes");
+        enfermedades.put("Tricomoniasis", "Tricomoniasis");
+        enfermedades.put("Gonorrea", "Gonorrea");
+        
         InputStream csvFile = getClass().getClassLoader().getResourceAsStream("paises.csv");
         BufferedReader br = null;
         String line = "";
@@ -125,6 +134,15 @@ public class Constant implements Serializable {
         SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
         return sdf.format(c.getTime());
     }
+
+    public Map<String, String> getEnfermedades() {
+        return enfermedades;
+    }
+
+    public void setEnfermedades(Map<String, String> enfermedades) {
+        this.enfermedades = enfermedades;
+    }
+    
 
     public List<Pais> getPaises() {
         return paises;

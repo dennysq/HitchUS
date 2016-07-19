@@ -127,7 +127,7 @@ public class UsuarioServicio implements Serializable {
             c = new Certificado();
             c.setEntidadCertificadora(entidadCertificadoras.get(0));
             c.setCertificadoPK(certificadoPK);
-            c.setVerificado("N");
+            c.setVerificado(false);
             certificadoDAO.insert(c);
         }
         System.out.println("Creando certificados para el usuario" + u.getEmail());
@@ -152,6 +152,7 @@ public class UsuarioServicio implements Serializable {
         List<Usuario> tempList = this.usuarioDAO.find(tempUsu);
         if (tempList != null && tempList.size() == 1) {
             if (DigestUtils.md5Hex(password).equals(tempList.get(0).getPassword())) {
+                usuarioDAO.refresh(tempList.get(0));
                 return tempList.get(0);
             }
         }

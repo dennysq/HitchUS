@@ -5,10 +5,12 @@
  */
 package com.teamj.arquitectura.hitchus.model;
 
+import com.teamj.arquitectura.hitchus.converter.BooleanToStringConverter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -56,10 +58,22 @@ public class Certificado implements Serializable{
     @Column(name = "RESULTADO")
     private String resultado;
     
+    @Column(name = "NOMBRE_ARCHIVO")
+    private String nombreArchivo;
+    
     @Column(name = "VERIFICADO")
-    private String verificado;
+    @Convert(converter = BooleanToStringConverter.class)
+    private Boolean verificado;
 
     public Certificado() {
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
+    public String getNombreArchivo() {
+        return nombreArchivo;
     }
 
     public CertificadoPK getCertificadoPK() {
@@ -134,11 +148,11 @@ public class Certificado implements Serializable{
         this.resultado = resultado;
     }
 
-    public String getVerificado() {
+    public Boolean getVerificado() {
         return verificado;
     }
 
-    public void setVerificado(String verificado) {
+    public void setVerificado(Boolean verificado) {
         this.verificado = verificado;
     }
 

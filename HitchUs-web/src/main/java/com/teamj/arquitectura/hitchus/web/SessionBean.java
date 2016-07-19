@@ -58,6 +58,7 @@ public class SessionBean implements Serializable {
 
     public String logout() {
         // invalidate the session
+        this.user=null;
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         loginAttemps = 0;
         return LOGOUT_PAGE_REDIRECT;

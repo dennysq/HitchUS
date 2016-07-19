@@ -107,12 +107,20 @@
                                  value="#{usuarioBean.usuario.numeroTelefonico}" >
                         <pe:keyFilter regEx="/[0-9_\s]/i"/> 
                     </p:inputText>     
-                    <p:outputLabel for="estatura" value="Estatura:" class="negrita"/>
+                    <p:outputLabel for="estatura" value="Estatura (cm):" class="negrita"/>
                     <p:inputText id="estatura" 
                                  maxlength="4"  autocomplete="false" 
                                  readonly="#{!usuarioBean.modifying}"
                                  placeholder="Estatura" 
                                  value="#{usuarioBean.usuario.estatura}" >
+                        <pe:keyFilter regEx="/[0-9_.\s]/i"/> 
+                    </p:inputText>     
+                    <p:outputLabel for="peso" value="Peso (Kg):" class="negrita"/>
+                    <p:inputText id="peso" 
+                                 maxlength="4"  autocomplete="false" 
+                                 readonly="#{!usuarioBean.modifying}"
+                                 placeholder="Peso" 
+                                 value="#{usuarioBean.usuario.peso}" >
                         <pe:keyFilter regEx="/[0-9_.\s]/i"/> 
                     </p:inputText>     
                     <p:outputLabel for="contextura" value="Contextura:" class="negrita"/>

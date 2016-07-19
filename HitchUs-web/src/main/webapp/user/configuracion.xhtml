@@ -3,17 +3,18 @@
 <ui:composition template="/templates/masterTemplate.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
-                xmlns:pe="http://primefaces.org/ui/extensions"                >
+                xmlns:pe="http://primefaces.org/ui/extensions">
     <ui:define name="title">Configuración de Usuario</ui:define>
     <f:metadata>
         <f:viewAction action="#{configuracionBean.init()}" />
     </f:metadata>
     <ui:define name="content">
-        <h:form id="main_form">
-            <p:panel class="no_border" >
+        <p:panel class="no_border" >
+            <h:form id="main_form"  >
                 <div class="center_inline">
                     <h1>Configuración de la Cuenta</h1>
                 </div>
@@ -26,17 +27,16 @@
                                      disabled="#{!configuracionBean.modifying}"
                                      >
                         <f:selectItems value="#{configuracionBean.estado}" />
-                        <!--<p:ajax event="change"  update="@this"/>-->
                     </h:selectOneMenu>
                     <p:outputLabel value="Cuenta Premium" class="negrita"/>
                     <p:commandButton value="Solicitar"
-                                     update="@form"
+                                     update="@form :form_enf:enf"
                                      actionListener="#{configuracionBean.cambiarEstado()}" 
                                      disabled="#{configuracionBean.usuario.premium eq 'P'}"
-                                     icon="fa fa-edit"
+                                     icon="fa fa-paper-plane"
                                      >
-                    <p:confirm header="Confirmación" message="Al solicitar nuestra cuenta Premium Ud acpeta nuestros términos y
-                               Condiciones" icon="ui-icon-alert" />
+                        <p:confirm header="Confirmación" message="Al solicitar nuestra cuenta Premium Ud acpeta nuestros términos y
+                                   Condiciones" icon="ui-icon-alert" />
                     </p:commandButton>
 
                 </p:panelGrid>
@@ -65,9 +65,48 @@
                                      onclick="PF('chpassword_dialog_var').show();"
                                      rendered="#{!configuracionBean.modifying}"                                     />
                 </p:panelGrid>
+            </h:form>
+            <h:form enctype="multipart/form-data" id="form_enf">
+                <p:separator/>            
+                <p:panelGrid columns="7" styleClass="center_block panel-grid-no-border"  id="enf" rendered="#{sessionBean.user.premium eq 'P'}">
+                    <h:selectOneMenu value="#{configuracionBean.enfermedadSeleccionada}"
+                                     id="enfermedades"
+                                     style="width: 200px;">
+                        <f:selectItems value="#{constant.enfermedades}" />
+                        <p:ajax event="change" listener="#{configuracionBean.actualizarEnfermedadSeleccionada}" update="@form"/>
+                    </h:selectOneMenu>
+                    <p:fileUpload mode="advanced"
+                                  update="nombrearchivo" sizeLimit="1000000" fileLimit="1" cancelLabel="Cancelar"
+                                  fileUploadListener="#{configuracionBean.handleFileUpload}"
+                                  uploadLabel="Cargar"
+                                  id="file"
+                                  required="true"
+                                  auto="true"
+                                  style="width: 200px;"
+                                  skinSimple="true"
+                                  value="#{configuracionBean.file}"
+                                  fileLimitMessage="Solo puede elegir un archivo a la vez"
+                                  invalidSizeMessage="El tamaño del archivo no puede sobrepasar 1 MB"
+                                  invalidFileMessage="Debe elegir un archivo pdf"
+                                  label="Elegir"
+                                  widgetVar="fileUploadVar"
+                                  allowTypes="/(\.|\/)(pdf)$/" />
+                    <p:outputLabel  id="nombrearchivo" value="#{configuracionBean.fileName}" style="display: block; width: 200px; word-wrap: break-word; "/>
+                    <p:commandButton value="Enviar"  actionListener="#{configuracionBean.upload}" update="@form">
+                        
+                            <p:confirm header="Confirmación" message="¿Guardar Cambios?"   icon="ui-icon-alert" />
+                        
+                    </p:commandButton>
+                    <p:commandButton value="Cancelar"
+                                     immediate="true"
+                                     actionListener="#{configuracionBean.cancelFileUpload()}"
+                                     update="@form"         />
+                    <h:graphicImage value="#{configuracionBean.certificadoSeleccionado.fechaRecepcion eq null?'../images/send.png':'../images/send-ok.png'}" height="15"   />
+                    <h:graphicImage value="#{configuracionBean.certificadoSeleccionado.verificado eq false?'../images/medal.png':'../images/medal-ok.png'}" height="15"   />
+                </p:panelGrid>
                 <p:spacer/>
-            </p:panel>
-        </h:form>
+            </h:form>
+        </p:panel>
         <p:dialog id="chpassword_dialog" 
                   widgetVar="chpassword_dialog_var" 
                   modal="true" 
@@ -89,6 +128,7 @@
                                      actionListener="#{configuracionBean.changePassword()}" 
                                      update=":main_form"
                                      oncomplete="PF('chpassword_dialog_var').hide();">
+
                         <p:confirm header="Confirmación" message="¿Guardar Cambios?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:spacer/>
