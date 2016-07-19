@@ -30,7 +30,7 @@
                     </h:selectOneMenu>
                     <p:outputLabel value="Cuenta Premium" class="negrita"/>
                     <p:commandButton value="Solicitar"
-                                     update="@form :form_enf:enf"
+                                     update="@form"
                                      actionListener="#{configuracionBean.cambiarEstado()}" 
                                      disabled="#{configuracionBean.usuario.premium eq 'P'}"
                                      icon="fa fa-paper-plane"
@@ -65,8 +65,7 @@
                                      onclick="PF('chpassword_dialog_var').show();"
                                      rendered="#{!configuracionBean.modifying}"                                     />
                 </p:panelGrid>
-            </h:form>
-            <h:form enctype="multipart/form-data" id="form_enf">
+            
                 <p:separator/>            
                 <p:panelGrid columns="7" styleClass="center_block panel-grid-no-border"  id="enf" rendered="#{sessionBean.user.premium eq 'P'}">
                     <h:selectOneMenu value="#{configuracionBean.enfermedadSeleccionada}"
