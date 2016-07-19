@@ -5,10 +5,12 @@
  */
 package com.teamj.arquitectura.hitchus.ws;
 
+import com.teamj.arquitectura.hitchus.model.Bloqueo;
 import com.teamj.arquitectura.hitchus.model.Encuentro;
 import com.teamj.arquitectura.hitchus.model.EstadisticaUsuario;
 import com.teamj.arquitectura.hitchus.model.TipoCertificado;
 import com.teamj.arquitectura.hitchus.model.Usuario;
+import com.teamj.arquitectura.hitchus.services.BloqueoServicio;
 import com.teamj.arquitectura.hitchus.services.CertificadoServicio;
 import com.teamj.arquitectura.hitchus.services.EncuentroServicio;
 import com.teamj.arquitectura.hitchus.services.EstadisticaUsuarioServicio;
@@ -52,6 +54,9 @@ public class UsuarioRestServices {
 
     @EJB
     EstadisticaUsuarioServicio estadisticaUsuarioServicio;
+    
+    @EJB
+    BloqueoServicio bloqueoServicio;
 
     /**
      * Creates a new instance of UsuarioRestServices
@@ -134,5 +139,17 @@ public class UsuarioRestServices {
         return estadisticaUsuarioServicio.getEstadisticaUsuario(Integer.parseInt(id));
         //return null;
     }
+    
+    
+    //6
+    @POST
+    @Produces("application/json")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Path("/bloquearUsuario")
+    public void bloquearUsuario(@FormParam(value = "id_u1") String id_u1, @FormParam(value = "id_u2") String id_u2) {
+        
+        bloqueoServicio.bloquearUsuario(Integer.parseInt(id_u1), Integer.parseInt(id_u2));
+    }
+    
 
 }
