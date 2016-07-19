@@ -92,9 +92,9 @@ public class UsuarioServicio implements Serializable {
                 temp.setGenero("MAS");
                 temp.setEstatura(BigDecimal.ZERO);
                 temp.setEnfermedadesPublica(false);
-                
+
                 temp.setCreado(Calendar.getInstance(TimeZone.getTimeZone("ECT")).getTime());
-                
+
                 temp.setIntereses(" ");
                 String codecPassword = DigestUtils.md5Hex(u.getPassword());
                 temp.setPassword(codecPassword);
@@ -134,6 +134,36 @@ public class UsuarioServicio implements Serializable {
         return true;
     }
 
+    public boolean crearCertificadosPorUsuario2(Usuario u) {
+        Certificado ejemploCertificado = new Certificado();
+        ejemploCertificado.setUsuario(u);
+
+        List<Certificado> certificados = certificadoDAO.find(ejemploCertificado);
+        if (certificados == null || certificados.isEmpty()) {
+            List<TipoCertificado> tipoCertificados = tipoCertificadoDAO.findAll();
+            Certificado c;
+            EntidadCertificadora entidadCertificadora = new EntidadCertificadora();
+            entidadCertificadora.setNombre("HitchUS");
+            List<EntidadCertificadora> entidadCertificadoras = entidadCertificadoraDAO.find(entidadCertificadora);
+            if (entidadCertificadoras.isEmpty()) {
+                return false;
+            }
+            CertificadoPK certificadoPK;
+            for (TipoCertificado tipoC : tipoCertificados) {
+                certificadoPK = new CertificadoPK();
+                certificadoPK.setTipoCertificado(tipoC.getId());
+                certificadoPK.setUsuario(u.getId());
+                c = new Certificado();
+                c.setEntidadCertificadora(entidadCertificadoras.get(0));
+                c.setCertificadoPK(certificadoPK);
+                c.setVerificado(false);
+                certificadoDAO.insert(c);
+            }
+            System.out.println("Creando certificados para el usuario" + u.getEmail());
+        }
+        return true;
+    }
+
     public boolean editarPerfil(Usuario u) throws ValidationException {
         boolean flag = false;
         try {
@@ -153,6 +183,8 @@ public class UsuarioServicio implements Serializable {
         if (tempList != null && tempList.size() == 1) {
             if (DigestUtils.md5Hex(password).equals(tempList.get(0).getPassword())) {
                 usuarioDAO.refresh(tempList.get(0));
+                boolean men = crearCertificadosPorUsuario2(tempList.get(0));
+                System.out.println("resultado de crear certificados por usuarios:" + men);
                 return tempList.get(0);
             }
         }
