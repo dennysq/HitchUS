@@ -35,9 +35,9 @@ public class Bloqueo implements Serializable{
     @JoinColumn(name = "ID_USUARIO2", nullable = false,insertable = false,updatable = false)
     private Usuario usuario2;
     
-    @Column(name = "DATE")
+    @Column(name = "FECHA")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date date;
+    private Date fecha;
 
     public Bloqueo() {
     }
@@ -66,14 +66,15 @@ public class Bloqueo implements Serializable{
         this.usuario2 = usuario2;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
+   
     @Override
     public int hashCode() {
         int hash = 7;
@@ -101,8 +102,10 @@ public class Bloqueo implements Serializable{
 
     @Override
     public String toString() {
-        return "Bloqueo{" + "bloqueoPK=" + bloqueoPK + ", usuario1=" + usuario1 + ", usuario2=" + usuario2 + ", date=" + date + '}';
+        return "Bloqueo{" + "bloqueoPK=" + bloqueoPK + ", usuario1=" + usuario1 + ", usuario2=" + usuario2 + ", fecha=" + fecha + '}';
     }
+
+ 
     
     
 }
