@@ -90,6 +90,7 @@ public class UsuarioServicio implements Serializable {
                 temp.setEstado("ACT");
                 temp.setGenero("MAS");
                 temp.setEstatura(BigDecimal.ZERO);
+                temp.setPeso(BigDecimal.ZERO);
                 temp.setEnfermedadesPublica(false);
 
                 temp.setCreado(Calendar.getInstance(TimeZone.getTimeZone("ECT")).getTime());
