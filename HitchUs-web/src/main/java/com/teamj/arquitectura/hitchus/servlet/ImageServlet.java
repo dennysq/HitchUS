@@ -30,8 +30,9 @@ public class ImageServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    String imagesPath = "C:\\hitchus";
-    //String imagesPath = "/home/ec2-user/hitchus";
+    //String imagesPath = "C:\\hitchus";
+    
+    String imagesPath = "/home/ec2-user/hitchus";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

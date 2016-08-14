@@ -45,6 +45,7 @@ public class UsuarioRestServices {
 
     @EJB
     UsuarioServicio usuarioServicio;
+    
 
     @EJB
     EncuentroServicio encuentroServicio;
@@ -149,6 +150,14 @@ public class UsuarioRestServices {
     public void bloquearUsuario(@FormParam(value = "id_u1") String id_u1, @FormParam(value = "id_u2") String id_u2) {
         
         bloqueoServicio.bloquearUsuario(Integer.parseInt(id_u1), Integer.parseInt(id_u2));
+    }
+    @POST
+    @Produces("application/json")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Path("/crearEncuentro")
+    public Encuentro crearEncuentro(@FormParam(value = "id_u1") String id_u1, @FormParam(value = "id_u2") String id_u2) {
+        
+        return encuentroServicio.crearEncuentro(Integer.parseInt(id_u1), Integer.parseInt(id_u2));
     }
     
 

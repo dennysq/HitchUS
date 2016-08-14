@@ -6,9 +6,6 @@
 package com.teamj.arquitectura.hitchus.nosql.dao;
 
 import com.teamj.arquitectura.hitchus.nosql.model.Usuario;
-import com.teamj.arquitectura.hitchus.nosql.persistence.PersistenceManager;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;

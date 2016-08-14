@@ -5,9 +5,11 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
+import com.teamj.arquitectura.hitchus.model.CalificacionEncuentro;
 import com.teamj.arquitectura.hitchus.model.Encuentro;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,9 +17,12 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.ToggleEvent;
 
 /**
  *
@@ -40,6 +45,7 @@ public class EncuentrosBean implements Serializable {
     private List<Encuentro> encuentros;
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
+    private CalificacionEncuentro calificacionEncuentro;
 
     @PostConstruct
     public void init() {
@@ -51,7 +57,15 @@ public class EncuentrosBean implements Serializable {
         fechaEntrada = new Date();
 
         encuentros = usuarioServicio.obtenerEncuentrosPorUsuario(sessionBean.getUser());
-        
+
+    }
+
+    public void setCalificacionEncuentro(CalificacionEncuentro calificacionEncuentro) {
+        this.calificacionEncuentro = calificacionEncuentro;
+    }
+
+    public CalificacionEncuentro getCalificacionEncuentro() {
+        return calificacionEncuentro;
     }
 
     public void setSessionBean(SessionBean sessionBean) {
@@ -70,7 +84,6 @@ public class EncuentrosBean implements Serializable {
         this.encuentros = encuentros;
     }
 
-    
     public String todayDate() {
         return new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
     }
@@ -129,6 +142,25 @@ public class EncuentrosBean implements Serializable {
 
     public void setConDesayuno(Boolean conDesayuno) {
         this.conDesayuno = conDesayuno;
+    }
+
+    public void onRowToggle(ToggleEvent event) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Row State " + event.getVisibility(),
+                "State:" + ((Encuentro) event.getData()).getEstado());
+        Encuentro encuentro = ((Encuentro) event.getData());
+        if (encuentro.getCalificacionEncuentros() != null && !encuentro.getCalificacionEncuentros().isEmpty()) {
+            this.calificacionEncuentro = encuentro.getCalificacionEncuentros().get(0);
+        } else {
+            this.calificacionEncuentro = new CalificacionEncuentro();
+            this.calificacionEncuentro.setAmabilidad(BigDecimal.ZERO);
+            this.calificacionEncuentro.setGeneral(BigDecimal.ZERO);
+            this.calificacionEncuentro.setComportamiento(BigDecimal.ZERO);
+            this.calificacionEncuentro.setHigiene(BigDecimal.ONE);
+
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
     }
 
 }

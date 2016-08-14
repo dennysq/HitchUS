@@ -13,7 +13,9 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -21,30 +23,74 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CALIFICACION_ENCUENTRO")
-public class CalificacionEncuentro implements Serializable{
+public class CalificacionEncuentro implements Serializable {
 
     @EmbeddedId
     CalificacionEncuentroPK calificacionEncuentroPK;
-    
+
     @ManyToOne
-    @JoinColumn(name = "ID_USUARIO", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "ID_USUARIO", nullable = false, insertable = false, updatable = false)
     private Usuario usuario;
-    
+
     @ManyToOne
-    @JoinColumn(name = "ID_ENCUENTRO", nullable = false,insertable = false,updatable = false)
-    private Encuentro encuentro;       
-        
+    @JoinColumn(name = "ID_ENCUENTRO", nullable = false, insertable = false, updatable = false)
+    private Encuentro encuentro;
+
     @Column(name = "HIGIENE")
     private BigDecimal higiene;
-    
+
     @Column(name = "COMPORTAMIENTO")
     private BigDecimal comportamiento;
-    
+
     @Column(name = "AMABILIDAD")
     private BigDecimal amabilidad;
-    
+
     @Column(name = "GENERAL")
     private BigDecimal general;
+
+    @Transient
+    private Integer higieneInt;
+
+    @Transient
+    private Integer comportamientoInt;
+
+    @Transient
+    private Integer amabilidadInt;
+
+    @Transient
+    private Integer generalInt;
+
+    public Integer getHigieneInt() {
+        return higieneInt;
+    }
+
+    public void setHigieneInt(Integer higieneInt) {
+        this.higieneInt = higieneInt;
+    }
+
+    public Integer getComportamientoInt() {
+        return comportamientoInt;
+    }
+
+    public void setComportamientoInt(Integer comportamientoInt) {
+        this.comportamientoInt = comportamientoInt;
+    }
+
+    public Integer getAmabilidadInt() {
+        return amabilidadInt;
+    }
+
+    public void setAmabilidadInt(Integer amabilidadInt) {
+        this.amabilidadInt = amabilidadInt;
+    }
+
+    public Integer getGeneralInt() {
+        return generalInt;
+    }
+
+    public void setGeneralInt(Integer generalInt) {
+        this.generalInt = generalInt;
+    }
 
     public CalificacionEncuentro() {
     }
@@ -112,6 +158,15 @@ public class CalificacionEncuentro implements Serializable{
         return hash;
     }
 
+    @PostLoad
+    private void load() {
+        this.amabilidadInt = this.amabilidad.intValue();
+        this.generalInt = this.general.intValue();
+        this.comportamientoInt = this.comportamiento.intValue();
+        this.higieneInt = this.higiene.intValue();
+
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -134,7 +189,5 @@ public class CalificacionEncuentro implements Serializable{
     public String toString() {
         return "Calificacion_Encuentro{" + "calificacionEncuentroPK=" + calificacionEncuentroPK + ", usuario=" + usuario + ", encuentro=" + encuentro + ", higiene=" + higiene + ", comportamiento=" + comportamiento + ", amabilidad=" + amabilidad + ", general=" + general + '}';
     }
-    
-       
-    
+
 }

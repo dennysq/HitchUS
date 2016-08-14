@@ -243,12 +243,12 @@ public class UsuarioBean extends CrudBean implements Serializable {
             usuarioServicio.editarPerfil(this.usuario);
             BeanUtils.copyProperties(sessionBean.getUser(), this.usuario);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "La información del usuario se ha actualizado correctamente"));
-
+            this.reset();
         } catch (ValidationException | IllegalAccessException | InvocationTargetException e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
         }
-        RequestContext.getCurrentInstance().execute("PF('agregar_dialog_var').hide()");
-        this.reset();
+        //RequestContext.getCurrentInstance().execute("PF('agregar_dialog_var').hide()");
+
         // this.usuarioSelected=null;
     }
 

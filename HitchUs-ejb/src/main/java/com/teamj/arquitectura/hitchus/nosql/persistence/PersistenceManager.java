@@ -12,9 +12,6 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
-import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
-import javax.ejb.Stateless;
 
 /**
  *
@@ -27,8 +24,8 @@ public final class PersistenceManager {
     private static Morphia morphia;
     private static MongoClient mongoClient;
     private final Datastore mds;
-    public static final String DB_NAME = "ebanking";
-    public static final String DB_PACKAGE = "com.teamj.distribuidas.corebancario.mongo.model";
+    public static final String DB_NAME = "usuarios";
+    public static final String DB_PACKAGE = "com.teamj.arquitectura.hitchus.nosql.model";
 
     public PersistenceManager() {
         MongoClientOptions mongoOptions

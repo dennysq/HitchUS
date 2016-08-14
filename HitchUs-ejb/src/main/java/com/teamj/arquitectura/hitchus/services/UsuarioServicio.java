@@ -22,6 +22,7 @@ import com.teamj.arquitectura.hitchus.model.Imagen;
 import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import com.teamj.arquitectura.hitchus.model.TipoCertificado;
 import com.teamj.arquitectura.hitchus.model.Usuario;
+import com.teamj.arquitectura.hitchus.nosql.persistence.PersistenceManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +37,8 @@ import javax.ejb.LocalBean;
 import javax.validation.ValidationException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 
 /**
  *
@@ -168,8 +171,65 @@ public class UsuarioServicio implements Serializable {
         boolean flag = false;
         try {
             this.usuarioDAO.update(u);
-            flag = true;
+
+            System.out.println("actualizando en mongo");
+            com.teamj.arquitectura.hitchus.nosql.dao.UsuarioDAO usuarioDAO = new com.teamj.arquitectura.hitchus.nosql.dao.UsuarioDAO(com.teamj.arquitectura.hitchus.nosql.model.Usuario.class, PersistenceManager.instance().datastore());
+            // com.teamj.arquitectura.hitchus.nosql.model.Usuario user = new com.teamj.arquitectura.hitchus.nosql.model.Usuario();
+            com.teamj.arquitectura.hitchus.nosql.model.Usuario user = usuarioDAO.findOne("idUsuario", u.getId());
+            if (user != null) {
+                Query<com.teamj.arquitectura.hitchus.nosql.model.Usuario> query = PersistenceManager.instance().datastore().createQuery(com.teamj.arquitectura.hitchus.nosql.model.Usuario.class).field("idUsuario").equal(u.getId());
+                UpdateOperations<com.teamj.arquitectura.hitchus.nosql.model.Usuario> ops;
+                if (u.getCiudadResidencia() != null && u.getPaisOrigen() != null) {
+                    ops = PersistenceManager.instance().datastore()
+                            .createUpdateOperations(com.teamj.arquitectura.hitchus.nosql.model.Usuario.class)
+                            .set("anioNacimiento", u.getAnioNacimiento())
+                            .set("calificacion", u.getCalificacion() == null ? 0.0f : u.getCalificacion().floatValue())
+                            .set("contextura", u.getContextura() == null ? "" : u.getContextura())
+                            .set("enfermedadesPublica", u.getEnfermedadesPublica())
+                            .set("estado", u.getEstado() == null ? "" : u.getEstado())
+                            .set("estatura", u.getEstatura() == null ? 0.0f : u.getEstatura().floatValue())
+                            .set("genero", u.getGenero() == null ? "" : u.getGenero())
+                            .set("idiomas", u.getIdiomas() == null ? "" : u.getIdiomas())
+                            .set("intereses", u.getIntereses() == null ? "" : u.getIntereses())
+                            .set("mesNacimiento", u.getMesNacimiento())
+                            .set("nickname", u.getNickname() == null ? "" : u.getNickname())
+                            .set("nivelEducacion", u.getNivelEducacion() == null ? "" : u.getNivelEducacion())
+                            .set("numeroTelefonico", u.getNumeroTelefonico() == null ? "" : u.getNumeroTelefonico())
+                            .set("password", u.getPassword())
+                            .set("peso", u.getPeso() == null ? 0.0f : u.getPeso().floatValue())
+                            .set("premium", u.getPremium() == null ? "" : u.getPremium())
+                            .set("ciudadResidencia", u.getCiudadResidencia().getNombre())
+                            .set("paisOrigen", u.getPaisOrigen().getNombre())
+                            .set("trabajo", u.getTrabajo() == null ? "" : u.getTrabajo());
+
+                } else {
+                    ops = PersistenceManager.instance().datastore()
+                            .createUpdateOperations(com.teamj.arquitectura.hitchus.nosql.model.Usuario.class)
+                            .set("anioNacimiento", u.getAnioNacimiento())
+                            .set("calificacion", u.getCalificacion() == null ? 0.0f : u.getCalificacion().floatValue())
+                            .set("contextura", u.getContextura() == null ? "" : u.getContextura())
+                            .set("enfermedadesPublica", u.getEnfermedadesPublica())
+                            .set("estado", u.getEstado() == null ? "" : u.getEstado())
+                            .set("estatura", u.getEstatura() == null ? 0.0f : u.getEstatura().floatValue())
+                            .set("genero", u.getGenero() == null ? "" : u.getGenero())
+                            .set("idiomas", u.getIdiomas() == null ? "" : u.getIdiomas())
+                            .set("intereses", u.getIntereses() == null ? "" : u.getIntereses())
+                            .set("mesNacimiento", u.getMesNacimiento())
+                            .set("nickname", u.getNickname() == null ? "" : u.getNickname())
+                            .set("nivelEducacion", u.getNivelEducacion() == null ? "" : u.getNivelEducacion())
+                            .set("numeroTelefonico", u.getNumeroTelefonico() == null ? "" : u.getNumeroTelefonico())
+                            .set("password", u.getPassword())
+                            .set("peso", u.getPeso() == null ? 0.0f : u.getPeso().floatValue())
+                            .set("premium", u.getPremium() == null ? "" : u.getPremium())
+                            .set("trabajo", u.getTrabajo() == null ? "" : u.getTrabajo());
+                }
+                //com.teamj.arquitectura.hitchus.nosql.model.Usuario temp = usuarioDAO.findOne("email", user.getEmail());
+                //if (temp == null) {
+                usuarioDAO.update(query, ops);
+                flag = true;
+            }
         } catch (Exception e) {
+            System.out.println("error" + e);
             throw new ValidationException("Error al editar el nuevo usuario", e);
         }
         return flag;

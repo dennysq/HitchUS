@@ -22,7 +22,10 @@
                              emptyMessage="No hay encuentros"
                              rowKey="#{encuentro.id}" 
                              style="width: 800px;">
-
+                    <p:ajax event="rowToggle" listener="#{encuentrosBean.onRowToggle}" update="@form"/>
+                    <p:column style="width:16px">
+                        <p:rowToggler />
+                    </p:column>
                     <p:column headerText="Hitch">
                         <h:outputText value="#{encuentro.usuario2.nickname}" />
                     </p:column>
@@ -33,13 +36,26 @@
                         <h:outputText value="#{encuentro.nivelCompatibilidad2}" />
                     </p:column>
                     <p:column headerText="Calificación">
-                        <h:outputText value="#{encuentro.calificacionPromedio2}" >
-                            <f:convertNumber maxFractionDigits="2" />
-                        </h:outputText>
+                        <p:rating value="#{encuentro.calificacionPromedio2}" />
                     </p:column>
                     <p:column headerText="Aceptación">
                         <h:outputText value="#{encuentro.aceptaMatch2}" />
                     </p:column>
+                    <p:rowExpansion>
+                        <p:panelGrid  columns="2" style="width:300px">
+                            <f:facet name="header">
+                                <h:outputText value="Calificaciones" />
+                            </f:facet>
+                            <h:outputText value="Amabilidad" />
+                            <p:rating value="#{encuentrosBean.calificacionEncuentro.amabilidadInt}" />
+                            <h:outputText value="Higiene" />
+                            <p:rating value="#{encuentrosBean.calificacionEncuentro.higieneInt}" />
+                            <h:outputText value="Comportamiento" />
+                            <p:rating value="#{encuentrosBean.calificacionEncuentro.comportamientoInt}" />
+                            <h:outputText value="General" />
+                            <p:rating value="$#{encuentrosBean.calificacionEncuentro.generalInt}" />
+                        </p:panelGrid>
+                    </p:rowExpansion>
                 </p:dataTable>
                 <p:spacer/>
             </p:panel>
