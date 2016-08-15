@@ -183,16 +183,19 @@ public class EncuentrosBean implements Serializable {
     public void actualizarCalificacion() {
         int index = encuentros.indexOf(encuentroSeleccionado);
         System.out.println("" + index);
+        int numeroUsuario = 1;
         if (encuentroSeleccionado.getUsuario1().getEmail().equals(sessionBean.getUser().getEmail())) {
-                    encuentros.get(index).setCalificacionPromedio1(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
+            numeroUsuario = 1;
+            encuentros.get(index).setCalificacionPromedio1(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
         } else {
-                    encuentros.get(index).setCalificacionPromedio2(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
-        }        
+            numeroUsuario = 2;
+            encuentros.get(index).setCalificacionPromedio2(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
+        }
         calificacionEncuentro.setAmabilidad(new BigDecimal(calificacionEncuentro.getAmabilidadInt()));
         calificacionEncuentro.setComportamiento(new BigDecimal(calificacionEncuentro.getComportamientoInt()));
         calificacionEncuentro.setGeneral(new BigDecimal(calificacionEncuentro.getGeneralInt()));
         calificacionEncuentro.setHigiene(new BigDecimal(calificacionEncuentro.getHigieneInt()));
-        encuentroServicio.actualizarCalificacion(calificacionEncuentro);
+        encuentroServicio.actualizarCalificacion(calificacionEncuentro, numeroUsuario);
     }
 
     public String nombreHitch(Encuentro e) {
@@ -203,11 +206,21 @@ public class EncuentrosBean implements Serializable {
         }
 
     }
+
     public String estadoEncuentro(Encuentro e) {
         if (e.getEstado().equals("NRE")) {
             return "No Realizado";
         } else {
             return "Realizado";
+        }
+
+    }
+
+    public BigDecimal calificacionUsuarioEncuentro(Encuentro e) {
+        if (e.getUsuario1().getEmail().equals(sessionBean.getUser().getEmail())) {
+            return e.getCalificacionPromedio1();
+        } else {
+            return e.getCalificacionPromedio2();
         }
 
     }

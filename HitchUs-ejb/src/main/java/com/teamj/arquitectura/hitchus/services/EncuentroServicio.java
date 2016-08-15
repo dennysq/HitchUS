@@ -88,13 +88,17 @@ public class EncuentroServicio implements Serializable {
     public double calcularNivelDeCompatibilidad(String intereses1, String intereses2) {
         return StringSimilarity.similarity(intereses1, intereses2);
     }
-    public void actualizarCalificacion(CalificacionEncuentro calificacionEncuentro){
-        calificacionEncuentro.getEncuentro().setCalificacionPromedio1(new BigDecimal((calificacionEncuentro.getAmabilidadInt()+calificacionEncuentro.getComportamientoInt()+calificacionEncuentro.getGeneralInt()+calificacionEncuentro.getHigieneInt())/4));
-        calificacionEncuentro.getEncuentro().setCalificacionPromedio2(new BigDecimal((calificacionEncuentro.getAmabilidadInt()+calificacionEncuentro.getComportamientoInt()+calificacionEncuentro.getGeneralInt()+calificacionEncuentro.getHigieneInt())/4));
+
+    public void actualizarCalificacion(CalificacionEncuentro calificacionEncuentro, int usuario) {
+        if (usuario == 1) {
+            calificacionEncuentro.getEncuentro().setCalificacionPromedio1(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
+        } else {
+            calificacionEncuentro.getEncuentro().setCalificacionPromedio2(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
+        }
         encuentroDAO.update(calificacionEncuentro.getEncuentro());
-        
+
         calificacionEncuentroDAO.update(calificacionEncuentro);
-    
+
     }
 
 }
