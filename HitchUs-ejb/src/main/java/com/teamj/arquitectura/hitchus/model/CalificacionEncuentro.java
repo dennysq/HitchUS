@@ -166,6 +166,7 @@ public class CalificacionEncuentro implements Serializable {
         this.higieneInt = this.higiene.intValue();
 
     }
+  
 
     @Override
     public boolean equals(Object obj) {

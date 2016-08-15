@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
@@ -302,7 +303,12 @@ public class UsuarioServicio implements Serializable {
     public List<Encuentro> obtenerEncuentrosPorUsuario(Usuario u) {
         Encuentro temp = new Encuentro();
         temp.setUsuario1(u);
-        return this.encuentroDAO.find(temp);
+        List<Encuentro> encuentros = this.encuentroDAO.find(temp);
+        Encuentro temp2 = new Encuentro();
+        temp2.setUsuario2(u);
+        List<Encuentro> encuentros2 = this.encuentroDAO.find(temp2);
+        encuentros.addAll(encuentros2);
+        return encuentros;
     }
 
     public List<Imagen> obtenerImagenesPorUsuario(Usuario u) {

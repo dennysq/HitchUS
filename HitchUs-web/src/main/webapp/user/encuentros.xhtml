@@ -22,24 +22,25 @@
                              emptyMessage="No hay encuentros"
                              rowKey="#{encuentro.id}" 
                              style="width: 800px;">
-                    <p:ajax event="rowToggle" listener="#{encuentrosBean.onRowToggle}" update="@form"/>
+                    <p:ajax event="rowToggle" listener="#{encuentrosBean.onRowToggle}" />
                     <p:column style="width:16px">
                         <p:rowToggler />
                     </p:column>
                     <p:column headerText="Hitch">
-                        <h:outputText value="#{encuentro.usuario2.nickname}" />
+                        <h:outputText value="#{encuentrosBean.nombreHitch(encuentro)}" />
                     </p:column>
                     <p:column headerText="Estado">
-                        <h:outputText value="#{encuentro.estado}" />
+                        <h:outputText value="#{encuentrosBean.estadoEncuentro(encuentro)}" />
                     </p:column>
                     <p:column headerText="Nivel de compatibilidad ">
-                        <h:outputText value="#{encuentro.nivelCompatibilidad2}" />
+                        <h:outputText value="#{encuentro.nivelCompatibilidad2}" >
+                            <f:convertNumber type="percent"/>
+                        </h:outputText>
                     </p:column>
                     <p:column headerText="Calificación">
-                        <p:rating value="#{encuentro.calificacionPromedio2}" />
-                    </p:column>
-                    <p:column headerText="Aceptación">
-                        <h:outputText value="#{encuentro.aceptaMatch2}" />
+                        <p:rating value="#{encuentro.calificacionPromedio2}" readonly="true" >
+                            
+                        </p:rating>
                     </p:column>
                     <p:rowExpansion>
                         <p:panelGrid  columns="2" style="width:300px">
@@ -47,20 +48,31 @@
                                 <h:outputText value="Calificaciones" />
                             </f:facet>
                             <h:outputText value="Amabilidad" />
-                            <p:rating value="#{encuentrosBean.calificacionEncuentro.amabilidadInt}" />
+                            <p:rating value="#{encuentrosBean.calificacionEncuentro.amabilidadInt}"  >
+                                <p:ajax event="rate" listener="#{encuentrosBean.actualizarCalificacion}" update="tabla_articulo"  />
+                                <p:ajax event="cancel" listener="#{encuentrosBean.actualizarCalificacion}" update="tabla_articulo"  />
+                            </p:rating>
                             <h:outputText value="Higiene" />
-                            <p:rating value="#{encuentrosBean.calificacionEncuentro.higieneInt}" />
+                            <p:rating value="#{encuentrosBean.calificacionEncuentro.higieneInt}">
+                                <p:ajax event="rate" listener="#{encuentrosBean.actualizarCalificacion}" update="tabla_articulo" />
+                                <p:ajax event="cancel" listener="#{encuentrosBean.actualizarCalificacion}" update="tabla_articulo" />
+                            </p:rating>
                             <h:outputText value="Comportamiento" />
-                            <p:rating value="#{encuentrosBean.calificacionEncuentro.comportamientoInt}" />
+                            <p:rating value="#{encuentrosBean.calificacionEncuentro.comportamientoInt}" >
+                                <p:ajax event="rate" listener="#{encuentrosBean.actualizarCalificacion}" update="tabla_articulo" />
+                                <p:ajax event="cancel" listener="#{encuentrosBean.actualizarCalificacion}" update="tabla_articulo" />
+                            </p:rating>
                             <h:outputText value="General" />
-                            <p:rating value="$#{encuentrosBean.calificacionEncuentro.generalInt}" />
+                            <p:rating value="#{encuentrosBean.calificacionEncuentro.generalInt}" >
+                                <p:ajax event="rate" listener="#{encuentrosBean.actualizarCalificacion}" update="tabla_articulo" />
+                                <p:ajax event="cancel" listener="#{encuentrosBean.actualizarCalificacion}" update="tabla_articulo" />
+                            </p:rating>
                         </p:panelGrid>
                     </p:rowExpansion>
                 </p:dataTable>
                 <p:spacer/>
             </p:panel>
         </h:form>
-
     </ui:define>
 </ui:composition>
 

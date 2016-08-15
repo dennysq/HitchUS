@@ -7,6 +7,7 @@ package com.teamj.arquitectura.hitchus.web;
 
 import com.teamj.arquitectura.hitchus.model.CalificacionEncuentro;
 import com.teamj.arquitectura.hitchus.model.Encuentro;
+import com.teamj.arquitectura.hitchus.services.EncuentroServicio;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -21,7 +22,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import org.primefaces.event.ToggleEvent;
 
 /**
@@ -34,6 +34,8 @@ public class EncuentrosBean implements Serializable {
 
     @EJB
     UsuarioServicio usuarioServicio;
+    @EJB
+    EncuentroServicio encuentroServicio;
 
     private Integer numeroPersonas;
     private Integer numeroHabitaciones;
@@ -46,6 +48,7 @@ public class EncuentrosBean implements Serializable {
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
     private CalificacionEncuentro calificacionEncuentro;
+    private Encuentro encuentroSeleccionado;
 
     @PostConstruct
     public void init() {
@@ -60,11 +63,20 @@ public class EncuentrosBean implements Serializable {
 
     }
 
+    public void setEncuentroSeleccionado(Encuentro encuentroSeleccionado) {
+        this.encuentroSeleccionado = encuentroSeleccionado;
+    }
+
+    public Encuentro getEncuentroSeleccionado() {
+        return encuentroSeleccionado;
+    }
+
     public void setCalificacionEncuentro(CalificacionEncuentro calificacionEncuentro) {
         this.calificacionEncuentro = calificacionEncuentro;
     }
 
     public CalificacionEncuentro getCalificacionEncuentro() {
+
         return calificacionEncuentro;
     }
 
@@ -148,19 +160,55 @@ public class EncuentrosBean implements Serializable {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "Row State " + event.getVisibility(),
                 "State:" + ((Encuentro) event.getData()).getEstado());
-        Encuentro encuentro = ((Encuentro) event.getData());
-        if (encuentro.getCalificacionEncuentros() != null && !encuentro.getCalificacionEncuentros().isEmpty()) {
-            this.calificacionEncuentro = encuentro.getCalificacionEncuentros().get(0);
+        encuentroSeleccionado = ((Encuentro) event.getData());
+        if (encuentroSeleccionado.getCalificacionEncuentros() != null && !encuentroSeleccionado.getCalificacionEncuentros().isEmpty()) {
+            for (CalificacionEncuentro ce : encuentroSeleccionado.getCalificacionEncuentros()) {
+                if (ce.getUsuario().equals(sessionBean.getUser())) {
+                    this.calificacionEncuentro = ce;
+                    System.out.println("hola");
+                    break;
+                }
+            }
         } else {
+            System.out.println("hola2");
             this.calificacionEncuentro = new CalificacionEncuentro();
             this.calificacionEncuentro.setAmabilidad(BigDecimal.ZERO);
             this.calificacionEncuentro.setGeneral(BigDecimal.ZERO);
             this.calificacionEncuentro.setComportamiento(BigDecimal.ZERO);
             this.calificacionEncuentro.setHigiene(BigDecimal.ONE);
-
         }
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-
+        //    FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    public void actualizarCalificacion() {
+        int index = encuentros.indexOf(encuentroSeleccionado);
+        System.out.println("" + index);
+        if (encuentroSeleccionado.getUsuario1().getEmail().equals(sessionBean.getUser().getEmail())) {
+                    encuentros.get(index).setCalificacionPromedio1(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
+        } else {
+                    encuentros.get(index).setCalificacionPromedio2(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
+        }        
+        calificacionEncuentro.setAmabilidad(new BigDecimal(calificacionEncuentro.getAmabilidadInt()));
+        calificacionEncuentro.setComportamiento(new BigDecimal(calificacionEncuentro.getComportamientoInt()));
+        calificacionEncuentro.setGeneral(new BigDecimal(calificacionEncuentro.getGeneralInt()));
+        calificacionEncuentro.setHigiene(new BigDecimal(calificacionEncuentro.getHigieneInt()));
+        encuentroServicio.actualizarCalificacion(calificacionEncuentro);
+    }
+
+    public String nombreHitch(Encuentro e) {
+        if (e.getUsuario1().getEmail().equals(sessionBean.getUser().getEmail())) {
+            return e.getUsuario2().getNickname();
+        } else {
+            return e.getUsuario1().getNickname();
+        }
+
+    }
+    public String estadoEncuentro(Encuentro e) {
+        if (e.getEstado().equals("NRE")) {
+            return "No Realizado";
+        } else {
+            return "Realizado";
+        }
+
+    }
 }

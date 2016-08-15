@@ -36,7 +36,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author LENOVO
  */
-@Path("webresources")
+@Path("usuario")
 @RequestScoped
 public class UsuarioRestServices {
 
