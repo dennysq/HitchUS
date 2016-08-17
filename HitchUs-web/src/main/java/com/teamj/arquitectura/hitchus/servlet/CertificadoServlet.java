@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Dennys
  */
-public class ImageServlet extends HttpServlet {
-
+@WebServlet(name = "CertificadoServlet", urlPatterns = {"/CertificadoServlet"})
+public class CertificadoServlet extends HttpServlet {
+private final String pdfPath="/home/ec2-user/hitchus";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -28,34 +30,16 @@ public class ImageServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    //String imagesPath = "C:\\hitchus";
-    
-    String imagesPath = "/home/ec2-user/hitchus";
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        String filename = request.getPathInfo().substring(1);
-        File file = new File(imagesPath, filename);
-        response.setHeader("Content-Type", getServletContext().getMimeType(filename));
+        String filename=request.getParameter("nombre_archivo");
+        filename=filename+".pdf";
+        File file = new File(pdfPath, filename);
+        response.setHeader("Content-Type", "application/pdf");
         response.setHeader("Content-Length", String.valueOf(file.length()));
         response.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");
         System.out.println("" + file.getAbsolutePath());
         Files.copy(file.toPath(), response.getOutputStream());
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet ImageServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet ImageServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -23,6 +23,7 @@ import com.teamj.arquitectura.hitchus.model.PaisOrigen;
 import com.teamj.arquitectura.hitchus.model.TipoCertificado;
 import com.teamj.arquitectura.hitchus.model.Usuario;
 import com.teamj.arquitectura.hitchus.nosql.persistence.PersistenceManager;
+import com.teamj.arquitectura.hitchus.util.StringSimilarity;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -251,6 +252,22 @@ public class UsuarioServicio implements Serializable {
         }
         return null;
     }
+     public Usuario ingresarMovil(String emailUsuario, String password) {
+        Usuario tempUsu = new Usuario();
+        tempUsu.setEmail(emailUsuario);
+
+        List<Usuario> tempList = this.usuarioDAO.find(tempUsu);
+        if (tempList != null && tempList.size() == 1) {
+            if (DigestUtils.md5Hex(password).equals(tempList.get(0).getPassword())) {
+                usuarioDAO.refresh(tempList.get(0));
+                boolean men = crearCertificadosPorUsuario2(tempList.get(0));
+                System.out.println("resultado de crear certificados por usuarios:" + men);
+                tempList.get(0).getImagenes().size();
+                return tempList.get(0);
+            }
+        }
+        return null;
+    }
 
     public void guardarImagen(InputStream input, String path, String name, Usuario usuario, String descripcion, boolean publica, boolean perfil) {
 
@@ -332,7 +349,59 @@ public class UsuarioServicio implements Serializable {
         return this.ciudadDAO.findAll();
     }
 
-    public Usuario getCurrentUser(Integer id) {
+    public Usuario getCurrentUserById(Integer id) {
         return this.usuarioDAO.findById(id, true);
     }
+
+    public List<Usuario> getCompatibleUsers(int id,
+            int edadMinima,
+            int edadMaxima,
+            float distancia,
+            int nivelCompatibilidad,
+            String genero) {
+        List<Usuario> usuariosCompatibles = new ArrayList<>();
+        Usuario sessionUsuario = this.usuarioDAO.findById(id, false);
+        if (sessionUsuario != null) {
+            int anio_minimo = 2016 - edadMinima;
+            int anio_maximo = 2016 - edadMaxima;
+            String queryGenero = "";
+            if (genero.equals("MF_")) {
+                queryGenero = "genero in('MAS','FEM')";
+            }
+            if (genero.equals("_FO")) {
+                queryGenero = "genero in('FEM','OTR')";
+            }
+            if (genero.equals("M_O")) {
+                queryGenero = "genero in('MAS','OTR')";
+            }
+            if (genero.equals("__O")) {
+                queryGenero = "genero ='OTR'";
+            }
+            if (genero.equals("_F_")) {
+                queryGenero = "genero ='FEM'";
+            }
+            if (genero.equals("M__")) {
+                queryGenero = "genero ='MAS'";
+            }
+
+            String query = "select * from usuario where anio_nacimiento>" + anio_minimo + " and anio_nacimiento<" + anio_maximo + " and " + queryGenero;
+
+            javax.persistence.Query queryPersistence = this.usuarioDAO.getEm().createNativeQuery(query, Usuario.class);
+            List<Usuario> users = queryPersistence.getResultList();
+            for (Usuario u : users) {
+                Double nivel = StringSimilarity.similarity(u.getIntereses(), sessionUsuario.getIntereses());
+                if (nivel.intValue() > nivelCompatibilidad) {
+                    usuariosCompatibles.add(u);
+                }
+            }
+        }
+
+        return usuariosCompatibles;
+    }
+
+    public Usuario updateUserSubscription(Usuario user) {
+
+        return user;
+    }
+
 }

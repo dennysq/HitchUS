@@ -24,13 +24,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.PostPersist;
 import javax.persistence.PostRemove;
-import javax.persistence.PostUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
 
 /**
  *
@@ -115,30 +112,11 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuario1", targetEntity = Encuentro.class,
             fetch = FetchType.LAZY)
     List<Encuentro> encuentros;
+    @OneToMany(mappedBy = "usuario", targetEntity = Imagen.class,
+            fetch = FetchType.LAZY)
+    List<Imagen> imagenes;
 
     public Usuario() {
-    }
-
-    public Usuario(String nickname, String password, String email, Integer anioNacimiento, Integer mesNacimiento, BigDecimal estatura, Boolean trabajo, String premium, String numeroTelefonico, String estado, BigDecimal calificacion, String genero, String intereses, String contextura, String nivelEducacion, String idiomas, BigDecimal peso, Date creado, Boolean enfermedadesPublica) {
-        this.nickname = nickname;
-        this.password = password;
-        this.email = email;
-        this.anioNacimiento = anioNacimiento;
-        this.mesNacimiento = mesNacimiento;
-        this.estatura = estatura;
-        this.trabajo = trabajo;
-        this.premium = premium;
-        this.numeroTelefonico = numeroTelefonico;
-        this.estado = estado;
-        this.calificacion = calificacion;
-        this.genero = genero;
-        this.intereses = intereses;
-        this.contextura = contextura;
-        this.nivelEducacion = nivelEducacion;
-        this.idiomas = idiomas;
-        this.peso = peso;
-        this.creado = creado;
-        this.enfermedadesPublica = enfermedadesPublica;
     }
 
     @PostLoad
@@ -470,6 +448,23 @@ public class Usuario implements Serializable {
         this.ciudadResidencia = ciudadResidencia;
     }
 
+    public void setEncuentros(List<Encuentro> encuentros) {
+        this.encuentros = encuentros;
+    }
+
+    public List<Imagen> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
+    }
+
+    public List<Encuentro> getEncuentros() {
+        return encuentros;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;

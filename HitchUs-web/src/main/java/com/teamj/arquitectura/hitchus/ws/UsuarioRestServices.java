@@ -15,6 +15,7 @@ import com.teamj.arquitectura.hitchus.services.CertificadoServicio;
 import com.teamj.arquitectura.hitchus.services.EncuentroServicio;
 import com.teamj.arquitectura.hitchus.services.EstadisticaUsuarioServicio;
 import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
@@ -27,7 +28,7 @@ import javax.ws.rs.Produces;
 import javax.enterprise.context.RequestScoped;
 import javax.jws.WebParam;
 import javax.ws.rs.FormParam;
-import static javax.ws.rs.HttpMethod.POST;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.core.MediaType;
 
@@ -45,7 +46,6 @@ public class UsuarioRestServices {
 
     @EJB
     UsuarioServicio usuarioServicio;
-    
 
     @EJB
     EncuentroServicio encuentroServicio;
@@ -55,7 +55,7 @@ public class UsuarioRestServices {
 
     @EJB
     EstadisticaUsuarioServicio estadisticaUsuarioServicio;
-    
+
     @EJB
     BloqueoServicio bloqueoServicio;
 
@@ -96,6 +96,8 @@ public class UsuarioRestServices {
     @Path("/loggin")
     public Usuario getLogginCliente(@FormParam(value = "email") String email,
             @FormParam(value = "password") String password) {
+        System.out.println(email);
+        System.out.println(password);
 
         return usuarioServicio.ingresar(email, password);
     }
@@ -103,12 +105,11 @@ public class UsuarioRestServices {
     //2
     @GET
     @Produces("application/json")
-    
     @Path("/listEncuentros")
     public List<Encuentro> listEncuentros(@WebParam(name = "id") String id) {
 
         //return null;
-        return usuarioServicio.obtenerEncuentrosPorUsuario(usuarioServicio.getCurrentUser(Integer.parseInt(id)));
+        return usuarioServicio.obtenerEncuentrosPorUsuario(usuarioServicio.getCurrentUserById(Integer.parseInt(id)));
     }
 
     //3 
@@ -117,13 +118,13 @@ public class UsuarioRestServices {
     @Path("/getUsuario")
     public Usuario getUsuario(@WebParam(name = "id") String id) {
         // return null;
-        return usuarioServicio.getCurrentUser(Integer.parseInt(id));
+        return usuarioServicio.getCurrentUserById(Integer.parseInt(id));
     }
 
     //4
     @GET
     @Produces("application/json")
-    
+
     @Path("/getTipoCertificado")
     public List<TipoCertificado> getTipoCertificado() {
 
@@ -131,34 +132,57 @@ public class UsuarioRestServices {
     }
 
     //5
-    @POST
+    @GET
     @Produces("application/json")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("/getEstadisticaUsuario")
-    public EstadisticaUsuario getEstadisticaUsuario(@FormParam(value = "id") String id) {
+    public EstadisticaUsuario getEstadisticaUsuario(@WebParam(name = "id") String id) {
 
         return estadisticaUsuarioServicio.getEstadisticaUsuario(Integer.parseInt(id));
         //return null;
     }
-    
-    
+
     //6
     @POST
     @Produces("application/json")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("/bloquearUsuario")
     public void bloquearUsuario(@FormParam(value = "id_u1") String id_u1, @FormParam(value = "id_u2") String id_u2) {
-        
+
         bloqueoServicio.bloquearUsuario(Integer.parseInt(id_u1), Integer.parseInt(id_u2));
     }
+
     @POST
     @Produces("application/json")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("/crearEncuentro")
     public Encuentro crearEncuentro(@FormParam(value = "id_u1") String id_u1, @FormParam(value = "id_u2") String id_u2) {
-        
+
         return encuentroServicio.crearEncuentro(Integer.parseInt(id_u1), Integer.parseInt(id_u2));
     }
-    
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getUsuariosCompatibles")
+    public List<Usuario> getUsuariosCompatibles(@WebParam(name = "id") String idString,
+            @WebParam(name = "edadMinima") String edadMinimaString,
+            @WebParam(name = "edadMaxima") String edadMaximaString,
+            @WebParam(name = "distancia") String distanciaString,
+            @WebParam(name = "nivelCompatibilidad") String nivelCompatibilidadString,
+            @WebParam(name = "genero") String genero) {
+        // return null;
+
+        try {
+            int id = Integer.parseInt(idString);
+            int edadMaxima = Integer.parseInt(edadMaximaString);
+            int edadMinima = Integer.parseInt(edadMinimaString);
+            float distancia = Float.parseFloat(distanciaString);
+            int nivelCompatibilidad = Integer.parseInt(nivelCompatibilidadString);
+            return usuarioServicio.getCompatibleUsers(id, edadMinima, edadMaxima, distancia, nivelCompatibilidad, genero);
+
+        } catch (Exception e) {
+            System.out.println("" + e);
+        }
+        return null;
+    }
 
 }
