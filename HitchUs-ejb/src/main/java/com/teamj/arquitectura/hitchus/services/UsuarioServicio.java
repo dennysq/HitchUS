@@ -5,6 +5,7 @@
  */
 package com.teamj.arquitectura.hitchus.services;
 
+import com.teamj.arquitectura.hitchus.dao.BloqueoDAO;
 import com.teamj.arquitectura.hitchus.dao.CertificadoDAO;
 import com.teamj.arquitectura.hitchus.dao.CiudadResidenciaDAO;
 import com.teamj.arquitectura.hitchus.dao.EncuentroDAO;
@@ -13,6 +14,8 @@ import com.teamj.arquitectura.hitchus.dao.ImagenDAO;
 import com.teamj.arquitectura.hitchus.dao.PaisOrigenDAO;
 import com.teamj.arquitectura.hitchus.dao.TipoCertificadoDAO;
 import com.teamj.arquitectura.hitchus.dao.UsuarioDAO;
+import com.teamj.arquitectura.hitchus.model.Bloqueo;
+import com.teamj.arquitectura.hitchus.model.BloqueoPK;
 import com.teamj.arquitectura.hitchus.model.Certificado;
 import com.teamj.arquitectura.hitchus.model.CertificadoPK;
 import com.teamj.arquitectura.hitchus.model.CiudadResidencia;
@@ -73,6 +76,20 @@ public class UsuarioServicio implements Serializable {
 
     @EJB
     private CiudadResidenciaDAO ciudadDAO;
+    @EJB
+    BloqueoDAO bloqueoDAO;
+
+    public void bloquearUsuario(Integer id_u1, Integer id_u2) {
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("ECT"));
+        Bloqueo bloq = new Bloqueo();
+        BloqueoPK bloqueoPK = new BloqueoPK();
+        bloqueoPK.setUsuario1(id_u1);
+        bloqueoPK.setUsuario2(id_u2);
+        bloq.setBloqueoPK(bloqueoPK);
+        bloq.setFecha(c.getTime());
+
+        bloqueoDAO.insert(bloq);
+    }
 
     public boolean registrar(Usuario u) throws ValidationException {
         boolean flag = false;
@@ -252,7 +269,8 @@ public class UsuarioServicio implements Serializable {
         }
         return null;
     }
-     public Usuario ingresarMovil(String emailUsuario, String password) {
+
+    public Usuario ingresarMovil(String emailUsuario, String password) {
         Usuario tempUsu = new Usuario();
         tempUsu.setEmail(emailUsuario);
 
@@ -262,7 +280,7 @@ public class UsuarioServicio implements Serializable {
                 usuarioDAO.refresh(tempList.get(0));
                 boolean men = crearCertificadosPorUsuario2(tempList.get(0));
                 System.out.println("resultado de crear certificados por usuarios:" + men);
-                tempList.get(0).getImagenes().size();
+                //tempList.get(0).getImagenes().size();
                 return tempList.get(0);
             }
         }
@@ -350,10 +368,107 @@ public class UsuarioServicio implements Serializable {
     }
 
     public Usuario getCurrentUserById(Integer id) {
-        return this.usuarioDAO.findById(id, true);
+        return this.usuarioDAO.findById(id, false);
+    }
+
+    public List<Usuario> getAllUsers() {
+        return this.usuarioDAO.findAll();
+    }
+
+    public List<Usuario> getAllUsersWithImages() {
+        List<Usuario> usuarios = this.usuarioDAO.findAll();
+        for (Usuario u : usuarios) {
+            //    Double nivel = StringSimilarity.similarity(u.getIntereses(), sessionUsuario.getIntereses());
+            u.getImagenes().size();
+        }
+        return usuarios;
     }
 
     public List<Usuario> getCompatibleUsers(int id,
+            int edadMinima,
+            int edadMaxima,
+            float distancia,
+            int nivelCompatibilidad,
+            String genero) {
+        List<Usuario> usuariosTemp = new ArrayList<>();
+        Usuario sessionUsuario = this.usuarioDAO.findById(id, false);
+
+        if (sessionUsuario != null) {
+            usuariosTemp = usuarioDAO.findAll();
+            int size = usuariosTemp.size();
+
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("ECT"));
+
+            int mesActual = (calendar.get(Calendar.MONTH) + 1);
+            int anioActual = calendar.get(calendar.YEAR);
+//            int edadUsuario = anioActual - sessionUsuario.getAnioNacimiento();
+//
+//            if (mesActual > sessionUsuario.getMesNacimiento()) {
+//                edadUsuario = edadUsuario - 1;
+//            }
+            String queryGenero = "";
+
+            int edadPosibleHitch = 0;
+            Double nivel;
+            for (int i = (size - 1); i >= 0; i--) {
+                if (sessionUsuario.getId().intValue() == usuariosTemp.get(i).getId().intValue()) {
+                    usuariosTemp.remove(i);
+                    continue;
+                }
+                edadPosibleHitch = anioActual - usuariosTemp.get(i).getAnioNacimiento();
+                if (mesActual > usuariosTemp.get(i).getMesNacimiento()) {
+                    edadPosibleHitch = edadPosibleHitch - 1;
+                }
+                if (edadPosibleHitch > edadMaxima || edadPosibleHitch < edadMinima) {
+                    usuariosTemp.remove(i);
+                    continue;
+                }
+                nivel = StringSimilarity.similarity(usuariosTemp.get(i).getIntereses(), sessionUsuario.getIntereses())*100;
+                if (nivel.intValue() >= nivelCompatibilidad) {
+                    usuariosTemp.get(i).setNivelHitch(nivel.intValue());
+                } else {
+                    usuariosTemp.remove(i);
+                    continue;
+                }
+                queryGenero = usuariosTemp.get(i).getGenero();
+                if (genero.equals("MF_") && queryGenero.equals("OTR")) {
+                    //queryGenero = "genero in('MAS','FEM')";
+                    usuariosTemp.remove(i);
+                    continue;
+                } else if (genero.equals("_FO") && queryGenero.equals("MAS")) {
+                    usuariosTemp.remove(i);
+                    continue;
+
+                    //queryGenero = "genero in('FEM','OTR')";
+                } else if (genero.equals("M_O") && queryGenero.equals("FEM")) {
+                    usuariosTemp.remove(i);
+                    continue;
+                    //queryGenero = "genero in('MAS','OTR')";
+                } else if (genero.equals("__O") && !queryGenero.equals("OTR")) {
+                    usuariosTemp.remove(i);
+                    continue;
+                    //queryGenero = "genero ='OTR'";
+                } else if (genero.equals("_F_") && !queryGenero.equals("FEM")) {
+                    usuariosTemp.remove(i);
+                    continue;
+                    // queryGenero = "genero ='FEM'";
+                } else if (genero.equals("M__") && !queryGenero.equals("MAS")) {
+                    usuariosTemp.remove(i);
+                    continue;
+//queryGenero = "genero ='MAS'";
+                }
+                usuariosTemp.get(i).getImagenes().size();
+                //if(edadMinima>edadPosibleHitch && edadPosibleHitch<)
+            }
+
+        } else {
+            System.out.println("El usuario no existe");
+        }
+
+        return usuariosTemp;
+    }
+
+    public List<Usuario> getFilterUsers(int id,
             int edadMinima,
             int edadMaxima,
             float distancia,
@@ -384,14 +499,17 @@ public class UsuarioServicio implements Serializable {
                 queryGenero = "genero ='MAS'";
             }
 
-            String query = "select * from usuario where anio_nacimiento>" + anio_minimo + " and anio_nacimiento<" + anio_maximo + " and " + queryGenero;
+            String query = "select * from usuario where (anio_nacimiento>" + anio_minimo + " and anio_nacimiento<" + anio_maximo + ") or " + queryGenero + " and id_usuario<>" + id;
 
-            javax.persistence.Query queryPersistence = this.usuarioDAO.getEm().createNativeQuery(query, Usuario.class);
+            javax.persistence.Query queryPersistence = this.usuarioDAO.getEm().createNativeQuery(query, Usuario.class
+            );
             List<Usuario> users = queryPersistence.getResultList();
             for (Usuario u : users) {
                 Double nivel = StringSimilarity.similarity(u.getIntereses(), sessionUsuario.getIntereses());
                 if (nivel.intValue() > nivelCompatibilidad) {
+                    u.setNivelHitch(nivel.intValue());
                     usuariosCompatibles.add(u);
+
                 }
             }
         }

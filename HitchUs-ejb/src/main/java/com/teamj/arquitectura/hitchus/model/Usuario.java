@@ -28,12 +28,15 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Dennys
  */
 @Entity
+@XmlRootElement
 @Table(name = "USUARIO")
 public class Usuario implements Serializable {
 
@@ -93,6 +96,8 @@ public class Usuario implements Serializable {
 
     @Transient
     private BigDecimal peso;
+    @Transient
+    private Integer nivelHitch;
 
     @Transient
     private Boolean enfermedadesPublica;
@@ -270,6 +275,14 @@ public class Usuario implements Serializable {
         if (user != null) {
             usuarioDAO.delete(user);
         }
+    }
+
+    public void setNivelHitch(Integer nivelHitch) {
+        this.nivelHitch = nivelHitch;
+    }
+
+    public Integer getNivelHitch() {
+        return nivelHitch;
     }
 
     public Integer getId() {
@@ -459,7 +472,7 @@ public class Usuario implements Serializable {
     public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
     }
-
+@XmlTransient
     public List<Encuentro> getEncuentros() {
         return encuentros;
     }

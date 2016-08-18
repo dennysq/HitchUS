@@ -36,6 +36,8 @@ public class EncuentroServicio implements Serializable {
     private CalificacionEncuentroDAO calificacionEncuentroDAO;
     @EJB
     private UsuarioDAO usuarioDAO;
+    @EJB
+    private UsuarioServicio usuarioServicio;
 
     public Encuentro crearEncuentro(int idUsuario1, int idUsuario2) throws ValidationException {
         try {
@@ -90,11 +92,29 @@ public class EncuentroServicio implements Serializable {
     }
 
     public void actualizarCalificacion(CalificacionEncuentro calificacionEncuentro, int usuario) {
+        BigDecimal calificacion = new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4);
         if (usuario == 1) {
-            calificacionEncuentro.getEncuentro().setCalificacionPromedio1(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
+            calificacionEncuentro.getEncuentro().setCalificacionPromedio1(calificacion);
+
+            if (calificacionEncuentro.getEncuentro().getUsuario1().getCalificacion() == null) {
+
+                calificacionEncuentro.getEncuentro().getUsuario1().setCalificacion(calificacion);
+            } else {
+                calificacionEncuentro.getEncuentro().getUsuario1().setCalificacion(new BigDecimal((calificacionEncuentro.getEncuentro().getUsuario1().getCalificacion().floatValue() + calificacion.floatValue()) / 2));
+            }
+            this.usuarioServicio.editarPerfil(calificacionEncuentro.getEncuentro().getUsuario1());
         } else {
-            calificacionEncuentro.getEncuentro().setCalificacionPromedio2(new BigDecimal((calificacionEncuentro.getAmabilidadInt() + calificacionEncuentro.getComportamientoInt() + calificacionEncuentro.getGeneralInt() + calificacionEncuentro.getHigieneInt()) / 4));
+            calificacionEncuentro.getEncuentro().setCalificacionPromedio2(calificacion);
+
+            if (calificacionEncuentro.getEncuentro().getUsuario2().getCalificacion() == null) {
+
+                calificacionEncuentro.getEncuentro().getUsuario2().setCalificacion(calificacion);
+            } else {
+                calificacionEncuentro.getEncuentro().getUsuario2().setCalificacion(new BigDecimal((calificacionEncuentro.getEncuentro().getUsuario2().getCalificacion().floatValue() + calificacion.floatValue()) / 2));
+            }
+            this.usuarioServicio.editarPerfil(calificacionEncuentro.getEncuentro().getUsuario2());
         }
+        
         encuentroDAO.update(calificacionEncuentro.getEncuentro());
 
         calificacionEncuentroDAO.update(calificacionEncuentro);
