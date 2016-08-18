@@ -5,6 +5,7 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
+import com.teamj.arquitectura.hitchus.client.SuscripcionCliente;
 import com.teamj.arquitectura.hitchus.exception.ValidationException;
 import com.teamj.arquitectura.hitchus.model.Certificado;
 import com.teamj.arquitectura.hitchus.model.Usuario;
@@ -49,6 +50,9 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
     private UploadedFile file;
     private String fileName;
     private String enfermedadSeleccionada;
+    private SuscripcionCliente suscripcionCliente;
+    
+    
 
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
@@ -262,6 +266,8 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
     public void cambiarEstado() {
         this.usuario.setPremium("P");
         usuarioServicio.editarPerfil(usuario);
+        
+        suscripcionCliente.crearSolicitud();
 
         try {
             BeanUtils.copyProperties(sessionBean.getUser(), this.usuario);
