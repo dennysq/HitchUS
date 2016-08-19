@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CertificadoServlet", urlPatterns = {"/CertificadoServlet"})
 public class CertificadoServlet extends HttpServlet {
-private final String pdfPath="/home/ec2-user/hitchus";
+//private final String pdfPath="/home/ec2-user/hitchus";
+  private final String pdfPath="C:\\hitchus";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

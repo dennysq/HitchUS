@@ -28,16 +28,8 @@
                                      >
                         <f:selectItems value="#{configuracionBean.estado}" />
                     </h:selectOneMenu>
-                    <p:outputLabel value="Cuenta Premium" class="negrita"/>
-                    <p:commandButton value="Solicitar"
-                                     update="@form"
-                                     actionListener="#{configuracionBean.cambiarEstado()}" 
-                                     disabled="#{configuracionBean.usuario.premium eq 'P'}"
-                                     icon="fa fa-paper-plane"
-                                     >
-                        <p:confirm header="Confirmación" message="Al solicitar nuestra cuenta Premium Ud acpeta nuestros términos y
-                                   Condiciones" icon="ui-icon-alert" />
-                    </p:commandButton>
+
+
 
                 </p:panelGrid>
                 <p:spacer/>
@@ -65,9 +57,9 @@
                                      onclick="PF('chpassword_dialog_var').show();"
                                      rendered="#{!configuracionBean.modifying}"                                     />
                 </p:panelGrid>
-            
+
                 <p:separator/>            
-                <p:panelGrid columns="7" styleClass="center_block panel-grid-no-border"  id="enf" rendered="#{sessionBean.user.premium eq 'P'}">
+                <p:panelGrid columns="7" styleClass="center_block panel-grid-no-border"  id="enf" >
                     <h:selectOneMenu value="#{configuracionBean.enfermedadSeleccionada}"
                                      id="enfermedades"
                                      style="width: 200px;">
@@ -92,9 +84,9 @@
                                   allowTypes="/(\.|\/)(pdf)$/" />
                     <p:outputLabel  id="nombrearchivo" value="#{configuracionBean.fileName}" style="display: block; width: 200px; word-wrap: break-word; "/>
                     <p:commandButton value="Enviar"  actionListener="#{configuracionBean.upload}" update="@form">
-                        
-                            <p:confirm header="Confirmación" message="¿Guardar Cambios?"   icon="ui-icon-alert" />
-                        
+
+                        <p:confirm header="Confirmación" message="¿Guardar Cambios?"   icon="ui-icon-alert" />
+
                     </p:commandButton>
                     <p:commandButton value="Cancelar"
                                      immediate="true"
@@ -103,6 +95,16 @@
                     <h:graphicImage value="#{configuracionBean.certificadoSeleccionado.fechaRecepcion eq null?'../images/send.png':'../images/send-ok.png'}" height="15"   />
                     <h:graphicImage value="#{configuracionBean.certificadoSeleccionado.verificado eq false?'../images/medal.png':'../images/medal-ok.png'}" height="15"   />
                 </p:panelGrid>
+                <p:panelGrid  columns="1" class="center_block" styleClass="no_border center_block panel-grid-no-border">
+                <p:commandButton value="Solicitar Cuenta Premium"
+                                 update="@form"
+                                 actionListener="#{configuracionBean.cambiarEstado()}" 
+                                 disabled="#{configuracionBean.usuario.premium eq 'P' or configuracionBean.usuario.premium eq 'V'}"
+                                 icon="fa fa-paper-plane"
+                                 >
+                    <p:confirm header="Confirmación" message="Al solicitar nuestra cuenta Premium Ud acpeta nuestros términos y
+                               Condiciones" icon="ui-icon-alert" />
+                </p:commandButton></p:panelGrid>
                 <p:spacer/>
             </h:form>
         </p:panel>

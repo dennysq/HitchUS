@@ -51,8 +51,6 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
     private String fileName;
     private String enfermedadSeleccionada;
     private SuscripcionCliente suscripcionCliente;
-    
-    
 
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
@@ -264,15 +262,54 @@ public class ConfiguracionBean extends CrudBean implements Serializable {
     }
 
     public void cambiarEstado() {
-        this.usuario.setPremium("P");
-        usuarioServicio.editarPerfil(usuario);
-        
-        suscripcionCliente.crearSolicitud();
-
+        suscripcionCliente = new SuscripcionCliente();
         try {
-            BeanUtils.copyProperties(sessionBean.getUser(), this.usuario);
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud Enviada con Éxito", null));
+            List<Certificado> cer = certificadoServicio.obtenerCertificadosPorUsuario(usuario);
+            String her = "";
+            String sida = "";
+            String cla = "";
+            String tri = "";
+            String sif = "";
+            String gon = "";
+
+            for (Certificado c : cer) {
+                if (c.getTipoCertificado().getNombreEnfermedad().equals("Herpes")) {
+                    her = c.getNombreArchivo();
+                }
+                if (c.getTipoCertificado().getNombreEnfermedad().equals("Tricomoniasis")) {
+                    tri = c.getNombreArchivo();
+                }
+                if (c.getTipoCertificado().getNombreEnfermedad().equals("Clamidia")) {
+                    cla = c.getNombreArchivo();
+                }
+                if (c.getTipoCertificado().getNombreEnfermedad().equals("Sífilis")) {
+                    sif = c.getNombreArchivo();
+                }
+                if (c.getTipoCertificado().getNombreEnfermedad().equals("Gonorrea")) {
+                    gon = c.getNombreArchivo();
+                }
+                if (c.getTipoCertificado().getNombreEnfermedad().equals("VIH SIDA")) {
+                    sida = c.getNombreArchivo();
+                }
+
+            }
+            if (sida == null || sida.isEmpty() || gon == null || gon.isEmpty() || her == null || her.isEmpty() || sif == null || sif.isEmpty()
+                    || tri == null || tri.isEmpty() || cla == null || cla.isEmpty()) {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Tiene que subir todos los certificados"));
+            } else if (suscripcionCliente.crearSolicitud(String.valueOf(usuario.getId()), usuario.getEmail(),
+                    usuario.getNickname(), " ", usuario.getGenero(), sida, gon, sif, her, cla, tri).equals("true")) {
+                BeanUtils.copyProperties(sessionBean.getUser(), this.usuario);
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud Enviada con Éxito", null));
+                this.usuario.setPremium("P");
+                usuarioServicio.editarPerfil(usuario);
+
+            } else {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se ha aceptado su solicitud"));
+            }
+
         } catch (IllegalAccessException | InvocationTargetException e) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));

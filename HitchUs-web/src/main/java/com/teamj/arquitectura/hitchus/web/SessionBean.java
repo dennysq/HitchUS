@@ -5,9 +5,12 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
+import com.teamj.arquitectura.hitchus.client.SuscripcionCliente;
 import com.teamj.arquitectura.hitchus.model.Usuario;
+import com.teamj.arquitectura.hitchus.services.UsuarioServicio;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -24,6 +27,9 @@ public class SessionBean implements Serializable {
     public static final String LOGOUT_PAGE_REDIRECT = "/login.xhtml?faces-redirect=true";
     public static final Integer MAX_LOGIN_ATTEMPS = 3;
     private Integer loginAttemps;
+    private SuscripcionCliente suscripcionCliente;
+    @EJB
+    UsuarioServicio usuarioServicio;
 
     @PostConstruct
     public void init() {
@@ -51,6 +57,18 @@ public class SessionBean implements Serializable {
     public String login(Usuario u) {
 
         this.user = u;
+        try {
+            suscripcionCliente = new SuscripcionCliente();
+
+            String estadoPremium = suscripcionCliente.consultarEstadoSolicitud(String.valueOf(u.getId()));
+            if (estadoPremium != null && estadoPremium.equals("V") && u.getPremium() != null && !u.getPremium().equals("V")) {
+                user.setPremium(estadoPremium);
+                usuarioServicio.editarPerfil(u);
+            }
+        } catch (Exception e) {
+            System.out.println("tranqui");
+
+        }
 
         return HOME_PAGE_REDIRECT;
 
@@ -58,7 +76,7 @@ public class SessionBean implements Serializable {
 
     public String logout() {
         // invalidate the session
-        this.user=null;
+        this.user = null;
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         loginAttemps = 0;
         return LOGOUT_PAGE_REDIRECT;

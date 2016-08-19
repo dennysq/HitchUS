@@ -5,6 +5,7 @@
  */
 package com.teamj.arquitectura.hitchus.web;
 
+import com.teamj.arquitectura.hitchus.client.SuscripcionCliente;
 import com.teamj.arquitectura.hitchus.exception.ValidationException;
 import com.teamj.arquitectura.hitchus.model.CiudadResidencia;
 import com.teamj.arquitectura.hitchus.model.Imagen;
@@ -46,7 +47,7 @@ public class UsuarioBean extends CrudBean implements Serializable {
 
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
-
+    SuscripcionCliente suscripcionCliente;
     private Usuario usuario;
     private String oldPassword;
     private String newPassword;
@@ -219,6 +220,7 @@ public class UsuarioBean extends CrudBean implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error no controlado", e.getMessage()));
         }
+        
     }
 
     public void beginModification() {

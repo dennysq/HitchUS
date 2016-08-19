@@ -57,7 +57,7 @@ public class ApplicationServletContext implements ServletContextListener {
             TipoCertificado sifilis = new TipoCertificado();
             sifilis.setDescripcion("Certificado para verificar si la persona adquiriente está infectada con dicha enfermedad");
             sifilis.setNombreCertificado("Certificado de Sífilis");
-            sifilis.setNombreEnfermedad("Sífilis");
+            sifilis.setNombreEnfermedad("Sifilis");
             sifilis.setTiempoValidez(24);
             TipoCertificado clamidia = new TipoCertificado();
             clamidia.setDescripcion("Certificado para verificar si la persona adquiriente está infectada con dicha enfermedad");
@@ -76,7 +76,7 @@ public class ApplicationServletContext implements ServletContextListener {
             tipoCertificadoDAO.insert(sifilis);
             tipoCertificadoDAO.insert(herpes);
             tipoCertificadoDAO.insert(gonorrea);
-
+            
         }
         if (entidadCertificadoraDAO.findAll().isEmpty()) {
             EntidadCertificadora entidadCertificadora = new EntidadCertificadora();
@@ -84,7 +84,6 @@ public class ApplicationServletContext implements ServletContextListener {
             entidadCertificadora.setNombre("HitchUS");
             entidadCertificadora.setTelefono("127823122112");
             entidadCertificadoraDAO.insert(entidadCertificadora);
-
         }
         if (ciudadResidenciaDAO.findAll().isEmpty()) {
             CiudadResidencia ciudadResidencia = new CiudadResidencia();

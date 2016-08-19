@@ -32,7 +32,7 @@ import javax.faces.bean.ManagedBean;
 public class Constant implements Serializable {
 
    private final String imagesPath = "C:\\hitchus";
-    //private final String imagesPath = "/home/ec2-user/hitchus";
+   // private final String imagesPath = "/home/ec2-user/hitchus";
     private List<Pais> paises;
     private Map<String, String> genero;
     private Map<String, String> estado;
